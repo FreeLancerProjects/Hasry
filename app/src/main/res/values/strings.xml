@@ -148,4 +148,7 @@
     <string name="offers">Offers</string>
     <string name="filter">Filter</string>
     <string name="normal">Square</string>
+    <string name="sign_up_market">Sign Up Market</string>
+    <string name="buyer_sign_up">Buyer Sign Up</string>
+    <string name="driver_sign_up">Driver Sign Up</string>
 </resources>

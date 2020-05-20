@@ -9,7 +9,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hasry.R;
-import com.hasry.activities_fragments.activity_login.LoginActivity;
+import com.hasry.activities_fragments.client.activity_login.LoginActivity;
 import com.hasry.databinding.CountriesRowBinding;
 import com.hasry.models.CountryModel;
 

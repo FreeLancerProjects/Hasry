@@ -1,4 +1,4 @@
-package com.hasry.activities_fragments.activity_verification_code;
+package com.hasry.activities_fragments.client.activity_verification_code;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,8 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import com.hasry.R;
-import com.hasry.activities_fragments.activity_home.HomeActivity;
-import com.hasry.activities_fragments.activity_signup.SignUpActivity;
+import com.hasry.activities_fragments.client.activity_home.HomeActivity;
+import com.hasry.activities_fragments.client.activity_signup.SignUpActivity;
 import com.hasry.databinding.ActivityVerificationCodeBinding;
 import com.hasry.language.Language;
 import com.hasry.preferences.Preferences;

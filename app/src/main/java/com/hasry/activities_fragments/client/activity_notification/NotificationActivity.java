@@ -1,4 +1,4 @@
-package com.hasry.activities_fragments.activity_notification;
+package com.hasry.activities_fragments.client.activity_notification;
 
 import android.content.Context;
 import android.graphics.PorterDuff;

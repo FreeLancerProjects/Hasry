@@ -1,4 +1,4 @@
-package com.hasry.activities_fragments.activity_search;
+package com.hasry.activities_fragments.client.activity_search;
 
 import android.content.Context;
 import android.content.Intent;

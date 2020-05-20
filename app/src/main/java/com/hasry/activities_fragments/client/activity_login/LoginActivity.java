@@ -1,4 +1,4 @@
-package com.hasry.activities_fragments.activity_login;
+package com.hasry.activities_fragments.client.activity_login;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -13,7 +13,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.hasry.R;
-import com.hasry.activities_fragments.activity_verification_code.VerificationCodeActivity;
+import com.hasry.activities_fragments.client.activity_verification_code.VerificationCodeActivity;
 import com.hasry.adapters.CountriesAdapter;
 import com.hasry.databinding.ActivityLoginBinding;
 import com.hasry.databinding.DialogCountriesBinding;

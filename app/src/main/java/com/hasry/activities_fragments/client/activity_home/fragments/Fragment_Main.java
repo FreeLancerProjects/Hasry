@@ -1,4 +1,4 @@
-package com.hasry.activities_fragments.activity_home.fragments;
+package com.hasry.activities_fragments.client.activity_home.fragments;
 
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 
 import com.hasry.R;
-import com.hasry.activities_fragments.activity_home.HomeActivity;
+import com.hasry.activities_fragments.client.activity_home.HomeActivity;
 import com.hasry.databinding.FragmentMainBinding;
 import com.hasry.models.UserModel;
 import com.hasry.preferences.Preferences;

@@ -18,7 +18,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".activities_fragments.activity_notification.NotificationActivity"
+        tools:context=".activities_fragments.client.activity_notification.NotificationActivity"
 
         >
         <LinearLayout

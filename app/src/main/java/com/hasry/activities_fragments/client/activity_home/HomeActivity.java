@@ -1,4 +1,4 @@
-package com.hasry.activities_fragments.activity_home;
+package com.hasry.activities_fragments.client.activity_home;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,13 +14,13 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.hasry.R;
-import com.hasry.activities_fragments.activity_home.fragments.Fragment_Cart;
-import com.hasry.activities_fragments.activity_home.fragments.Fragment_Main;
-import com.hasry.activities_fragments.activity_home.fragments.Fragment_More;
-import com.hasry.activities_fragments.activity_home.fragments.Fragment_Offer;
-import com.hasry.activities_fragments.activity_login.LoginActivity;
-import com.hasry.activities_fragments.activity_notification.NotificationActivity;
-import com.hasry.activities_fragments.activity_search.SearchActivity;
+import com.hasry.activities_fragments.client.activity_home.fragments.Fragment_Cart;
+import com.hasry.activities_fragments.client.activity_home.fragments.Fragment_Main;
+import com.hasry.activities_fragments.client.activity_home.fragments.Fragment_More;
+import com.hasry.activities_fragments.client.activity_home.fragments.Fragment_Offer;
+import com.hasry.activities_fragments.client.activity_login.LoginActivity;
+import com.hasry.activities_fragments.client.activity_notification.NotificationActivity;
+import com.hasry.activities_fragments.client.activity_search.SearchActivity;
 import com.hasry.databinding.ActivityHomeBinding;
 import com.hasry.language.Language;
 import com.hasry.models.NotFireModel;

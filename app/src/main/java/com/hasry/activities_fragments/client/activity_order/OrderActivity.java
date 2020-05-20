@@ -1,4 +1,4 @@
-package com.hasry.activities_fragments.activity_order;
+package com.hasry.activities_fragments.client.activity_order;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -9,8 +9,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.hasry.R;
-import com.hasry.activities_fragments.activity_order.fragments.Fragment_Current_Order;
-import com.hasry.activities_fragments.activity_order.fragments.Fragment_Previous_Order;
+import com.hasry.activities_fragments.client.activity_order.fragments.Fragment_Current_Order;
+import com.hasry.activities_fragments.client.activity_order.fragments.Fragment_Previous_Order;
 import com.hasry.adapters.ViewPagerOrderAdapter;
 import com.hasry.databinding.ActivityOrderBinding;
 import com.hasry.interfaces.Listeners;

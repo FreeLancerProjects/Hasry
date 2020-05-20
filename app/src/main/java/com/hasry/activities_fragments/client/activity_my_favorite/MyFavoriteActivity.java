@@ -1,4 +1,4 @@
-package com.hasry.activities_fragments.activity_my_favorite;
+package com.hasry.activities_fragments.client.activity_my_favorite;
 
 import android.content.Context;
 import android.content.Intent;

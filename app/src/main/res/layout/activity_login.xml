@@ -26,7 +26,7 @@
             android:fillViewport="true"
             android:fitsSystemWindows="true"
             android:scrollbars="none"
-            tools:context=".activities_fragments.activity_login.LoginActivity"
+            tools:context=".activities_fragments.client.activity_login.LoginActivity"
             >
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -186,6 +186,19 @@
                         android:text="@string/confirm2"
                         android:onClick="@{()->listener.validate()}"
 
+                        />
+
+
+                    <TextView
+                        android:id="@+id/tvSignUpMarket"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginTop="40dp"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:text="@string/sign_up_market"
                         />
 
                 </LinearLayout>

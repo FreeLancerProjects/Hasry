@@ -1,4 +1,4 @@
-package com.hasry.activities_fragments.activity_home.fragments;
+package com.hasry.activities_fragments.client.activity_home.fragments;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
@@ -17,9 +17,9 @@ import androidx.fragment.app.Fragment;
 import com.hasry.BuildConfig;
 import com.hasry.R;
 import com.hasry.activities_fragments.activity_about_app.AboutAppActivity;
-import com.hasry.activities_fragments.activity_home.HomeActivity;
-import com.hasry.activities_fragments.activity_my_favorite.MyFavoriteActivity;
-import com.hasry.activities_fragments.activity_order.OrderActivity;
+import com.hasry.activities_fragments.client.activity_home.HomeActivity;
+import com.hasry.activities_fragments.client.activity_my_favorite.MyFavoriteActivity;
+import com.hasry.activities_fragments.client.activity_order.OrderActivity;
 import com.hasry.databinding.FragmentMoreBinding;
 import com.hasry.interfaces.Listeners;
 import com.hasry.models.UserModel;

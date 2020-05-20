@@ -93,12 +93,16 @@
                 android:textSize="22sp"
                 android:layout_margin="10dp"
                 android:text="@string/cart_empty"/>
+
+
             <ImageView
                 android:layout_width="130dp"
                 android:layout_height="130dp"
                 android:src="@drawable/ic_cart"
                 android:tint="@color/colorPrimary"
                 />
+
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/btnShop"
                 android:layout_width="wrap_content"

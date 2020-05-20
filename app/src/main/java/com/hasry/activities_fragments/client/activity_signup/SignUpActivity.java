@@ -1,4 +1,4 @@
-package com.hasry.activities_fragments.activity_signup;
+package com.hasry.activities_fragments.client.activity_signup;
 
 import android.Manifest;
 import android.app.Activity;
@@ -21,7 +21,7 @@ import androidx.databinding.DataBindingUtil;
 
 import com.hasry.R;
 import com.hasry.activities_fragments.activity_about_app.AboutAppActivity;
-import com.hasry.activities_fragments.activity_home.HomeActivity;
+import com.hasry.activities_fragments.client.activity_home.HomeActivity;
 import com.hasry.databinding.ActivitySignUpBinding;
 import com.hasry.interfaces.Listeners;
 import com.hasry.language.Language;

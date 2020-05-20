@@ -15,7 +15,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bg"
+        android:background="@color/gray0"
 
         >
         <ScrollView
@@ -35,7 +35,7 @@
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="100dp"
+                    android:layout_marginTop="20dp"
                     android:onClick="@{()->listener.openSheet()}"
 
 
@@ -217,6 +217,42 @@
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="3dp"
+                    app:cardBackgroundColor="@color/white"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="15dp"
+                    >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:orientation="horizontal"
+                        android:background="@drawable/rounded_white"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:gravity="center_vertical"
+
+                        >
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/ic_map"
+                            android:tint="@color/colorPrimary"
+                            />
+                        <Spinner
+                            android:id="@+id/spinnerCity"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            />
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
 
 
                 <CheckBox

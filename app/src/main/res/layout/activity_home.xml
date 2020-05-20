@@ -22,155 +22,364 @@
 
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        >
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.drawerlayout.widget.DrawerLayout
+            android:id="@+id/drawer"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            tools:openDrawer="end">
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
+            <androidx.coordinatorlayout.widget.CoordinatorLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@color/second"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark"
-                app:contentInsetEnd="0dp"
-                app:contentInsetLeft="0dp"
-                app:contentInsetRight="0dp"
-                app:contentInsetStart="0dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    android:text="@{title}"
-                    />
-                <FrameLayout
-                    android:id="@+id/flNotification"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center_vertical|end"
-
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
                     >
+                    <androidx.appcompat.widget.Toolbar
+                        android:id="@+id/toolbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@color/colorPrimary"
+                        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                        app:popupTheme="@style/Theme.AppCompat.Light"
 
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        app:civ_border_width="0dp"
-                        app:civ_circle_background_color="@color/second_trans"
-                        android:src="@color/second_trans"
-                        />
-                    <ImageView
-                        android:id="@+id/imageNotification"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:layout_gravity="center"
-                        android:clickable="false"
-                        android:longClickable="false"
-                        android:padding="8dp"
-                        android:src="@drawable/ic_notification"
-                        android:tint="@color/white" />
+                        app:contentInsetEnd="0dp"
+                        app:contentInsetLeft="0dp"
+                        app:contentInsetRight="0dp"
+                        app:contentInsetStart="0dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        >
 
-                    <TextView
-                        android:layout_width="17dp"
-                        android:layout_height="17dp"
-                        android:background="@drawable/circle_not_bg"
-                        android:clickable="false"
-                        android:gravity="center"
-                        android:longClickable="false"
-                        android:singleLine="true"
-                        android:text='@{String.valueOf(notCount),default="0"}'
-                        android:textColor="@color/second"
-                        android:textSize="12sp"
-                        android:layout_margin="2dp"
-                        />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:textColor="@color/white"
+                            android:textSize="18sp"
+                            android:text="@string/home"
+                            />
+                        <FrameLayout
+                            android:id="@+id/flNotification"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="center_vertical|end"
 
-                </FrameLayout>
-                <FrameLayout
-                    android:id="@+id/flSearch"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center_vertical|end"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="5dp"
+                            >
 
-                    >
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                app:civ_border_width="0dp"
+                                app:civ_circle_background_color="@color/second_trans"
+                                />
+                            <ImageView
+                                android:id="@+id/imageNotification"
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:layout_gravity="center"
+                                android:clickable="false"
+                                android:longClickable="false"
+                                android:padding="8dp"
+                                android:src="@drawable/ic_notification2"
+                                android:tint="@color/white" />
 
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        app:civ_border_width="0dp"
-                        app:civ_circle_background_color="@color/second_trans"
-                        android:src="@color/second_trans"
-                        />
-                    <ImageView
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:layout_gravity="center"
-                        android:clickable="false"
-                        android:longClickable="false"
-                        android:padding="8dp"
-                        android:src="@drawable/ic_search"
-                        android:tint="@color/white" />
+                            <TextView
+                                android:layout_width="17dp"
+                                android:layout_height="17dp"
+                                android:background="@drawable/circle_not_bg"
+                                android:clickable="false"
+                                android:gravity="center"
+                                android:longClickable="false"
+                                android:singleLine="true"
+                                android:text='@{String.valueOf(notCount),default="0"}'
+                                android:textColor="@color/second"
+                                android:textSize="12sp"
+                                android:layout_margin="2dp"
+                                />
+
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:id="@+id/flCart"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="center_vertical|end"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+
+                            >
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                app:civ_border_width="0dp"
+                                app:civ_circle_background_color="@color/second_trans"
+                                />
+                            <ImageView
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:layout_gravity="center"
+                                android:clickable="false"
+                                android:longClickable="false"
+                                android:padding="8dp"
+                                android:src="@drawable/ic_cart"
+                                android:tint="@color/white" />
 
 
 
-                </FrameLayout>
+                        </FrameLayout>
 
 
 
 
 
-            </androidx.appcompat.widget.Toolbar>
-            <View
-                android:id="@+id/view"
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="@color/gray4"
-                app:layout_constraintTop_toBottomOf="@id/toolbar"
-                />
+                    </androidx.appcompat.widget.Toolbar>
+
+                    <FrameLayout
+                        android:id="@+id/flMostSeller"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+
+                        >
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recView"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            />
 
 
-            <FrameLayout
-                android:id="@+id/fragment_app_container"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:clickable="true"
-                android:focusable="true"
-                app:layout_constraintBottom_toTopOf="@id/ah_bottom_nav"
-                app:layout_constraintTop_toBottomOf="@id/view"
+                        <ProgressBar
+                            android:id="@+id/progBar"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_gravity="center"
+                            />
 
+                    </FrameLayout>
+                </LinearLayout>
+
+
+
+            </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+            <com.google.android.material.navigation.NavigationView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                android:background="@color/colorPrimary"
 
                 >
 
-            </FrameLayout>
 
-            <com.aurelhubert.ahbottomnavigation.AHBottomNavigation
-                android:id="@+id/ah_bottom_nav"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                app:layout_constraintBottom_toBottomOf="parent"
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fillViewport="true"
+                    android:fitsSystemWindows="true"
+                    >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        >
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/image"
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="40dp"
+                            app:civ_border_width="2dp"
+                            app:civ_border_color="@color/white"
+                            android:src="@drawable/user_avatar"
+                            />
+                        <TextView
+                            android:id="@+id/tvName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="10dp"
+                            android:textColor="@color/white"
+                            android:textSize="17sp"
+                            android:gravity="center"
+                            />
 
-                >
+                        <LinearLayout
+                            android:id="@+id/llHome"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginTop="10dp"
+                            >
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:src="@drawable/ic_home"
+                                android:tint="@color/white"
+                                android:padding="10dp"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/white"
+                                android:textSize="15sp"
+                                android:text="@string/home"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginEnd="8dp"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/llProfile"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            >
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:src="@drawable/ic_user_empty"
+                                android:tint="@color/white"
+                                android:padding="10dp"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/white"
+                                android:textSize="15sp"
+                                android:text="@string/profile"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginEnd="8dp"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/llOrder"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            >
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:src="@drawable/ic_list"
+                                android:tint="@color/white"
+                                android:padding="10dp"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/white"
+                                android:textSize="15sp"
+                                android:text="@string/my_orders"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginEnd="8dp"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/llNotification"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            >
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:src="@drawable/ic_notification2"
+                                android:tint="@color/white"
+                                android:padding="10dp"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/white"
+                                android:textSize="15sp"
+                                android:text="@string/notifications"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginEnd="8dp"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/llCart"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            >
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:src="@drawable/ic_cart"
+                                android:tint="@color/white"
+                                android:padding="10dp"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/white"
+                                android:textSize="15sp"
+                                android:text="@string/cart"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginEnd="8dp"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/llMore"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            >
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:src="@drawable/ic_more"
+                                android:tint="@color/white"
+                                android:padding="10dp"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/white"
+                                android:textSize="15sp"
+                                android:text="@string/more"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginEnd="8dp"
+                                />
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </ScrollView>
 
 
-            </com.aurelhubert.ahbottomnavigation.AHBottomNavigation>
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.navigation.NavigationView>
 
 
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+        </androidx.drawerlayout.widget.DrawerLayout>
+
+
+
+
+
 
 
 

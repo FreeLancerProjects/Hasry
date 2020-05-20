@@ -7,6 +7,7 @@ import android.os.Handler;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
@@ -14,10 +15,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.hasry.R;
-import com.hasry.activities_fragments.client.activity_home.fragments.Fragment_Cart;
-import com.hasry.activities_fragments.client.activity_home.fragments.Fragment_Main;
-import com.hasry.activities_fragments.client.activity_home.fragments.Fragment_More;
-import com.hasry.activities_fragments.client.activity_home.fragments.Fragment_Offer;
 import com.hasry.activities_fragments.client.activity_login.LoginActivity;
 import com.hasry.activities_fragments.client.activity_notification.NotificationActivity;
 import com.hasry.activities_fragments.client.activity_search.SearchActivity;
@@ -42,13 +39,9 @@ public class HomeActivity extends AppCompatActivity {
     private ActivityHomeBinding binding;
     private Preferences preferences;
     private FragmentManager fragmentManager;
-    private Fragment_Main fragment_main;
-    private Fragment_Cart fragment_cart;
-    private Fragment_Offer fragment_offer;
-    private Fragment_More fragment_more;
     private UserModel userModel;
     private String lang;
-    private String token;
+    private ActionBarDrawerToggle toggle;
 
 
     protected void attachBaseContext(Context newBase) {
@@ -73,17 +66,9 @@ public class HomeActivity extends AppCompatActivity {
         Paper.init(this);
         lang = Paper.book().read("lang", "ar");
         binding.setLang(lang);
-        setUpBottomNavigation();
 
-
-        binding.flSearch.setOnClickListener(view -> {
-
-            Intent intent = new Intent(this, SearchActivity.class);
-            startActivityForResult(intent,100);
-            // displayFragmentSearch();
-
-        });
-
+        toggle = new ActionBarDrawerToggle(this,binding.drawer,binding.toolbar,R.string.open,R.string.close);
+        toggle.syncState();
 
         binding.flNotification.setOnClickListener(view -> {
             Intent intent = new Intent(this, NotificationActivity.class);
@@ -112,62 +97,6 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
-
-    private void setUpBottomNavigation() {
-
-        AHBottomNavigationItem item1 = new AHBottomNavigationItem(getString(R.string.home), R.drawable.ic_home);
-        AHBottomNavigationItem item2 = new AHBottomNavigationItem(getString(R.string.offers), R.drawable.ic_tag);
-        AHBottomNavigationItem item3 = new AHBottomNavigationItem(getString(R.string.cart), R.drawable.ic_cart);
-        AHBottomNavigationItem item4 = new AHBottomNavigationItem(getString(R.string.more), R.drawable.ic_more);
-
-        binding.ahBottomNav.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
-        binding.ahBottomNav.setDefaultBackgroundColor(ContextCompat.getColor(this, R.color.second));
-        binding.ahBottomNav.setTitleTextSizeInSp(13, 13);
-        binding.ahBottomNav.setForceTint(true);
-        binding.ahBottomNav.setAccentColor(ContextCompat.getColor(this, R.color.colorPrimary));
-        binding.ahBottomNav.setInactiveColor(ContextCompat.getColor(this, R.color.white));
-
-        binding.ahBottomNav.addItem(item1);
-        binding.ahBottomNav.addItem(item2);
-        binding.ahBottomNav.addItem(item3);
-        binding.ahBottomNav.addItem(item4);
-
-
-        binding.ahBottomNav.setOnTabSelectedListener((position, wasSelected) -> {
-            switch (position) {
-                case 0:
-                    displayFragmentMain();
-                    break;
-                case 1:
-
-                    displayFragmentOffer();
-
-
-                    break;
-                case 2:
-
-                    displayFragmentCart();
-
-
-                    break;
-                case 3:
-                    displayFragmentMore();
-                    break;
-
-            }
-            return false;
-        });
-
-        updateBottomNavigationPosition(0);
-        displayFragmentMain();
-
-    }
-
-    public void updateBottomNavigationPosition(int pos) {
-
-        binding.ahBottomNav.setCurrentItem(pos, false);
-
-    }
 
 
     private void getNotificationCount() {
@@ -252,137 +181,6 @@ public class HomeActivity extends AppCompatActivity {
                         }
                     }
                 });*/
-    }
-
-
-    public void displayFragmentMain() {
-        try {
-            if (fragment_main == null) {
-                fragment_main = Fragment_Main.newInstance();
-            }
-
-
-            if (fragment_cart != null && fragment_cart.isAdded()) {
-                fragmentManager.beginTransaction().hide(fragment_cart).commit();
-            }
-
-            if (fragment_offer != null && fragment_offer.isAdded()) {
-                fragmentManager.beginTransaction().hide(fragment_offer).commit();
-            }
-
-            if ( fragment_more!= null && fragment_more.isAdded()) {
-                fragmentManager.beginTransaction().hide(fragment_more).commit();
-            }
-            if (fragment_main.isAdded()) {
-                fragmentManager.beginTransaction().show(fragment_main).commit();
-
-            } else {
-                fragmentManager.beginTransaction().add(R.id.fragment_app_container, fragment_main, "fragment_main").addToBackStack("fragment_main").commit();
-
-            }
-            binding.setTitle(getString(R.string.home));
-            updateBottomNavigationPosition(0);
-        } catch (Exception e) {
-        }
-
-    }
-
-    public void displayFragmentCart() {
-        try {
-            if (fragment_cart == null) {
-                fragment_cart = Fragment_Cart.newInstance();
-            } else {
-                fragment_cart.updateUI();
-            }
-
-            if ( fragment_more!= null && fragment_more.isAdded()) {
-                fragmentManager.beginTransaction().hide(fragment_more).commit();
-            }
-            if (fragment_main != null && fragment_main.isAdded()) {
-                fragmentManager.beginTransaction().hide(fragment_main).commit();
-            }
-
-            if (fragment_offer != null && fragment_offer.isAdded()) {
-                fragmentManager.beginTransaction().hide(fragment_offer).commit();
-            }
-            if (fragment_cart.isAdded()) {
-                fragmentManager.beginTransaction().show(fragment_cart).commit();
-            } else {
-                fragmentManager.beginTransaction().add(R.id.fragment_app_container, fragment_cart, "fragment_cart").addToBackStack("fragment_cart").commit();
-
-            }
-            binding.setTitle(getString(R.string.cart));
-            updateBottomNavigationPosition(2);
-        } catch (Exception e) {
-        }
-
-    }
-
-    public void displayFragmentOffer() {
-
-        try {
-            if (fragment_offer == null) {
-                fragment_offer = Fragment_Offer.newInstance();
-            }
-
-
-            if (fragment_main != null && fragment_main.isAdded()) {
-                fragmentManager.beginTransaction().hide(fragment_main).commit();
-            }
-
-            if ( fragment_more!= null && fragment_more.isAdded()) {
-                fragmentManager.beginTransaction().hide(fragment_more).commit();
-            }
-
-            if (fragment_cart != null && fragment_cart.isAdded()) {
-                fragmentManager.beginTransaction().hide(fragment_cart).commit();
-            }
-
-            if (fragment_offer.isAdded()) {
-                fragmentManager.beginTransaction().show(fragment_offer).commit();
-
-            } else {
-                fragmentManager.beginTransaction().add(R.id.fragment_app_container, fragment_offer, "fragment_offer").addToBackStack("fragment_offer").commit();
-
-            }
-            binding.setTitle(getString(R.string.offers));
-            updateBottomNavigationPosition(1);
-        } catch (Exception e) {
-        }
-    }
-
-
-    public void displayFragmentMore() {
-
-        try {
-            if (fragment_more == null) {
-                fragment_more = Fragment_More.newInstance();
-            }
-
-
-            if (fragment_main != null && fragment_main.isAdded()) {
-                fragmentManager.beginTransaction().hide(fragment_main).commit();
-            }
-
-            if ( fragment_offer!= null && fragment_more.isAdded()) {
-                fragmentManager.beginTransaction().hide(fragment_offer).commit();
-            }
-
-            if (fragment_cart != null && fragment_cart.isAdded()) {
-                fragmentManager.beginTransaction().hide(fragment_cart).commit();
-            }
-
-            if (fragment_more.isAdded()) {
-                fragmentManager.beginTransaction().show(fragment_more).commit();
-
-            } else {
-                fragmentManager.beginTransaction().add(R.id.fragment_app_container, fragment_more, "fragment_more").addToBackStack("fragment_more").commit();
-
-            }
-            binding.setTitle(getString(R.string.more));
-            updateBottomNavigationPosition(3);
-        } catch (Exception e) {
-        }
     }
 
 
@@ -542,12 +340,7 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (fragment_main != null && fragment_main.isAdded() && fragment_main.isVisible()) {
-            finish();
-
-        } else {
-            displayFragmentMain();
-        }
+        finish();
     }
 
 

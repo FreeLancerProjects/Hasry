@@ -24,7 +24,7 @@ public class AboutAppActivity extends AppCompatActivity implements Listeners.Bac
     private String lang;
     private int type;
 
-    
+
     @Override
     protected void attachBaseContext(Context newBase) {
         Paper.init(newBase);

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.hasry">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:name="com.hasry.share.App"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
+        tools:ignore="GoogleAppIndexingWarning"
+        tools:targetApi="m"
+        >
+
+        <activity android:name="com.hasry.activities_fragments.activity_login.LoginActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            />
+
+        <activity android:name="com.hasry.activities_fragments.activity_verification_code.VerificationCodeActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            />
+
+        <activity android:name="com.hasry.activities_fragments.activity_signup.SignUpActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            />
+
+        <activity android:name="com.hasry.activities_fragments.activity_about_app.AboutAppActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            />
+
+        <activity android:name="com.hasry.activities_fragments.activity_home.HomeActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            />
+
+        <activity android:name="com.hasry.activities_fragments.activity_my_favorite.MyFavoriteActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            />
+
+        <activity android:name="com.hasry.activities_fragments.activity_order.OrderActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            />
+
+        <activity android:name="com.hasry.activities_fragments.activity_search.SearchActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:windowSoftInputMode="stateAlwaysHidden"
+
+            />
+
+        <activity android:name="com.hasry.activities_fragments.activity_notification.NotificationActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+
+            />
+        <activity android:name="com.hasry.activities_fragments.activity_splash.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

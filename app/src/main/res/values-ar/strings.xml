@@ -155,7 +155,7 @@
     <string name="filter">فلتر</string>
     <string name="normal">مربع</string>
     <string name="sign_up_market">تسجيل متجر</string>
-    <string name="buyer_sign_up">تسجيل كمشتري</string>
-    <string name="driver_sign_up">تسجيل كسائق</string>
+    <string name="buyer_sign_up">تسجيل مشتري</string>
+    <string name="driver_sign_up">تسجيل سائق</string>
 
 </resources>

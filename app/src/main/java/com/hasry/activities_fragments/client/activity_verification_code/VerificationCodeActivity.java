@@ -1,5 +1,6 @@
 package com.hasry.activities_fragments.client.activity_verification_code;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,12 +17,15 @@ import com.hasry.activities_fragments.client.activity_home.HomeActivity;
 import com.hasry.activities_fragments.client.activity_signup.SignUpActivity;
 import com.hasry.databinding.ActivityVerificationCodeBinding;
 import com.hasry.language.Language;
+import com.hasry.models.UserModel;
 import com.hasry.preferences.Preferences;
+import com.hasry.remote.Api;
 import com.hasry.share.Common;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.hasry.tags.Tags;
 
 
 import java.text.SimpleDateFormat;
@@ -30,6 +34,9 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import io.paperdb.Paper;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class VerificationCodeActivity extends AppCompatActivity {
     private ActivityVerificationCodeBinding binding;
@@ -187,9 +194,6 @@ public class VerificationCodeActivity extends AppCompatActivity {
 
     private void login() {
 
-
-        navigateToSignUpActivity();
-      /*  Log.e("3","3");
         ProgressDialog dialog = Common.createProgressDialog(this,getString(R.string.wait));
         dialog.setCancelable(false);
         dialog.show();
@@ -201,12 +205,10 @@ public class VerificationCodeActivity extends AppCompatActivity {
                         dialog.dismiss();
                         if (response.isSuccessful()&&response.body()!=null)
                         {
-                            Log.e("eeeeee",response.body().getUser().getName());
                             preferences.create_update_userdata(VerificationCodeActivity.this,response.body());
                             navigateToHomeActivity();
                         }else
                         {
-                            Log.e("mmmmmmmmmm",phone_code+phone);
 
 
                             if (response.code()==500)
@@ -240,7 +242,7 @@ public class VerificationCodeActivity extends AppCompatActivity {
                             Log.e("Error",e.getMessage()+"__");
                         }
                     }
-                });*/
+                });
 
     }
 

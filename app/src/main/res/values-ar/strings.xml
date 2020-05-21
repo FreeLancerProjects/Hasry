@@ -157,5 +157,7 @@
     <string name="sign_up_market">تسجيل متجر</string>
     <string name="buyer_sign_up">تسجيل مشتري</string>
     <string name="driver_sign_up">تسجيل سائق</string>
+    <string name="markets">متاجر</string>
+    <string name="most_used">الاكثر استخداما</string>
 
 </resources>

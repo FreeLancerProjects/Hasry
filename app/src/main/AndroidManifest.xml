@@ -22,10 +22,11 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="m">
-        <activity android:name=".activities_fragments.sign_up_user_type.SignUpUserTypeActivity"
-            android:configChanges="keyboardHidden|screenSize|orientation"
-
-            />
+        <activity android:name=".activities_fragments.client.activity_market_data.MarketDataActivity"></activity>
+        <activity android:name=".activities_fragments.client.activity_markets.MarketsActivity" />
+        <activity
+            android:name=".activities_fragments.sign_up_user_type.SignUpUserTypeActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation" />
         <activity
             android:name=".activities_fragments.client.activity_login.LoginActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"

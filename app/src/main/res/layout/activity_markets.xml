@@ -10,13 +10,7 @@
         <variable
             name="lang"
             type="String" />
-        <variable
-            name="title"
-            type="String" />
 
-        <variable
-            name="content"
-            type="String" />
 
 
 
@@ -57,7 +51,7 @@
                         android:layout_height="35dp"
                         android:clickable="false"
                         android:longClickable="false"
-                        android:padding="8dp"
+                        android:padding="10dp"
                         android:rotation='@{lang.equals("ar")?180:0}'
                         android:src="@drawable/ic_left_arrow"
                         android:tint="@color/white"
@@ -73,34 +67,18 @@
                         android:layout_marginEnd="5dp"
                         android:clickable="false"
                         android:longClickable="false"
-                        android:text="@{title}"
+                        android:text="@string/markets"
                         android:textColor="@color/white"
                         android:textSize="15sp" />
                 </LinearLayout>
             </androidx.appcompat.widget.Toolbar>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="@color/gray4"/>
-            <androidx.core.widget.NestedScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fitsSystemWindows="true"
-                android:fillViewport="true"
-                android:background="@color/white"
-                >
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="10sp"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    android:text="@{content}"
 
-                    />
-
-            </androidx.core.widget.NestedScrollView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
         </LinearLayout>
+
 
         <ProgressBar
             android:id="@+id/progBar"
@@ -108,6 +86,16 @@
             android:layout_height="35dp"
             android:layout_gravity="center"/>
 
+        <TextView
+            android:id="@+id/tvNoData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:text="@string/no_data_to_show"
+            android:visibility="gone"
+            />
     </FrameLayout>
 
 </layout>

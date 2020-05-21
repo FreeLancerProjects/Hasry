@@ -153,4 +153,7 @@
     <string name="driver_sign_up">Driver Sign Up</string>
     <string name="markets">Markets</string>
     <string name="most_used">Most Used</string>
+    <string name="order_details">Order Details</string>
+    <string name="client">Client</string>
+    <string name="call">أتصال</string>
 </resources>

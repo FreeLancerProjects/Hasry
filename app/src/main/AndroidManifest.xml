@@ -25,6 +25,12 @@
         <activity android:name=".activities_fragments.client.activity_market_data.MarketDataActivity"></activity>
         <activity android:name=".activities_fragments.client.activity_markets.MarketsActivity" />
         <activity
+            android:name=".activities_fragments.driver.activity_profile.ProfileActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation" />
+        <activity
+            android:name=".activities_fragments.driver.activity_order_details.OrderDetailsActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation" />
+        <activity
             android:name=".activities_fragments.sign_up_user_type.SignUpUserTypeActivity"
             android:configChanges="keyboardHidden|screenSize|orientation" />
         <activity

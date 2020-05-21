@@ -159,5 +159,8 @@
     <string name="driver_sign_up">تسجيل سائق</string>
     <string name="markets">متاجر</string>
     <string name="most_used">الاكثر استخداما</string>
+    <string name="order_details">تفاصيل الطلب</string>
+    <string name="client">العميل</string>
+    <string name="call">أتصال</string>
 
 </resources>

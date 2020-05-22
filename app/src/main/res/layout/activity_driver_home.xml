@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    >
+
+    <data>
+        <variable
+            name="notCount"
+            type="Integer" />
+        <variable
+            name="title"
+            type="String" />
+
+        <variable
+            name="lang"
+            type="String" />
+
+
+
+
+    </data>
+
+
+        <androidx.drawerlayout.widget.DrawerLayout
+            android:id="@+id/drawer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:openDrawer="end">
+
+            <androidx.coordinatorlayout.widget.CoordinatorLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    >
+                    <androidx.appcompat.widget.Toolbar
+                        android:id="@+id/toolbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@color/colorPrimary"
+                        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                        app:popupTheme="@style/Theme.AppCompat.Light"
+
+                        app:contentInsetEnd="0dp"
+                        app:contentInsetLeft="0dp"
+                        app:contentInsetRight="0dp"
+                        app:contentInsetStart="0dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:textColor="@color/white"
+                            android:textSize="18sp"
+                            android:text="@string/home"
+                            />
+                        <FrameLayout
+                            android:id="@+id/flNotification"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="center_vertical|end"
+
+                            >
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                app:civ_border_width="0dp"
+                                app:civ_circle_background_color="@color/second_trans"
+                                />
+                            <ImageView
+                                android:id="@+id/imageNotification"
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:layout_gravity="center"
+                                android:clickable="false"
+                                android:longClickable="false"
+                                android:padding="8dp"
+                                android:src="@drawable/ic_notification2"
+                                android:tint="@color/white" />
+
+                            <TextView
+                                android:layout_width="17dp"
+                                android:layout_height="17dp"
+                                android:background="@drawable/circle_not_bg"
+                                android:clickable="false"
+                                android:gravity="center"
+                                android:longClickable="false"
+                                android:singleLine="true"
+                                android:text='@{String.valueOf(notCount),default="0"}'
+                                android:textColor="@color/second"
+                                android:textSize="12sp"
+                                android:layout_margin="2dp"
+                                />
+
+                        </FrameLayout>
+
+
+
+
+
+
+                    </androidx.appcompat.widget.Toolbar>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                  android:layout_weight="1"
+                        >
+
+
+                        <com.google.android.material.tabs.TabLayout
+                            android:id="@+id/tab"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:tabGravity="fill"
+                            app:tabMode="fixed"
+                            app:tabTextColor="@color/colorPrimary"
+                            app:tabSelectedTextColor="@color/white"
+                            app:tabIndicatorHeight="4dp"
+                            app:tabIndicatorColor="@color/white"
+                            app:tabBackground="@drawable/tab_order_indicator"
+
+                            />
+                        <androidx.viewpager.widget.ViewPager
+                            android:id="@+id/pager"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            app:layout_constraintTop_toBottomOf="@id/tab"
+                            app:layout_constraintBottom_toBottomOf="parent"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
+
+
+
+            </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+            <com.google.android.material.navigation.NavigationView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                android:background="@color/colorPrimary"
+
+                >
+
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fillViewport="true"
+                    android:fitsSystemWindows="true"
+                    >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        >
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/image"
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="40dp"
+                            app:civ_border_width="2dp"
+                            app:civ_border_color="@color/white"
+                            android:src="@drawable/user_avatar"
+                            />
+                        <TextView
+                            android:id="@+id/tvName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="10dp"
+                            android:textColor="@color/white"
+                            android:textSize="17sp"
+                            android:gravity="center"
+                            />
+
+                        <LinearLayout
+                            android:id="@+id/llHome"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginTop="10dp"
+                            >
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:src="@drawable/ic_home"
+                                android:tint="@color/white"
+                                android:padding="10dp"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/white"
+                                android:textSize="15sp"
+                                android:text="@string/home"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginEnd="8dp"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/llProfile"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            >
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:src="@drawable/ic_user_empty"
+                                android:tint="@color/white"
+                                android:padding="10dp"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/white"
+                                android:textSize="15sp"
+                                android:text="@string/profile"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginEnd="8dp"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/llNotification"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            >
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:src="@drawable/ic_notification2"
+                                android:tint="@color/white"
+                                android:padding="10dp"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/white"
+                                android:textSize="15sp"
+                                android:text="@string/notifications"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginEnd="8dp"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/llTerms"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            >
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:src="@drawable/ic_terms"
+                                android:tint="@color/white"
+                                android:padding="10dp"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/white"
+                                android:textSize="15sp"
+                                android:text="@string/terms_and_conditions"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginEnd="8dp"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/llAbout"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            >
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:src="@drawable/ic_phone"
+                                android:tint="@color/white"
+                                android:padding="10dp"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/white"
+                                android:textSize="15sp"
+                                android:text="@string/about_app"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginEnd="8dp"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/llContact"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            >
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:src="@drawable/ic_contact"
+                                android:tint="@color/white"
+                                android:padding="10dp"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/white"
+                                android:textSize="15sp"
+                                android:text="@string/contact_us"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginEnd="8dp"
+                                />
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </ScrollView>
+
+
+            </com.google.android.material.navigation.NavigationView>
+
+
+
+        </androidx.drawerlayout.widget.DrawerLayout>
+
+
+
+
+
+
+
+
+
+</layout>

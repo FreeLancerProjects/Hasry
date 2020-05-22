@@ -162,5 +162,8 @@
     <string name="order_details">تفاصيل الطلب</string>
     <string name="client">العميل</string>
     <string name="call">أتصال</string>
+    <string name="you">You</string>
+    <string name="market">Market</string>
+    <string name="total_cost">Total Cost</string>
 
 </resources>

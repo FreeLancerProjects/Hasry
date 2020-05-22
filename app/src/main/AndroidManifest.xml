@@ -56,6 +56,9 @@
             android:name="com.hasry.activities_fragments.activity_home_driver.HomeDriverActivity"
             android:configChanges="keyboardHidden|screenSize|orientation" />
         <activity
+            android:name=".activities_fragments.activity_contact_us.ContactUsActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation" />
+        <activity
             android:name=".activities_fragments.client.activity_my_favorite.MyFavoriteActivity"
             android:configChanges="keyboardHidden|screenSize|orientation" />
         <activity

@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.hasry.R;
 import com.hasry.activities_fragments.activity_about_app.AboutAppActivity;
+import com.hasry.activities_fragments.activity_contact_us.ContactUsActivity;
 import com.hasry.activities_fragments.activity_home_driver.fragments.Fragment_Current_Order;
 import com.hasry.activities_fragments.activity_home_driver.fragments.Fragment_Previous_Order;
 import com.hasry.activities_fragments.client.activity_login.LoginActivity;
@@ -140,7 +141,8 @@ binding.llAbout.setOnClickListener(new View.OnClickListener() {
 binding.llContact.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
-
+        Intent intent = new Intent(HomeDriverActivity.this, ContactUsActivity.class);
+        startActivity(intent);
     }
 });
 binding.llProfile.setOnClickListener(new View.OnClickListener() {

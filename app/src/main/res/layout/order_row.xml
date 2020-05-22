@@ -303,12 +303,11 @@
 
             <ImageView
                 android:id="@+id/image_delete"
-                android:layout_width="35dp"
+                android:layout_width="23dp"
                 android:layout_height="35dp"
                 android:gravity="center"
-                android:src="@drawable/close_red_color"
                 android:padding="5dp"
-                />
+                android:src="@drawable/close_red_color" />
 
         </androidx.cardview.widget.CardView>
 

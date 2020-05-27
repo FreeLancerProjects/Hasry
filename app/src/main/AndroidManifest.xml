@@ -53,7 +53,7 @@
             android:name="com.hasry.activities_fragments.client.activity_home.HomeActivity"
             android:configChanges="keyboardHidden|screenSize|orientation" />
         <activity
-            android:name="com.hasry.activities_fragments.activity_home_driver.HomeDriverActivity"
+            android:name=".activities_fragments.driver.activity_home_driver.HomeDriverActivity"
             android:configChanges="keyboardHidden|screenSize|orientation" />
         <activity
             android:name=".activities_fragments.activity_contact_us.ContactUsActivity"
@@ -62,7 +62,7 @@
             android:name=".activities_fragments.client.activity_my_favorite.MyFavoriteActivity"
             android:configChanges="keyboardHidden|screenSize|orientation" />
         <activity
-            android:name=".activities_fragments.client.activity_order.OrderActivity"
+            android:name=".activities_fragments.activity_order.OrderActivity"
             android:configChanges="keyboardHidden|screenSize|orientation" />
         <activity
             android:name=".activities_fragments.client.activity_search.SearchActivity"

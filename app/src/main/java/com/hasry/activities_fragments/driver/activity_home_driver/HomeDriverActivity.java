@@ -1,58 +1,45 @@
-package com.hasry.activities_fragments.activity_home_driver;
+package com.hasry.activities_fragments.driver.activity_home_driver;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.hasry.R;
 import com.hasry.activities_fragments.activity_about_app.AboutAppActivity;
 import com.hasry.activities_fragments.activity_contact_us.ContactUsActivity;
-import com.hasry.activities_fragments.activity_home_driver.fragments.Fragment_Current_Order;
-import com.hasry.activities_fragments.activity_home_driver.fragments.Fragment_Previous_Order;
+import com.hasry.activities_fragments.driver.activity_home_driver.fragments.Fragment_Current_Order;
+import com.hasry.activities_fragments.driver.activity_home_driver.fragments.Fragment_Previous_Order;
 import com.hasry.activities_fragments.client.activity_login.LoginActivity;
 import com.hasry.activities_fragments.client.activity_markets.MarketsActivity;
 import com.hasry.activities_fragments.client.activity_notification.NotificationActivity;
 import com.hasry.activities_fragments.driver.activity_profile.ProfileActivity;
-import com.hasry.adapters.MainCategoryAdapter;
 import com.hasry.adapters.ViewPagerOrderAdapter;
 import com.hasry.databinding.ActivityDriverHomeBinding;
-import com.hasry.databinding.ActivityHomeBinding;
 import com.hasry.language.Language;
 import com.hasry.models.MainCategoryDataModel;
 import com.hasry.models.NotFireModel;
 import com.hasry.models.UserModel;
 import com.hasry.preferences.Preferences;
-import com.hasry.remote.Api;
-import com.hasry.tags.Tags;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import io.paperdb.Paper;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class HomeDriverActivity extends AppCompatActivity {
     private ActivityDriverHomeBinding binding;

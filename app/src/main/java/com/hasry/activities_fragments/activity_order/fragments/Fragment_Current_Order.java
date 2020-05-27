@@ -1,4 +1,4 @@
-package com.hasry.activities_fragments.client.activity_order.fragments;
+package com.hasry.activities_fragments.activity_order.fragments;
 
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.hasry.R;
-import com.hasry.activities_fragments.client.activity_order.OrderActivity;
+import com.hasry.activities_fragments.activity_order.OrderActivity;
 import com.hasry.databinding.FragmentCurrentPreviousOrderBinding;
 import com.hasry.models.UserModel;
 import com.hasry.preferences.Preferences;

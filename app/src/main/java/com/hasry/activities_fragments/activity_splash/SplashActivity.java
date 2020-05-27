@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil;
 import com.hasry.R;
 import com.hasry.activities_fragments.client.activity_home.HomeActivity;
 import com.hasry.activities_fragments.client.activity_login.LoginActivity;
+import com.hasry.activities_fragments.driver.activity_home_driver.HomeDriverActivity;
 import com.hasry.databinding.ActivitySplashBinding;
 import com.hasry.language.Language;
 import com.hasry.preferences.Preferences;

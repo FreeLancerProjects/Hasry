@@ -1,6 +1,5 @@
-package com.hasry.activities_fragments.activity_home_driver.fragments;
+package com.hasry.activities_fragments.activity_order.fragments;
 
-import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,17 +14,15 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.hasry.R;
-import com.hasry.activities_fragments.client.activity_order.OrderActivity;
-import com.hasry.activities_fragments.driver.activity_order_details.OrderDetailsActivity;
+import com.hasry.activities_fragments.activity_order.OrderActivity;
 import com.hasry.databinding.FragmentCurrentPreviousOrderBinding;
-import com.hasry.databinding.FragmentOrderBinding;
 import com.hasry.models.UserModel;
 import com.hasry.preferences.Preferences;
 
 public class Fragment_Previous_Order extends Fragment {
 
     private OrderActivity activity;
-    private FragmentOrderBinding binding;
+    private FragmentCurrentPreviousOrderBinding binding;
     private LinearLayoutManager manager;
    /* private OrderAdapter adapter;
     private List<OrderModel> orderModelList;*/
@@ -40,7 +37,7 @@ public class Fragment_Previous_Order extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_order,container,false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_current_previous_order,container,false);
         initView();
         return binding.getRoot();
     }
@@ -220,9 +217,9 @@ public class Fragment_Previous_Order extends Fragment {
         }*/
     }
 
-//    public void setItemData(OrderModel model) {
-//        Intent intent = new Intent(activity, OrderDetailsActivity.class);
-//        intent.putExtra("data",model);
-//        startActivity(intent);
-//    }
+    /*public void setItemData(OrderModel model) {
+        Intent intent = new Intent(activity, OrderDetailsActivity.class);
+        intent.putExtra("data",model);
+        startActivity(intent);
+    }*/
 }

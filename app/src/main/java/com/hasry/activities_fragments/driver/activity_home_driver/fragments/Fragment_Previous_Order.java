@@ -1,4 +1,4 @@
-package com.hasry.activities_fragments.client.activity_order.fragments;
+package com.hasry.activities_fragments.driver.activity_home_driver.fragments;
 
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -14,15 +14,16 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.hasry.R;
-import com.hasry.activities_fragments.client.activity_order.OrderActivity;
-import com.hasry.databinding.FragmentCurrentPreviousOrderBinding;
+import com.hasry.activities_fragments.activity_order.OrderActivity;
+import com.hasry.activities_fragments.driver.activity_home_driver.HomeDriverActivity;
+import com.hasry.databinding.FragmentOrderBinding;
 import com.hasry.models.UserModel;
 import com.hasry.preferences.Preferences;
 
 public class Fragment_Previous_Order extends Fragment {
 
-    private OrderActivity activity;
-    private FragmentCurrentPreviousOrderBinding binding;
+    private HomeDriverActivity activity;
+    private FragmentOrderBinding binding;
     private LinearLayoutManager manager;
    /* private OrderAdapter adapter;
     private List<OrderModel> orderModelList;*/
@@ -37,14 +38,14 @@ public class Fragment_Previous_Order extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_current_previous_order,container,false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_order,container,false);
         initView();
         return binding.getRoot();
     }
 
     private void initView() {
         //orderModelList = new ArrayList<>();
-        activity = (OrderActivity) getActivity();
+        activity = (HomeDriverActivity) getActivity();
         binding.progBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(activity,R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
         manager = new LinearLayoutManager(activity);
         binding.recView.setLayoutManager(manager);
@@ -217,9 +218,9 @@ public class Fragment_Previous_Order extends Fragment {
         }*/
     }
 
-    /*public void setItemData(OrderModel model) {
-        Intent intent = new Intent(activity, OrderDetailsActivity.class);
-        intent.putExtra("data",model);
-        startActivity(intent);
-    }*/
+//    public void setItemData(OrderModel model) {
+//        Intent intent = new Intent(activity, OrderDetailsActivity.class);
+//        intent.putExtra("data",model);
+//        startActivity(intent);
+//    }
 }

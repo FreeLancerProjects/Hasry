@@ -1,4 +1,4 @@
-package com.hasry.activities_fragments.activity_home_driver.fragments;
+package com.hasry.activities_fragments.driver.activity_home_driver.fragments;
 
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -14,15 +14,15 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.hasry.R;
-import com.hasry.activities_fragments.client.activity_order.OrderActivity;
-import com.hasry.databinding.FragmentCurrentPreviousOrderBinding;
+import com.hasry.activities_fragments.activity_order.OrderActivity;
+import com.hasry.activities_fragments.driver.activity_home_driver.HomeDriverActivity;
 import com.hasry.databinding.FragmentOrderBinding;
 import com.hasry.models.UserModel;
 import com.hasry.preferences.Preferences;
 
 public class Fragment_Current_Order extends Fragment {
 
-    private OrderActivity activity;
+    private HomeDriverActivity activity;
     private FragmentOrderBinding binding;
     private LinearLayoutManager manager;
     /*private OrderAdapter adapter;
@@ -46,7 +46,7 @@ public class Fragment_Current_Order extends Fragment {
 
     private void initView() {
         //orderModelList = new ArrayList<>();
-        activity = (OrderActivity) getActivity();
+        activity = (HomeDriverActivity) getActivity();
         binding.progBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(activity,R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
         manager = new LinearLayoutManager(activity);
         binding.recView.setLayoutManager(manager);

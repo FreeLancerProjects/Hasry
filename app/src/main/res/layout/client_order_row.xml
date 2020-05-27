@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="model"
+            type="com.hasry.models.OrderModel" />
+    </data>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardElevation="3dp"
+            app:contentPadding="16dp"
+            app:cardCornerRadius="15dp"
+            app:cardBackgroundColor="@color/white"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="5dp"
+            >
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/image"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    app:civ_border_width="1px"
+                    app:civ_border_color="@color/gray4"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    image="@{model.markter.logo}"
+                    />
+                <TextView
+                    android:id="@+id/tvMarketName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/image"
+                    app:layout_constraintEnd_toStartOf="@id/tvTotalOrder"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:textColor="@color/gray8"
+                    android:textSize="15sp"
+                    android:text="@{model.markter.name}"
+
+                    />
+
+
+                <TextView
+                    android:id="@+id/tvTotalOrder"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:textColor="@color/gray4"
+                    android:textSize="15sp"
+                    android:text="@string/total_cost"
+                    />
+
+
+                <TextView
+                    android:id="@+id/tvCity"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/tvMarketName"
+                    app:layout_constraintStart_toEndOf="@id/image"
+                    app:layout_constraintEnd_toStartOf="@id/tvTotalOrder"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:textColor="@color/gray4"
+                    android:textSize="15sp"
+                    android:layout_marginTop="5dp"
+                    android:text='@{model.total_price+" "+@string/sar}'
+                    />
+
+
+                <TextView
+                    android:id="@+id/tvTotalCost"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/tvTotalOrder"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="15sp"
+                    android:layout_marginTop="5dp"
+
+                    />
+
+
+
+
+                <TextView
+                    android:id="@+id/tvOrderStatus"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/tvCity"
+                    app:layout_constraintStart_toEndOf="@id/image"
+                    app:layout_constraintEnd_toStartOf="@id/tvTotalOrder"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:textColor="@color/gray4"
+                    android:textSize="15sp"
+                    android:text="@string/status"
+                    android:layout_marginTop="5dp"
+
+                    />
+                <TextView
+                    android:id="@+id/tvStatus"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/tvOrderStatus"
+                    app:layout_constraintStart_toEndOf="@id/image"
+                    app:layout_constraintEnd_toStartOf="@id/tvTotalOrder"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="15sp"
+                    android:layout_marginTop="5dp"
+
+                    />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvTotalCost"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/rounded_stroke_gray"
+                    android:textSize="15sp"
+                    android:textColor="@color/gray4"
+                    android:text="@string/show"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="2dp"
+                    />
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/rounded_stroke_gray"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:gravity="center"
+            android:textColor="@color/gray4"
+            android:textSize="14sp"
+            android:text='@{model.order_date+" "+model.order_time}'
+            />
+
+    </LinearLayout>
+
+</layout>

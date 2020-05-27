@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hasry.R;
+import com.hasry.activities_fragments.client.activity_market_data.MarketDataActivity;
 import com.hasry.databinding.LoadmoreRow1Binding;
 import com.hasry.databinding.OfferRowBinding;
 import com.hasry.models.OfferDataModel;
@@ -28,12 +29,13 @@ public class OfferAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private List<OfferModel> list;
     private Context context;
     private LayoutInflater inflater;
+    private MarketDataActivity activity;
 
     public OfferAdapter(List<OfferModel> list, Context context) {
         this.list = list;
         this.context = context;
         inflater = LayoutInflater.from(context);
-
+        activity = (MarketDataActivity) context;
 
 
     }
@@ -62,6 +64,10 @@ public class OfferAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             MyHolder myHolder = (MyHolder) holder;
 
             myHolder.binding.setModel(list.get(position));
+
+            myHolder.itemView.setOnClickListener(v -> {
+                activity.setItemData(list.get(myHolder.getAdapterPosition()));
+            });
         }else {
             LoadMoreHolder loadMoreHolder = (LoadMoreHolder) holder;
             loadMoreHolder.binding.progBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(context,R.color.colorPrimary), PorterDuff.Mode.SRC_IN);

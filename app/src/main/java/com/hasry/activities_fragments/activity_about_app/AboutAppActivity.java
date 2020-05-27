@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -13,11 +16,18 @@ import com.hasry.R;
 import com.hasry.databinding.ActivityAboutAppBinding;
 import com.hasry.interfaces.Listeners;
 import com.hasry.language.Language;
+import com.hasry.models.SettingModel;
+import com.hasry.remote.Api;
+import com.hasry.tags.Tags;
 
 
+import java.io.IOException;
 import java.util.Locale;
 
 import io.paperdb.Paper;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AboutAppActivity extends AppCompatActivity implements Listeners.BackListener{
     private ActivityAboutAppBinding binding;
@@ -73,21 +83,21 @@ public class AboutAppActivity extends AppCompatActivity implements Listeners.Bac
     private void getAppData()
     {
 
-       /* Api.getService(Tags.base_url)
-                .getSettings(lang)
-                .enqueue(new Callback<AppDataModel>() {
+        Api.getService(Tags.base_url)
+                .getSetting()
+                .enqueue(new Callback<SettingModel>() {
                     @Override
-                    public void onResponse(Call<AppDataModel> call, Response<AppDataModel> response) {
+                    public void onResponse(Call<SettingModel> call, Response<SettingModel> response) {
                         binding.progBar.setVisibility(View.GONE);
                         if (response.isSuccessful() && response.body() != null) {
 
                             if (type==1)
                             {
 
-                                binding.setContent(response.body().getTerms_condition());
+                                binding.setContent(response.body().getData().getTerm_conditions());
                             }else
                             {
-                                binding.setContent(response.body().getCompany_about());
+                                //binding.setContent(response.body().getCompany_about());
 
                             }
 
@@ -110,7 +120,7 @@ public class AboutAppActivity extends AppCompatActivity implements Listeners.Bac
                     }
 
                     @Override
-                    public void onFailure(Call<AppDataModel> call, Throwable t) {
+                    public void onFailure(Call<SettingModel> call, Throwable t) {
                         try {
                             binding.progBar.setVisibility(View.GONE);
 
@@ -126,7 +136,7 @@ public class AboutAppActivity extends AppCompatActivity implements Listeners.Bac
                         } catch (Exception e) {
                         }
                     }
-                });*/
+                });
 
     }
 

@@ -3,13 +3,13 @@ package com.hasry.models;
 import java.io.Serializable;
 
 public class UserModel implements Serializable {
-    private Data data;
+    private User data;
 
-    public Data getData() {
+    public User getData() {
         return data;
     }
 
-    public static class Data implements Serializable{
+    public static class User implements Serializable{
         private int id;
         private String name;
         private String email;

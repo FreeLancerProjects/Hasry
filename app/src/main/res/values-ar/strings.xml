@@ -162,8 +162,12 @@
     <string name="order_details">تفاصيل الطلب</string>
     <string name="client">العميل</string>
     <string name="call">أتصال</string>
-    <string name="you">You</string>
-    <string name="market">Market</string>
-    <string name="total_cost">Total Cost</string>
+    <string name="you">انت</string>
+    <string name="market">التاجر</string>
+    <string name="total_cost">االإجمالي</string>
+    <string name="seller">البائع</string>
+    <string name="description">الوصف</string>
+    <string name="details">المواصفات</string>
+    <string name="status">حالة الطلب</string>
 
 </resources>

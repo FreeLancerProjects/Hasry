@@ -6,12 +6,20 @@
     >
     <data>
         <variable
+            name="backListener"
+            type="com.hasry.interfaces.Listeners.BackListener" />
+        <variable
             name="action"
             type="com.hasry.interfaces.Listeners.SettingActions" />
         <variable
             name="lang"
             type="String" />
+
+
+
+
     </data>
+
 
     <ScrollView
         android:layout_width="match_parent"
@@ -26,6 +34,55 @@
             android:orientation="vertical"
 
             >
+
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                app:contentInsetEnd="0dp"
+                app:contentInsetLeft="0dp"
+                app:contentInsetRight="0dp"
+                app:contentInsetStart="0dp"
+
+                >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:onClick="@{()->backListener.back()}"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+
+                    >
+
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:clickable="false"
+                        android:longClickable="false"
+                        android:padding="8dp"
+                        android:rotation='@{lang.equals("ar")?180:0}'
+                        android:src="@drawable/ic_left_arrow"
+                        android:tint="@color/white"
+
+                        />
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:clickable="false"
+                        android:longClickable="false"
+                        android:text="@string/more"
+                        android:textColor="@color/white"
+                        android:textSize="15sp" />
+                </LinearLayout>
+            </androidx.appcompat.widget.Toolbar>
 
 
             <LinearLayout
@@ -75,7 +132,7 @@
                 <ImageView
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:tint="@color/colorPrimaryDark"
+                    android:tint="@color/colorPrimary"
                     android:src="@drawable/ic_info"
                     android:clickable="false"
                     android:longClickable="false"
@@ -97,7 +154,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:src="@drawable/ic_right_arrow"
-                    android:tint="@color/colorPrimaryDark"
+                    android:tint="@color/black"
                     android:clickable="false"
                     android:longClickable="false"
                     android:layout_marginStart="10dp"
@@ -128,7 +185,7 @@
                 <ImageView
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:tint="@color/colorPrimaryDark"
+                    android:tint="@color/colorPrimary"
                     android:src="@drawable/ic_list"
                     android:clickable="false"
                     android:longClickable="false"
@@ -150,7 +207,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:src="@drawable/ic_right_arrow"
-                    android:tint="@color/colorPrimaryDark"
+                    android:tint="@color/black"
                     android:clickable="false"
                     android:longClickable="false"
                     android:layout_marginStart="10dp"
@@ -163,6 +220,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="1px"
                 android:background="@color/gray4"/>
+
 
 
 
@@ -182,7 +240,7 @@
                 <ImageView
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:tint="@color/colorPrimaryDark"
+                    android:tint="@color/colorPrimary"
                     android:src="@drawable/ic_share2"
                     android:clickable="false"
                     android:longClickable="false"
@@ -204,7 +262,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:src="@drawable/ic_right_arrow"
-                    android:tint="@color/colorPrimaryDark"
+                    android:tint="@color/black"
                     android:clickable="false"
                     android:longClickable="false"
                     android:layout_marginStart="10dp"
@@ -236,7 +294,7 @@
                 <ImageView
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:tint="@color/colorPrimaryDark"
+                    android:tint="@color/colorPrimary"
                     android:src="@drawable/ic_star"
                     android:clickable="false"
                     android:longClickable="false"
@@ -258,7 +316,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:src="@drawable/ic_right_arrow"
-                    android:tint="@color/colorPrimaryDark"
+                    android:tint="@color/black"
                     android:clickable="false"
                     android:longClickable="false"
                     android:layout_marginStart="10dp"
@@ -289,7 +347,7 @@
                 <ImageView
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:tint="@color/colorPrimaryDark"
+                    android:tint="@color/colorPrimary"
                     android:src="@drawable/ic_logout"
                     android:clickable="false"
                     android:longClickable="false"
@@ -311,7 +369,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:src="@drawable/ic_right_arrow"
-                    android:tint="@color/colorPrimaryDark"
+                    android:tint="@color/black"
                     android:clickable="false"
                     android:longClickable="false"
                     android:layout_marginStart="10dp"

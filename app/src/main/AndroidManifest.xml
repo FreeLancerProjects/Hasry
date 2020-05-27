@@ -22,8 +22,21 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="m">
-        <activity android:name=".activities_fragments.client.activity_market_data.MarketDataActivity"></activity>
-        <activity android:name=".activities_fragments.client.activity_markets.MarketsActivity" />
+        <activity android:name=".activities_fragments.client.activity_more.MoreActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            />
+        <activity
+            android:name=".activities_fragments.client.activity_order.OrderActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation" />
+        <activity
+            android:name=".activities_fragments.client.activity_product_details.ProductDetailsActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation" />
+        <activity
+            android:name=".activities_fragments.client.activity_market_data.MarketDataActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation" />
+        <activity
+            android:name=".activities_fragments.client.activity_markets.MarketsActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation" />
         <activity
             android:name=".activities_fragments.driver.activity_profile.ProfileActivity"
             android:configChanges="keyboardHidden|screenSize|orientation" />
@@ -50,7 +63,7 @@
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name="com.hasry.activities_fragments.client.activity_home.HomeActivity"
+            android:name=".activities_fragments.client.activity_home.HomeActivity"
             android:configChanges="keyboardHidden|screenSize|orientation" />
         <activity
             android:name=".activities_fragments.driver.activity_home_driver.HomeDriverActivity"

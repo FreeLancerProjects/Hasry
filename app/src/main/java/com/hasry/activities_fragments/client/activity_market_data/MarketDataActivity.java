@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.hasry.R;
 import com.hasry.activities_fragments.client.activity_home.HomeActivity;
+import com.hasry.activities_fragments.client.activity_product_details.ProductDetailsActivity;
 import com.hasry.adapters.OfferAdapter;
 import com.hasry.databinding.ActivityAboutAppBinding;
 import com.hasry.databinding.ActivityMarketDataBinding;
@@ -573,4 +574,10 @@ public class MarketDataActivity extends AppCompatActivity implements Listeners.B
         finish();
     }
 
+    public void setItemData(OfferModel offerModel) {
+        Intent intent = new Intent(this, ProductDetailsActivity.class);
+        intent.putExtra("name",market.getName());
+        intent.putExtra("data",offerModel);
+        startActivity(intent);
+    }
 }

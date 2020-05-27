@@ -17,7 +17,9 @@
             name="lang"
             type="String" />
 
-
+        <variable
+            name="action"
+            type="com.hasry.interfaces.Listeners.HomeListener" />
 
 
     </data>
@@ -67,6 +69,7 @@
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:layout_gravity="center_vertical|end"
+                            android:onClick="@{()->action.notification()}"
 
                             >
 
@@ -110,6 +113,7 @@
                             android:layout_gravity="center_vertical|end"
                             android:layout_marginStart="8dp"
                             android:layout_marginEnd="8dp"
+                            android:onClick="@{()->action.cart()}"
 
                             >
 
@@ -127,7 +131,8 @@
                                 android:longClickable="false"
                                 android:padding="8dp"
                                 android:src="@drawable/ic_cart"
-                                android:tint="@color/white" />
+                                android:tint="@color/white"
+                                />
 
 
 
@@ -227,6 +232,8 @@
                             android:layout_marginStart="10dp"
                             android:layout_marginEnd="10dp"
                             android:layout_marginTop="10dp"
+                            android:onClick="@{()->action.main()}"
+
                             >
                             <ImageView
                                 android:layout_width="40dp"
@@ -253,6 +260,8 @@
                             android:gravity="center_vertical"
                             android:layout_marginStart="10dp"
                             android:layout_marginEnd="10dp"
+                            android:onClick="@{()->action.profile()}"
+
                             >
                             <ImageView
                                 android:layout_width="40dp"
@@ -279,6 +288,8 @@
                             android:gravity="center_vertical"
                             android:layout_marginStart="10dp"
                             android:layout_marginEnd="10dp"
+                            android:onClick="@{()->action.myOrder()}"
+
                             >
                             <ImageView
                                 android:layout_width="40dp"
@@ -305,6 +316,8 @@
                             android:gravity="center_vertical"
                             android:layout_marginStart="10dp"
                             android:layout_marginEnd="10dp"
+                            android:onClick="@{()->action.notification()}"
+
                             >
                             <ImageView
                                 android:layout_width="40dp"
@@ -331,6 +344,8 @@
                             android:gravity="center_vertical"
                             android:layout_marginStart="10dp"
                             android:layout_marginEnd="10dp"
+                            android:onClick="@{()->action.cart()}"
+
                             >
                             <ImageView
                                 android:layout_width="40dp"
@@ -357,6 +372,8 @@
                             android:gravity="center_vertical"
                             android:layout_marginStart="10dp"
                             android:layout_marginEnd="10dp"
+                            android:onClick="@{()->action.more()}"
+
                             >
                             <ImageView
                                 android:layout_width="40dp"

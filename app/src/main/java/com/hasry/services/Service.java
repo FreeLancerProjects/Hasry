@@ -5,8 +5,10 @@ import com.hasry.models.MainCategoryDataModel;
 import com.hasry.models.MarketDataModel;
 import com.hasry.models.MostSellerDataModel;
 import com.hasry.models.OfferDataModel;
+import com.hasry.models.OrderDataModel;
 import com.hasry.models.PlaceGeocodeData;
 import com.hasry.models.PlaceMapDetailsData;
+import com.hasry.models.SettingModel;
 import com.hasry.models.UserModel;
 
 import retrofit2.Call;
@@ -62,5 +64,17 @@ public interface Service {
                                             @Query("option") String option
 
     );
+
+
+    @GET("api/orders")
+    Call<OrderDataModel> getOrders(@Query("order_status") String order_status,
+                                   @Query("client_or_driver_id") int client_or_driver_id,
+                                   @Query("user_type") String user_type
+
+    );
+
+
+    @GET("api/show-setting")
+    Call<SettingModel> getSetting();
 
 }

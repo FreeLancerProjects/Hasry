@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.GravityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -22,18 +23,21 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import com.hasry.R;
 import com.hasry.activities_fragments.client.activity_login.LoginActivity;
 import com.hasry.activities_fragments.client.activity_markets.MarketsActivity;
+import com.hasry.activities_fragments.client.activity_more.MoreActivity;
 import com.hasry.activities_fragments.client.activity_notification.NotificationActivity;
+import com.hasry.activities_fragments.client.activity_order.OrderActivity;
 import com.hasry.activities_fragments.client.activity_search.SearchActivity;
 import com.hasry.adapters.MainCategoryAdapter;
 import com.hasry.databinding.ActivityHomeBinding;
+import com.hasry.interfaces.Listeners;
 import com.hasry.language.Language;
 import com.hasry.models.MainCategoryDataModel;
 import com.hasry.models.NotFireModel;
 import com.hasry.models.UserModel;
 import com.hasry.preferences.Preferences;
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
+
 import com.hasry.remote.Api;
+import com.hasry.share.Common;
 import com.hasry.tags.Tags;
 
 
@@ -50,7 +54,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements Listeners.HomeListener {
     private ActivityHomeBinding binding;
     private Preferences preferences;
     private FragmentManager fragmentManager;
@@ -83,7 +87,7 @@ public class HomeActivity extends AppCompatActivity {
         Paper.init(this);
         lang = Paper.book().read("lang", "ar");
         binding.setLang(lang);
-
+        binding.setAction(this);
         binding.progBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(this,R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
         toggle = new ActionBarDrawerToggle(this,binding.drawer,binding.toolbar,R.string.open,R.string.close);
         toggle.syncState();
@@ -450,6 +454,26 @@ public class HomeActivity extends AppCompatActivity {
             fragment.onActivityResult(requestCode, resultCode, data);
         }
 
+        if (requestCode==100&&resultCode==RESULT_OK&&data!=null){
+
+            int type = data.getIntExtra("type",1);
+
+            if (type==1){
+                logout();
+
+            }else if (type ==2){
+                new Handler()
+                        .postDelayed(() -> {
+
+                            Intent intent = getIntent();
+                            finish();
+                            startActivity(intent);
+                        }, 500);
+            }
+
+
+        }
+
 
 
 
@@ -470,5 +494,49 @@ public class HomeActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MarketsActivity.class);
         intent.putExtra("data",modle);
         startActivity(intent);
+    }
+
+    @Override
+    public void main() {
+        if (binding.drawer.isDrawerOpen(GravityCompat.START)){
+            binding.drawer.closeDrawer(GravityCompat.START);
+        }
+    }
+
+    @Override
+    public void profile() {
+
+    }
+
+    @Override
+    public void myOrder() {
+        if (userModel!=null){
+            Intent intent = new Intent(this, OrderActivity.class);
+            startActivity(intent);
+        }else {
+            Common.CreateDialogAlert(this,getString(R.string.please_sign_in_or_sign_up));
+        }
+
+    }
+
+    @Override
+    public void notification() {
+        if (userModel!=null){
+            Intent intent = new Intent(this, NotificationActivity.class);
+            startActivity(intent);
+        }else {
+            Common.CreateDialogAlert(this,getString(R.string.please_sign_in_or_sign_up));
+        }
+    }
+
+    @Override
+    public void cart() {
+
+    }
+
+    @Override
+    public void more() {
+        Intent intent = new Intent(this, MoreActivity.class);
+        startActivityForResult(intent,100);
     }
 }

@@ -20,40 +20,26 @@ public interface Listeners {
 
     interface SettingActions
     {
-        void order();
-        void charge();
-        void returns();
         void terms();
         void aboutApp();
         void logout();
-        void favorite();
-        void bankAccount();
         void share();
         void rateApp();
         void arLang();
         void enLang();
+
+    }
+
+    interface HomeListener{
+
+        void main();
         void profile();
-
+        void myOrder();
+        void notification();
+        void cart();
+        void more();
     }
 
-    interface PaymentTypeAction
-    {
-        void onCredit();
-        void onPaypal();
-        void onCash();
-        void onNext();
-        void onPrevious();
-    }
-
-    interface NextPreviousAction
-    {
-        void onNext();
-        void onPrevious();
-    }
-    interface UpdateProfileListener
-    {
-        void updateProfile();
-    }
 
 
 

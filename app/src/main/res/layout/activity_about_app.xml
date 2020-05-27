@@ -78,10 +78,7 @@
                         android:textSize="15sp" />
                 </LinearLayout>
             </androidx.appcompat.widget.Toolbar>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="@color/gray4"/>
+
             <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

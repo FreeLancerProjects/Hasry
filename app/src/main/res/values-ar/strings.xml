@@ -3,8 +3,8 @@
     <string name="app_name">حصري</string>
     <string name="map_api_key">AIzaSyC4l5QxL27z4w0uuD_5X3g0IRhaUdvb0Q4</string>
     <string name="map_key">AIzaSyC4l5QxL27z4w0uuD_5X3g0IRhaUdvb0Q4</string>
-    <string name="open">فتح</string>
-    <string name="close">غلق</string>
+    <string name="open">مفتوح</string>
+    <string name="close">مغلق</string>
     <string name="home">الرئيسية</string>
     <string name="notifications">إشعارات</string>
     <string name="more">المزيد</string>

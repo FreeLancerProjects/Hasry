@@ -17,6 +17,7 @@
             name="model"
             type="com.hasry.models.MarketDataModel.Data.Market" />
 
+        <import type="android.view.View"/>
 
     </data>
 
@@ -113,6 +114,7 @@
                        app:layout_constraintTop_toBottomOf="@id/image" />
 
                    <androidx.constraintlayout.widget.ConstraintLayout
+                       android:id="@+id/consStatus"
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:layout_marginStart="20dp"
@@ -125,13 +127,13 @@
 
                        <View
                            android:id="@+id/v1"
-                           android:layout_width="30dp"
-                           android:layout_height="30dp"
+                           android:layout_width="25dp"
+                           android:layout_height="25dp"
                            app:layout_constraintBottom_toBottomOf="parent"
                            app:layout_constraintStart_toStartOf="parent"
                            app:layout_constraintTop_toTopOf="parent"
                            android:background="@drawable/circle_yellow"
-                           android:visibility="invisible"
+                           android:visibility='@{model.is_login==null?View.INVISIBLE:(model.is_login.equals("0")?View.INVISIBLE:View.VISIBLE)}'
                            />
 
                        <Space
@@ -144,17 +146,28 @@
 
                        <View
                            android:id="@+id/v2"
-                           android:layout_width="30dp"
-                           android:layout_height="30dp"
+                           android:layout_width="25dp"
+                           android:layout_height="25dp"
                            app:layout_constraintBottom_toBottomOf="parent"
                            app:layout_constraintStart_toEndOf="@id/sp"
                            app:layout_constraintTop_toTopOf="parent"
                            android:background="@drawable/circle_gray"
-                           android:visibility="invisible"
+                           android:visibility='@{model.is_login==null?View.VISIBLE:(model.is_login.equals("0")?View.VISIBLE:View.INVISIBLE)}'
                            />
 
                    </androidx.constraintlayout.widget.ConstraintLayout>
-
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:textColor="@color/white"
+                       android:textSize="15sp"
+                       app:layout_constraintBottom_toBottomOf="parent"
+                       app:layout_constraintStart_toEndOf="@id/consStatus"
+                       android:layout_marginBottom="20dp"
+                       android:layout_marginStart="10dp"
+                       android:layout_marginEnd="10dp"
+                       android:text='@{model.is_login==null?@string/close:(model.is_login.equals("0")?@string/close:@string/open)}'
+                       />
                </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -246,7 +259,7 @@
                            android:layout_marginEnd="30dp"
                            android:textSize="14sp"
                            android:textColor="@color/colorPrimary"
-                           android:text="@string/city"
+                           android:text="@{model.city}"
                            android:clickable="false"
                            android:longClickable="false"
                            />

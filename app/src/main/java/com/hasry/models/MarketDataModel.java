@@ -22,6 +22,8 @@ public class MarketDataModel implements Serializable {
             private String name;
             private String email;
             private String logo;
+            private String is_login;
+            private String city;
 
             public int getId() {
                 return id;
@@ -37,6 +39,14 @@ public class MarketDataModel implements Serializable {
 
             public String getLogo() {
                 return logo;
+            }
+
+            public String getIs_login() {
+                return is_login;
+            }
+
+            public String getCity() {
+                return city;
             }
         }
 

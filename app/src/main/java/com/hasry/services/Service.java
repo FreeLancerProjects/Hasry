@@ -1,6 +1,7 @@
 package com.hasry.services;
 
 
+import com.hasry.models.CityDataModel;
 import com.hasry.models.MainCategoryDataModel;
 import com.hasry.models.MarketDataModel;
 import com.hasry.models.MostSellerDataModel;
@@ -76,5 +77,8 @@ public interface Service {
 
     @GET("api/show-setting")
     Call<SettingModel> getSetting();
+
+    @GET("api/cities")
+    Call<CityDataModel> getCity();
 
 }

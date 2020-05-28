@@ -21,6 +21,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.hasry.R;
+import com.hasry.activities_fragments.client.activity_client_profile.ClientProfileActivity;
 import com.hasry.activities_fragments.client.activity_login.LoginActivity;
 import com.hasry.activities_fragments.client.activity_markets.MarketsActivity;
 import com.hasry.activities_fragments.client.activity_more.MoreActivity;
@@ -505,6 +506,15 @@ public class HomeActivity extends AppCompatActivity implements Listeners.HomeLis
 
     @Override
     public void profile() {
+        if (userModel!=null){
+
+            Intent intent = new Intent(this, ClientProfileActivity.class);
+            startActivity(intent);
+
+        }else {
+            Common.CreateDialogAlert(this,getString(R.string.please_sign_in_or_sign_up));
+        }
+
 
     }
 

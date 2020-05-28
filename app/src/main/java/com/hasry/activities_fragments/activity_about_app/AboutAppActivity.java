@@ -97,7 +97,7 @@ public class AboutAppActivity extends AppCompatActivity implements Listeners.Bac
                                 binding.setContent(response.body().getData().getTerm_conditions());
                             }else
                             {
-                                //binding.setContent(response.body().getCompany_about());
+                                binding.setContent(response.body().getData().getAbout_app());
 
                             }
 

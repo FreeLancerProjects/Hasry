@@ -17,6 +17,7 @@ public class SignUpModel extends BaseObservable {
     private String phone_code;
     private String phone;
     private String email;
+    private String city;
     private String image_url;
     private boolean isTermsAccepted;
     public ObservableField<String> error_name = new ObservableField<>();
@@ -28,6 +29,7 @@ public class SignUpModel extends BaseObservable {
     {
         if (!name.trim().isEmpty()&&
                 !email.trim().isEmpty()&&
+                !city.trim().isEmpty()&&
                 Patterns.EMAIL_ADDRESS.matcher(email.trim()).matches()&&
                 isTermsAccepted
         ){
@@ -61,6 +63,11 @@ public class SignUpModel extends BaseObservable {
 
                 }
 
+                if (city.trim().isEmpty())
+                {
+                    Toast.makeText(context, R.string.ch_city, Toast.LENGTH_SHORT).show();
+
+                }
 
                 if (!isTermsAccepted)
                 {
@@ -72,6 +79,8 @@ public class SignUpModel extends BaseObservable {
     public SignUpModel() {
         setName("");
         setEmail("");
+        setCity("");
+
         isTermsAccepted = false;
     }
 
@@ -123,6 +132,13 @@ public class SignUpModel extends BaseObservable {
     }
 
 
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
 
     public boolean isTermsAccepted() {
         return isTermsAccepted;

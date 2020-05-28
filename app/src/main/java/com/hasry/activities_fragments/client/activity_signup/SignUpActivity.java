@@ -2,6 +2,7 @@ package com.hasry.activities_fragments.client.activity_signup;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -10,7 +11,9 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,19 +25,30 @@ import androidx.databinding.DataBindingUtil;
 import com.hasry.R;
 import com.hasry.activities_fragments.activity_about_app.AboutAppActivity;
 import com.hasry.activities_fragments.client.activity_home.HomeActivity;
+import com.hasry.adapters.CityAdapter;
 import com.hasry.databinding.ActivitySignUpBinding;
 import com.hasry.interfaces.Listeners;
 import com.hasry.language.Language;
+import com.hasry.models.CityDataModel;
+import com.hasry.models.SettingModel;
 import com.hasry.models.SignUpModel;
 import com.hasry.preferences.Preferences;
+import com.hasry.remote.Api;
 import com.hasry.share.Common;
 
+import com.hasry.tags.Tags;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import io.paperdb.Paper;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SignUpActivity extends AppCompatActivity implements Listeners.SignUpListener {
     private ActivitySignUpBinding binding;
@@ -47,6 +61,8 @@ public class SignUpActivity extends AppCompatActivity implements Listeners.SignU
     private Preferences preferences;
     private String phone;
     private String phone_code;
+    private List<String> cityList;
+    private CityAdapter cityAdapter;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -64,12 +80,17 @@ public class SignUpActivity extends AppCompatActivity implements Listeners.SignU
     }
 
     private void initView() {
+        cityList = new ArrayList<>();
+        cityList.add(getString(R.string.choose));
         preferences = Preferences.getInstance();
         signUpModel = new SignUpModel();
         binding.setListener(this);
         signUpModel.setPhone_code(phone_code);
         signUpModel.setPhone(phone);
         binding.setModel(signUpModel);
+
+        cityAdapter = new CityAdapter(cityList,this);
+        binding.spinnerCity.setAdapter(cityAdapter);
 
         binding.checkbox.setOnClickListener(v -> {
             if (binding.checkbox.isChecked())
@@ -83,6 +104,82 @@ public class SignUpActivity extends AppCompatActivity implements Listeners.SignU
             binding.setModel(signUpModel);
 
         });
+
+        binding.spinnerCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position==0){
+                    signUpModel.setCity("");
+                }else {
+                    signUpModel.setCity(cityList.get(position));
+
+                }
+
+                binding.setModel(signUpModel);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+        getCities();
+    }
+
+    private void getCities() {
+        ProgressDialog dialog = Common.createProgressDialog(this,getString(R.string.wait));
+        dialog.show();
+
+        Api.getService(Tags.base_url)
+                .getCity()
+                .enqueue(new Callback<CityDataModel>() {
+                    @Override
+                    public void onResponse(Call<CityDataModel> call, Response<CityDataModel> response) {
+                        dialog.dismiss();
+                        if (response.isSuccessful() && response.body() != null) {
+
+                            cityList.clear();
+                            cityList.add(getString(R.string.choose));
+                            cityList.addAll(response.body().getData().getCities());
+                            runOnUiThread(() -> cityAdapter.notifyDataSetChanged());
+
+                        } else {
+                            try {
+
+                                Log.e("error", response.code() + "_" + response.errorBody().string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            if (response.code() == 500) {
+                                Toast.makeText(SignUpActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
+
+                            } else {
+                                Toast.makeText(SignUpActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
+
+
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<CityDataModel> call, Throwable t) {
+                        try {
+                            dialog.dismiss();
+                            if (t.getMessage() != null) {
+                                Log.e("error", t.getMessage());
+                                if (t.getMessage().toLowerCase().contains("failed to connect") || t.getMessage().toLowerCase().contains("unable to resolve host")) {
+                                    Toast.makeText(SignUpActivity.this, R.string.something, Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(SignUpActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                        } catch (Exception e) {
+                        }
+                    }
+                });
     }
 
     private void navigateToAboutAppActivity() {

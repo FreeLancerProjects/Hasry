@@ -194,6 +194,7 @@ public class VerificationCodeActivity extends AppCompatActivity {
 
     private void login() {
 
+
         ProgressDialog dialog = Common.createProgressDialog(this,getString(R.string.wait));
         dialog.setCancelable(false);
         dialog.show();
@@ -210,15 +211,16 @@ public class VerificationCodeActivity extends AppCompatActivity {
                         }else
                         {
 
-
+                            Log.e("code",response.code()+"__");
                             if (response.code()==500)
                             {
                                 Toast.makeText(VerificationCodeActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
-                            }else if (response.code()==404)
+                            }else if (response.code()==401)
                             {
                                 navigateToSignUpActivity();
                             }else
                             {
+
                                 Toast.makeText(VerificationCodeActivity.this,getString(R.string.failed), Toast.LENGTH_SHORT).show();
                             }
                         }

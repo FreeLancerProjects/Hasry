@@ -12,6 +12,7 @@ public class SettingModel implements Serializable {
 
     public static class Data implements Serializable{
         private String term_conditions;
+        private String about_app;
         private String whatsapp;
         private String instagram;
         private String facebook;
@@ -21,6 +22,11 @@ public class SettingModel implements Serializable {
         public String getTerm_conditions() {
             return term_conditions;
         }
+
+        public String getAbout_app() {
+            return about_app;
+        }
+
 
         public String getWhatsapp() {
             return whatsapp;

@@ -169,5 +169,6 @@
     <string name="description">الوصف</string>
     <string name="details">المواصفات</string>
     <string name="status">حالة الطلب</string>
+    <string name="ch_city">إختر المدينة</string>
 
 </resources>

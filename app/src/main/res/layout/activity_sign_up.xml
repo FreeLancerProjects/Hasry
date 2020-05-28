@@ -193,17 +193,7 @@
                             android:src="@drawable/ic_call"
                             android:tint="@color/colorPrimary"
                             />
-                        <TextView
-                            android:id="@+id/tvPhoneCode"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/black"
-                            android:textSize="15sp"
-                            android:text="@{model.phone_code}"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginEnd="10dp"
 
-                            />
                         <TextView
                             android:id="@+id/tvPhone"
                             android:layout_width="wrap_content"
@@ -211,7 +201,9 @@
                             android:textColor="@color/black"
                             android:textSize="15sp"
                             android:singleLine="true"
-                            android:text="@{model.phone}"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:text='@{model.phone_code+model.phone}'
 
                             />
                     </LinearLayout>

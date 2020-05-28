@@ -24,12 +24,17 @@ import com.hasry.databinding.ActivityMarketDataBinding;
 import com.hasry.databinding.ActivityMarketsBinding;
 import com.hasry.interfaces.Listeners;
 import com.hasry.language.Language;
+import com.hasry.models.CreateOrderModel;
+import com.hasry.models.ItemCartModel;
 import com.hasry.models.MainCategoryDataModel;
 import com.hasry.models.MarketDataModel;
 import com.hasry.models.MostSellerDataModel;
 import com.hasry.models.OfferDataModel;
 import com.hasry.models.OfferModel;
+import com.hasry.models.UserModel;
+import com.hasry.preferences.Preferences;
 import com.hasry.remote.Api;
+import com.hasry.share.Common;
 import com.hasry.tags.Tags;
 
 import java.io.IOException;
@@ -50,12 +55,14 @@ public class MarketDataActivity extends AppCompatActivity implements Listeners.B
     private OfferAdapter offerAdapter, mostSellerAdapter,mostUsedAdapter;
     private int offer_current_page = 1;
     private boolean offer_is_loading = false;
-
     private int most_seller_current_page = 1;
     private boolean most_seller_is_loading = false;
-
     private int most_used_current_page = 1;
     private boolean most_used_is_loading = false;
+    private CreateOrderModel createOrderModel;
+    private Preferences preferences;
+    private UserModel userModel;
+
 
 
     @Override
@@ -82,6 +89,15 @@ public class MarketDataActivity extends AppCompatActivity implements Listeners.B
 
 
     private void initView() {
+        preferences = Preferences.getInstance();
+        userModel = preferences.getUserData(this);
+        createOrderModel = preferences.getCartData(this);
+        if (createOrderModel==null){
+            createOrderModel = new CreateOrderModel();
+            createOrderModel.setMarkter_id(market.getId());
+        }
+
+
         offerList = new ArrayList<>();
         mostUsedList = new ArrayList<>();
         mostSellerList = new ArrayList<>();
@@ -579,5 +595,44 @@ public class MarketDataActivity extends AppCompatActivity implements Listeners.B
         intent.putExtra("name",market.getName());
         intent.putExtra("data",offerModel);
         startActivity(intent);
+    }
+
+    public void addToCart(OfferModel offerModel) {
+        if (market.getId()==createOrderModel.getMarkter_id())
+        {
+            ItemCartModel model = new ItemCartModel(offerModel.getId(),offerModel.getId(),offerModel.getImage(),offerModel.getTitle(),1);
+            model.setPrice_before_discount(Double.parseDouble(offerModel.getPrice()));
+
+            if (offerModel.getOffer()==null){
+                model.setPrice(Double.parseDouble(offerModel.getPrice()));
+                model.setOffer_id(0);
+            }else {
+
+                if (offerModel.getOffer().getOffer_status().trim().equals("open"))
+                {
+                    if (offerModel.getOffer().getOffer_type().trim().equals("per")){
+                        double price_before_discount = Double.parseDouble(offerModel.getPrice());
+                        double price_after_discount = price_before_discount-(price_before_discount*(offerModel.getOffer().getOffer_value()/100));
+                        model.setPrice(price_after_discount);
+                        model.setOffer_id(offerModel.getOffer().getId());
+                    }else {
+                        double price_before_discount = Double.parseDouble(offerModel.getPrice());
+                        double price_after_discount = price_before_discount-offerModel.getOffer().getOffer_value();
+                        model.setPrice(price_after_discount);
+                        model.setOffer_id(offerModel.getOffer().getId());
+                    }
+                }else {
+                    model.setPrice(Double.parseDouble(offerModel.getPrice()));
+                    model.setOffer_id(0);
+                }
+            }
+
+
+            createOrderModel.addNewProduct(model);
+            preferences.create_update_cart(this,createOrderModel);
+            Toast.makeText(this, getString(R.string.added_suc), Toast.LENGTH_SHORT).show();
+        }else {
+            Common.CreateDialogAlert(this,getString(R.string.diff_market));
+        }
     }
 }

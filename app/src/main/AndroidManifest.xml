@@ -22,12 +22,13 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="m">
-        <activity android:name=".activities_fragments.client.activity_more.MoreActivity"
-            android:configChanges="keyboardHidden|screenSize|orientation"
-            />
-        <activity android:name=".activities_fragments.client.activity_client_profile.ClientProfileActivity"
-            android:configChanges="keyboardHidden|screenSize|orientation"
-            />
+        <activity android:name=".activities_fragments.client.activity_cart.CartActivity"></activity>
+        <activity
+            android:name=".activities_fragments.client.activity_more.MoreActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation" />
+        <activity
+            android:name=".activities_fragments.client.activity_client_profile.ClientProfileActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation" />
         <activity
             android:name=".activities_fragments.client.activity_order.OrderActivity"
             android:configChanges="keyboardHidden|screenSize|orientation" />

@@ -68,6 +68,11 @@ public class OfferAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             myHolder.itemView.setOnClickListener(v -> {
                 activity.setItemData(list.get(myHolder.getAdapterPosition()));
             });
+
+            myHolder.binding.imageAddToCart.setOnClickListener(v -> {
+                activity.addToCart(list.get(myHolder.getAdapterPosition()));
+            });
+
         }else {
             LoadMoreHolder loadMoreHolder = (LoadMoreHolder) holder;
             loadMoreHolder.binding.progBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(context,R.color.colorPrimary), PorterDuff.Mode.SRC_IN);

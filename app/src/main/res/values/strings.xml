@@ -141,7 +141,7 @@
     <string name="cannot_signup">Cannot sign up without accepting terms and conditions</string>
     <string name="favorite_offers">Favorite Offers</string>
     <string name="show_all">Show All</string>
-    <string name="mobile_accessories">Mobile ِِِAccessories</string>
+    <string name="mobile_accessories">Mobil Accessories</string>
     <string name="return1">Return</string>
     <string name="charge">Charge</string>
     <string name="bank_accounts">Bank Accounts</string>
@@ -164,4 +164,6 @@
     <string name="details">Details</string>
     <string name="status">Status</string>
     <string name="ch_city">Choose city</string>
+    <string name="diff_market">you are trying to buy from different market</string>
+    <string name="discount">Discount</string>
 </resources>

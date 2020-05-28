@@ -6,13 +6,14 @@
         <variable
             name="model"
             type="com.hasry.models.OfferModel" />
+        <import type="android.view.View"/>
     </data>
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         app:cardCornerRadius="20dp"
-        app:contentPadding="8dp"
+        app:contentPadding="5dp"
         app:cardElevation="3dp"
         android:layout_margin="3dp"
 
@@ -62,12 +63,12 @@
                     android:layout_marginBottom="10dp"
                     >
                     <ImageView
+                        android:id="@+id/imageAddToCart"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:src="@drawable/ic_plus"
                         android:tint="@color/gray3"
-                        android:clickable="false"
-                        android:longClickable="false"
+
                         />
                     <TextView
                         android:layout_width="wrap_content"
@@ -82,6 +83,36 @@
                         android:longClickable="false"
                         />
                 </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:background="@drawable/offer_bg"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
+                android:visibility='@{model.offer==null?View.GONE:(model.offer.offer_status.equals("open")?View.VISIBLE:View.GONE),default=gone}'
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="9sp"
+                    android:textColor="@color/white"
+                    android:text="@string/discount"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="9sp"
+                    android:textColor="@color/white"
+                    android:text='@{model.offer.offer_type.equals("per")?model.offer.offer_value+"%":model.offer.offer_value+@string/sar}'
+                    />
 
             </LinearLayout>
 

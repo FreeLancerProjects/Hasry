@@ -3,6 +3,7 @@ package com.hasry.preferences;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.hasry.models.CreateOrderModel;
 import com.hasry.models.UserModel;
 import com.hasry.tags.Tags;
 import com.google.gson.Gson;
@@ -85,6 +86,34 @@ public class Preferences {
         editor.apply();
         create_update_session(context, Tags.session_login);
     }
+
+
+    public void create_update_cart(Context context , CreateOrderModel model)
+    {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("cart", Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String cart_data = gson.toJson(model);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("cart_data", cart_data);
+        editor.apply();
+
+    }
+
+    public CreateOrderModel getCartData(Context context){
+        SharedPreferences sharedPreferences = context.getSharedPreferences("cart", Context.MODE_PRIVATE);
+        String json_data = sharedPreferences.getString("cart_data","");
+        Gson gson = new Gson();
+        CreateOrderModel model = gson.fromJson(json_data,CreateOrderModel.class);
+        return model;
+    }
+
+    public void clearCart(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences("cart", Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit = preferences.edit();
+        edit.clear();
+        edit.apply();
+    }
+
 
 
 }

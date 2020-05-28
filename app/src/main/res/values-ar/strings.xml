@@ -170,5 +170,7 @@
     <string name="details">المواصفات</string>
     <string name="status">حالة الطلب</string>
     <string name="ch_city">إختر المدينة</string>
+    <string name="diff_market">انت تحاول الشراء من متاجر مختلفة</string>
+    <string name="discount">خصم</string>
 
 </resources>

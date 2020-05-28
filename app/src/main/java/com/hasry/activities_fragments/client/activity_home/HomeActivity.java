@@ -21,6 +21,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.hasry.R;
+import com.hasry.activities_fragments.client.activity_cart.CartActivity;
 import com.hasry.activities_fragments.client.activity_client_profile.ClientProfileActivity;
 import com.hasry.activities_fragments.client.activity_login.LoginActivity;
 import com.hasry.activities_fragments.client.activity_markets.MarketsActivity;
@@ -541,7 +542,8 @@ public class HomeActivity extends AppCompatActivity implements Listeners.HomeLis
 
     @Override
     public void cart() {
-
+        Intent intent = new Intent(this, CartActivity.class);
+        startActivity(intent);
     }
 
     @Override

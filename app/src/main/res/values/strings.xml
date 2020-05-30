@@ -171,4 +171,7 @@
     <string name="ch_city">Choose city</string>
     <string name="diff_market">you are trying to buy from different market</string>
     <string name="discount">Discount</string>
+    <string name="ch_img_car_form">Choose Image Car Form</string>
+    <string name="car_form">Car Form</string>
+    <string name="ch_neigborhood">Choose NeigborHood</string>
 </resources>

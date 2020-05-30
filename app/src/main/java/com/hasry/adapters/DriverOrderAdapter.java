@@ -1,7 +1,6 @@
 package com.hasry.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -20,12 +19,11 @@ import com.hasry.databinding.LoadMoreBinding;
 import com.hasry.databinding.OrderRowBinding;
 import com.hasry.models.OrderModel;
 
-
 import java.util.List;
 
 import io.paperdb.Paper;
 
-public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class DriverOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final int DATA = 1;
     private final int LOAD = 2;
 
@@ -33,7 +31,7 @@ public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private List<OrderModel>  list;
     private Fragment fragment;
     private String lang;
-    public OrderAdapter(Context context, List<OrderModel>  list, Fragment fragment) {
+    public DriverOrderAdapter(Context context, List<OrderModel>  list, Fragment fragment) {
         this.context = context;
         this.list = list;
         this.fragment = fragment;
@@ -47,7 +45,7 @@ public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         if (viewType==DATA) {
-            ClientOrderRowBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.client_order_row, parent, false);
+            OrderRowBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.order_row, parent, false);
             return new Holder1(binding);
 
 
@@ -100,9 +98,9 @@ public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     public class Holder1 extends RecyclerView.ViewHolder {
-        private ClientOrderRowBinding binding;
+        private OrderRowBinding binding;
 
-        public Holder1(@NonNull ClientOrderRowBinding binding) {
+        public Holder1(@NonNull OrderRowBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }

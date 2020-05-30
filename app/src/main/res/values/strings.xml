@@ -159,6 +159,11 @@
     <string name="you">You</string>
     <string name="market">Market</string>
     <string name="total_cost">Total Cost</string>
+    <string name="identity_card_image">Identity card image</string>
+    <string name="license_image">License image</string>
+    <string name="choose_identity_card_image">Choose identity card image</string>
+    <string name="choose_license_image">Choose license image</string>
+    <string name="select_image_to_upload">Select Image to Upload</string>
     <string name="seller">Seller</string>
     <string name="description">Description</string>
     <string name="details">Details</string>

@@ -13,6 +13,9 @@
             name="lang"
             type="String" />
 
+        <variable
+            name="model"
+            type="com.hasry.models.OrderModel" />
 
     </data>
 
@@ -135,11 +138,12 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal">
+
                                 <TextView
                                     android:layout_width="0dp"
-                                    android:layout_weight=".7"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="5dp"
+                                    android:layout_weight=".7"
                                     android:gravity="center"
                                     android:text="@string/name"
                                     android:textColor="@color/colorPrimary"
@@ -147,28 +151,31 @@
 
 
                                     />
+
                                 <TextView
                                     android:layout_width="0dp"
-                                    android:layout_weight="1.3"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="5dp"
+                                    android:layout_weight="1.3"
                                     android:gravity="center"
+                                    android:text="@{model.client.name}"
                                     android:textColor="@color/gray6"
                                     android:textSize="14sp"
-
 
                                     />
 
                             </LinearLayout>
+
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal">
+
                                 <TextView
                                     android:layout_width="0dp"
-                                    android:layout_weight=".7"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="5dp"
+                                    android:layout_weight=".7"
                                     android:gravity="center"
                                     android:text="@string/order_num"
                                     android:textColor="@color/colorPrimary"
@@ -176,45 +183,51 @@
 
 
                                     />
+
                                 <TextView
                                     android:layout_width="0dp"
-                                    android:layout_weight="1.3"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="5dp"
+                                    android:layout_weight="1.3"
                                     android:gravity="center"
+                                    android:text='@{model.id+""}'
                                     android:textColor="@color/gray6"
                                     android:textSize="14sp"
-
 
                                     />
 
                             </LinearLayout>
+
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal">
+
                                 <Button
+                                    android:id="@+id/bt_call"
                                     android:layout_width="0dp"
-                                    android:layout_weight="1"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="5dp"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/rounded_primary_btn"
                                     android:gravity="center"
                                     android:text="@string/call"
-                                    android:textSize="14sp"
                                     android:textColor="@color/white"
-                                    android:background="@drawable/rounded_primary_btn"
+                                    android:textSize="14sp"
 
                                     />
+
                                 <Button
+                                    android:id="@+id/bt_locationclient"
                                     android:layout_width="0dp"
-                                    android:layout_weight="1"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="5dp"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/rounded_accent_btn"
                                     android:gravity="center"
                                     android:text="@string/location"
-                                    android:textSize="14sp"
                                     android:textColor="@color/white"
-                                    android:background="@drawable/rounded_accent_btn"
+                                    android:textSize="14sp"
 
 
                                     />
@@ -246,36 +259,35 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
+
                         <FrameLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
                             android:layout_marginTop="5dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
 
                             >
+
                             <androidx.recyclerview.widget.RecyclerView
                                 android:id="@+id/recView"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                />
+                                android:layout_height="match_parent" />
+
                             <ProgressBar
                                 android:id="@+id/progBar"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                />
+                                android:layout_gravity="center" />
 
                             <TextView
                                 android:id="@+id/tvNoData"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
+                                android:text="@string/no_data_to_show"
                                 android:textColor="@color/black"
                                 android:textSize="17sp"
-                                android:text="@string/no_data_to_show"
-                                android:visibility="gone"
-                                />
-
+                                android:visibility="gone" />
 
 
                         </FrameLayout>
@@ -316,11 +328,12 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal">
+
                                 <TextView
                                     android:layout_width="0dp"
-                                    android:layout_weight=".7"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="5dp"
+                                    android:layout_weight=".7"
                                     android:gravity="center"
                                     android:text="@string/name"
                                     android:textColor="@color/colorPrimary"
@@ -328,28 +341,31 @@
 
 
                                     />
+
                                 <TextView
                                     android:layout_width="0dp"
-                                    android:layout_weight="1.3"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="5dp"
+                                    android:layout_weight="1.3"
                                     android:gravity="center"
                                     android:textColor="@color/gray6"
                                     android:textSize="14sp"
-
+android:text="@{model.markter.name}"
 
                                     />
 
                             </LinearLayout>
+
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal">
+
                                 <TextView
                                     android:layout_width="0dp"
-                                    android:layout_weight=".7"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="5dp"
+                                    android:layout_weight=".7"
                                     android:gravity="center"
                                     android:text="@string/order_num"
                                     android:textColor="@color/colorPrimary"
@@ -357,14 +373,16 @@
 
 
                                     />
+
                                 <TextView
                                     android:layout_width="0dp"
-                                    android:layout_weight="1.3"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="5dp"
+                                    android:layout_weight="1.3"
                                     android:gravity="center"
                                     android:textColor="@color/gray6"
                                     android:textSize="14sp"
+                                    android:text='@{model.id+""}'
 
 
                                     />
@@ -375,11 +393,12 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal">
+
                                 <TextView
                                     android:layout_width="0dp"
-                                    android:layout_weight=".7"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="5dp"
+                                    android:layout_weight=".7"
                                     android:gravity="center"
                                     android:text="@string/total"
                                     android:textColor="@color/colorPrimary"
@@ -387,14 +406,16 @@
 
 
                                     />
+
                                 <TextView
                                     android:layout_width="0dp"
-                                    android:layout_weight="1.3"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="5dp"
+                                    android:layout_weight="1.3"
                                     android:gravity="center"
                                     android:textColor="@color/gray6"
                                     android:textSize="14sp"
+                                    android:text='@{model.total_price+""}'
 
 
                                     />
@@ -402,19 +423,19 @@
                             </LinearLayout>
 
 
+                            <Button
+                                android:id="@+id/bt_locationmarket"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="5dp"
+                                android:background="@drawable/rounded_accent_btn"
+                                android:gravity="center"
+                                android:text="@string/location"
+                                android:textColor="@color/white"
+                                android:textSize="14sp"
 
-                                <Button
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_margin="5dp"
-                                    android:gravity="center"
-                                    android:text="@string/location"
-                                    android:textSize="14sp"
-                                    android:textColor="@color/white"
-                                    android:background="@drawable/rounded_accent_btn"
 
-
-                                    />
+                                />
 
 
                         </LinearLayout>

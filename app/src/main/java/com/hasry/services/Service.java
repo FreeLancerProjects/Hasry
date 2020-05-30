@@ -5,18 +5,24 @@ import com.hasry.models.CityDataModel;
 import com.hasry.models.MainCategoryDataModel;
 import com.hasry.models.MarketDataModel;
 import com.hasry.models.MostSellerDataModel;
+import com.hasry.models.NeighborHoodModel;
 import com.hasry.models.OfferDataModel;
 import com.hasry.models.OrderDataModel;
+import com.hasry.models.OrderModel;
 import com.hasry.models.PlaceGeocodeData;
 import com.hasry.models.PlaceMapDetailsData;
 import com.hasry.models.SettingModel;
 import com.hasry.models.UserModel;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 public interface Service {
@@ -44,6 +50,37 @@ public interface Service {
     );
 
 
+    @Multipart
+    @POST("/api/register")
+    Call<UserModel> registerDelegatewithimage(@Part("name") RequestBody name,
+                                              @Part("email") RequestBody email,
+                                              @Part("phone_code") RequestBody phone_code,
+                                              @Part("phone") RequestBody phone,
+                                              @Part("city") RequestBody city,
+                                              @Part("district") RequestBody district,
+                                              @Part("user_type") RequestBody user_type,
+                                              @Part("software_type") RequestBody software_type,
+                                              @Part MultipartBody.Part logo,
+                                              @Part MultipartBody.Part car_image,
+                                              @Part MultipartBody.Part car_documentation_image,
+                                              @Part MultipartBody.Part drive_documentation_image
+
+    );
+    @Multipart
+    @POST("/api/register")
+    Call<UserModel> registerDelegatewithoutimage(@Part("name") RequestBody name,
+                                              @Part("email") RequestBody email,
+                                              @Part("phone_code") RequestBody phone_code,
+                                              @Part("phone") RequestBody phone,
+                                              @Part("city") RequestBody city,
+                                              @Part("district") RequestBody district,
+                                              @Part("user_type") RequestBody user_type,
+                                              @Part("software_type") RequestBody software_type,
+                                              @Part MultipartBody.Part car_image,
+                                              @Part MultipartBody.Part car_documentation_image,
+                                              @Part MultipartBody.Part drive_documentation_image
+
+    );
     @GET("api/main-category")
     Call<MainCategoryDataModel> getMainCategory();
 
@@ -73,12 +110,19 @@ public interface Service {
                                    @Query("user_type") String user_type
 
     );
+    @GET("api/order-details")
+    Call<OrderModel> getOrderDetials(@Query("order_id") String order_id
 
+
+    );
 
     @GET("api/show-setting")
     Call<SettingModel> getSetting();
 
     @GET("api/cities")
     Call<CityDataModel> getCity();
+
+    @GET("api/neighborhoods")
+    Call<NeighborHoodModel> getNeigborhood();
 
 }

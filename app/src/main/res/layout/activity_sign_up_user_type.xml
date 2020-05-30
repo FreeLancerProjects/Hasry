@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    >
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities_fragments.sign_up_user_type.SignUpUserTypeActivity"
@@ -9,6 +12,7 @@
     >
 
     <RadioGroup
+        android:id="@+id/radio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -44,5 +48,19 @@
             android:layout_marginTop="40dp"
             />
     </RadioGroup>
-
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="49dp"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/ic_next_arrow"
+        android:tint="@color/white"
+        app:borderWidth="1dp"
+        app:elevation="0dp"
+        app:fabCustomSize="50dp"
+        app:pressedTranslationZ="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radio"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

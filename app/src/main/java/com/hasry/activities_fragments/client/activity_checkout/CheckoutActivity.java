@@ -207,6 +207,12 @@ public class CheckoutActivity extends AppCompatActivity implements Listeners.Bac
 
                             } else {
                                 dialog.dismiss();
+                                try {
+                                    Log.e("error_code",response.errorBody().string());
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+
                                 if (response.code() == 500) {
                                     Toast.makeText(CheckoutActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
 

@@ -36,6 +36,7 @@ import com.hasry.adapters.MainCategoryAdapter;
 import com.hasry.databinding.ActivityHomeBinding;
 import com.hasry.interfaces.Listeners;
 import com.hasry.language.Language;
+import com.hasry.models.CreateOrderModel;
 import com.hasry.models.MainCategoryDataModel;
 import com.hasry.models.NotFireModel;
 import com.hasry.models.UserModel;
@@ -69,6 +70,8 @@ public class HomeActivity extends AppCompatActivity implements Listeners.HomeLis
     private ActionBarDrawerToggle toggle;
     private MainCategoryAdapter adapter;
     private List<MainCategoryDataModel.Data.MainDepartments> mainDepartmentsList;
+    private CreateOrderModel createOrderModel;
+
 
     protected void attachBaseContext(Context newBase) {
         Paper.init(newBase);
@@ -90,6 +93,7 @@ public class HomeActivity extends AppCompatActivity implements Listeners.HomeLis
         fragmentManager = getSupportFragmentManager();
         preferences = Preferences.getInstance();
         userModel = preferences.getUserData(this);
+
         Paper.init(this);
         lang = Paper.book().read("lang", "ar");
         binding.setLang(lang);
@@ -127,6 +131,17 @@ public class HomeActivity extends AppCompatActivity implements Listeners.HomeLis
 
         getMainCategory();
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        createOrderModel = preferences.getCartData(this);
+        if (createOrderModel==null){
+            binding.setCartCount(0);
+        }else {
+            binding.setCartCount(createOrderModel.getProducts().size());
+        }
     }
 
     private void getMainCategory() {
@@ -554,4 +569,5 @@ public class HomeActivity extends AppCompatActivity implements Listeners.HomeLis
         Intent intent = new Intent(this, MoreActivity.class);
         startActivityForResult(intent,100);
     }
+
 }

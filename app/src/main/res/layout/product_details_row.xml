@@ -91,7 +91,7 @@
                         android:textSize="12sp"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/tvAmount"
                         android:text="@string/amount"
                         />
 
@@ -103,8 +103,8 @@
                         android:textSize="12sp"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/tv"
-                        android:text='@{":"+String.valueOf(model.amount)}'
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:text='@{": "+String.valueOf(model.amount)}'
                         android:layout_marginStart="5dp"
                         android:layout_marginEnd="5dp"
                         />

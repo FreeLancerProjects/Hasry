@@ -40,8 +40,13 @@ public class SplashActivity extends AppCompatActivity {
 
             String session = preferences.getSession(SplashActivity.this);
             if (session.equals(Tags.session_login)) {
+                if(preferences.getUserData(this).getData().getUser_type().equals("client")){
                 Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
-                startActivity(intent);
+                startActivity(intent);}
+                else {
+                    Intent intent = new Intent(SplashActivity.this, HomeDriverActivity.class);
+                    startActivity(intent);
+                }
                 finish();
             } else {
                 Intent intent = new Intent(SplashActivity.this, LoginActivity.class);

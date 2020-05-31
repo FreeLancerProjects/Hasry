@@ -97,21 +97,23 @@ public interface Service {
                                               @Part MultipartBody.Part drive_documentation_image
 
     );
+
     @Multipart
     @POST("/api/register")
     Call<UserModel> registerDelegatewithoutimage(@Part("name") RequestBody name,
-                                              @Part("email") RequestBody email,
-                                              @Part("phone_code") RequestBody phone_code,
-                                              @Part("phone") RequestBody phone,
-                                              @Part("city") RequestBody city,
-                                              @Part("district") RequestBody district,
-                                              @Part("user_type") RequestBody user_type,
-                                              @Part("software_type") RequestBody software_type,
-                                              @Part MultipartBody.Part car_image,
-                                              @Part MultipartBody.Part car_documentation_image,
-                                              @Part MultipartBody.Part drive_documentation_image
+                                                 @Part("email") RequestBody email,
+                                                 @Part("phone_code") RequestBody phone_code,
+                                                 @Part("phone") RequestBody phone,
+                                                 @Part("city") RequestBody city,
+                                                 @Part("district") RequestBody district,
+                                                 @Part("user_type") RequestBody user_type,
+                                                 @Part("software_type") RequestBody software_type,
+                                                 @Part MultipartBody.Part car_image,
+                                                 @Part MultipartBody.Part car_documentation_image,
+                                                 @Part MultipartBody.Part drive_documentation_image
 
     );
+
     @GET("api/main-category")
     Call<MainCategoryDataModel> getMainCategory();
 
@@ -142,6 +144,18 @@ public interface Service {
                                    @Query("user_type") String user_type
 
     );
+
+    @GET("api/orders")
+    Call<OrderDataModel> getDriverOrders(@Header("Authorization") String user_token,
+                                         @Query("order_status") String order_status,
+                                         @Query("client_or_driver_id") int client_or_driver_id,
+                                         @Query("user_type") String user_type,
+                                         @Query("page") int page,
+                                         @Query("latituide") String latituide,
+                                         @Query("longituide") String longituide
+
+    );
+
     @GET("api/order-details")
     Call<OrderModel> getOrderDetials(@Query("order_id") String order_id
 

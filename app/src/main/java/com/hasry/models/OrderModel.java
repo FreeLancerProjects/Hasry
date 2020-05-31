@@ -20,7 +20,7 @@ public class OrderModel implements Serializable {
     private UserModel.User client;
     private UserModel.User driver;
     private List<OrderDetails> order_details;
-
+private Distances distances;
 
     public int getId() {
         return id;
@@ -84,6 +84,10 @@ public class OrderModel implements Serializable {
 
     public List<OrderDetails> getOrder_details() {
         return order_details;
+    }
+
+    public Distances getDistances() {
+        return distances;
     }
 
     public static class OrderDetails implements Serializable{
@@ -201,5 +205,16 @@ public class OrderModel implements Serializable {
             }
         }
     }
+ public class  Distances implements Serializable {
+        private String distance_between_client_and_driver;
+     private String distance_between_marketer_and_driver;
 
+     public String getDistance_between_client_and_driver() {
+         return distance_between_client_and_driver;
+     }
+
+     public String getDistance_between_marketer_and_driver() {
+         return distance_between_marketer_and_driver;
+     }
+ }
 }

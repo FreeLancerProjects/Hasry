@@ -11,6 +11,8 @@ import com.hasry.databinding.ActivityOrderDetailsBinding;
 import com.hasry.databinding.ActivityProfileBinding;
 import com.hasry.interfaces.Listeners;
 import com.hasry.language.Language;
+import com.hasry.models.UserModel;
+import com.hasry.preferences.Preferences;
 
 import java.util.Locale;
 
@@ -19,7 +21,8 @@ import io.paperdb.Paper;
 public class ProfileActivity extends AppCompatActivity implements Listeners.BackListener{
     private ActivityProfileBinding binding;
     private String lang;
-
+private UserModel userModel;
+private Preferences preferences;
     @Override
     protected void attachBaseContext(Context newBase) {
         Paper.init(newBase);
@@ -39,7 +42,9 @@ public class ProfileActivity extends AppCompatActivity implements Listeners.Back
         Paper.init(this);
         lang = Paper.book().read("lang", Locale.getDefault().getLanguage());
         binding.setLang(lang);
-
+preferences=Preferences.getInstance();
+userModel=preferences.getUserData(this);
+binding.setModel(userModel);
 
     }
 

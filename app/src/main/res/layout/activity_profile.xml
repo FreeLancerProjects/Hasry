@@ -8,7 +8,9 @@
         <variable
             name="lang"
             type="String" />
-
+        <variable
+            name="model"
+            type="com.hasry.models.UserModel" />
 
 
     </data>
@@ -62,6 +64,7 @@
                         app:layout_constraintBottom_toBottomOf="@id/fl"
                         android:layout_marginStart="30dp"
                         android:layout_marginEnd="30dp"
+                        image="@{model.data.logo}"
 
                         />
 
@@ -124,6 +127,7 @@
                             android:layout_height="wrap_content"
                             android:textColor="@color/black"
                             android:textSize="14sp"
+                            android:text="@{model.data.name}"
                             />
 
                     </LinearLayout>
@@ -190,7 +194,7 @@
                             android:layout_height="wrap_content"
                             android:textColor="@color/black"
                             android:textSize="14sp"
-
+android:text="@{model.data.phone}"
                             />
 
 
@@ -261,7 +265,7 @@
                             android:layout_height="wrap_content"
                             android:textColor="@color/black"
                             android:textSize="14sp"
-
+android:text="@{model.data.email}"
                             />
 
 

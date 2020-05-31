@@ -8,29 +8,26 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hasry.R;
-import com.hasry.activities_fragments.client.activity_order.fragments.Fragment_Current_Order;
-import com.hasry.activities_fragments.client.activity_order.fragments.Fragment_Previous_Order;
-import com.hasry.databinding.ClientOrderRowBinding;
+import com.hasry.databinding.DriverOrderRowBinding;
+import com.hasry.databinding.DriverProductRowBinding;
 import com.hasry.databinding.LoadMoreBinding;
-import com.hasry.databinding.ProductRowBinding;
 import com.hasry.models.OrderModel;
 
 import java.util.List;
 
 import io.paperdb.Paper;
 
-public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class DriverProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final int DATA = 1;
     private final int LOAD = 2;
 
     private Context context;
     private List<OrderModel.OrderDetails>  list;
     private String lang;
-    public ProductAdapter(Context context, List<OrderModel.OrderDetails>  list) {
+    public DriverProductAdapter(Context context, List<OrderModel.OrderDetails>  list) {
         this.context = context;
         this.list = list;
         Paper.init(context);
@@ -43,7 +40,7 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         if (viewType==DATA) {
-            ProductRowBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.product_row, parent, false);
+            DriverProductRowBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.driver_product_row, parent, false);
             return new Holder1(binding);
 
 
@@ -85,9 +82,9 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     public class Holder1 extends RecyclerView.ViewHolder {
-        private ProductRowBinding binding;
+        private DriverProductRowBinding binding;
 
-        public Holder1(@NonNull ProductRowBinding binding) {
+        public Holder1(@NonNull DriverProductRowBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }

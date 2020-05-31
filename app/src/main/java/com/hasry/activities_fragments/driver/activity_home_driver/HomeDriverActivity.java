@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -100,20 +101,27 @@ public class HomeDriverActivity extends AppCompatActivity {
 binding.llNotification.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
+        binding.drawer.closeDrawer(GravityCompat.START);
         Intent intent = new Intent(HomeDriverActivity.this, NotificationActivity.class);
         startActivity(intent);
+
     }
 });
-binding.llAbout.setOnClickListener(new View.OnClickListener() {
+binding.llHome.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(HomeDriverActivity.this, AboutAppActivity.class);
+        binding.drawer.closeDrawer(GravityCompat.START);
+
+        Intent intent = new Intent(HomeDriverActivity.this, HomeDriverActivity.class);
         startActivity(intent);
+        finish();
     }
 });
 binding.llTerms.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
+        binding.drawer.closeDrawer(GravityCompat.START);
+
         Intent intent = new Intent(HomeDriverActivity.this, AboutAppActivity.class);
         startActivity(intent);
     }
@@ -121,6 +129,8 @@ binding.llTerms.setOnClickListener(new View.OnClickListener() {
 binding.llAbout.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
+        binding.drawer.closeDrawer(GravityCompat.START);
+
         Intent intent = new Intent(HomeDriverActivity.this, AboutAppActivity.class);
         startActivity(intent);
     }
@@ -128,6 +138,8 @@ binding.llAbout.setOnClickListener(new View.OnClickListener() {
 binding.llContact.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
+        binding.drawer.closeDrawer(GravityCompat.START);
+
         Intent intent = new Intent(HomeDriverActivity.this, ContactUsActivity.class);
         startActivity(intent);
     }
@@ -135,6 +147,8 @@ binding.llContact.setOnClickListener(new View.OnClickListener() {
 binding.llProfile.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
+        binding.drawer.closeDrawer(GravityCompat.START);
+
         Intent intent = new Intent(HomeDriverActivity.this, ProfileActivity.class);
         startActivity(intent);
     }
@@ -414,34 +428,30 @@ binding.llProfile.setOnClickListener(new View.OnClickListener() {
     }
 
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        List<Fragment> fragmentList = fragmentManager.getFragments();
-        for (Fragment fragment :fragmentList)
-        {
-            fragment.onActivityResult(requestCode, resultCode, data);
-        }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        List<Fragment> fragmentList = fragmentManager.getFragments();
+//        for (Fragment fragment :fragmentList)
+//        {
+//            fragment.onActivityResult(requestCode, resultCode, data);
+//        }
+//
+//
+//
+//
+//
+//    }
+
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//        List<Fragment> fragmentList = fragmentManager.getFragments();
+//        for (Fragment fragment :fragmentList)
+//        {
+//            fragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//        }
+//    }
 
 
-
-
-
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        List<Fragment> fragmentList = fragmentManager.getFragments();
-        for (Fragment fragment :fragmentList)
-        {
-            fragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
-    }
-
-    public void setItemData(MainCategoryDataModel.Data.MainDepartments modle) {
-        Intent intent = new Intent(this, MarketsActivity.class);
-        intent.putExtra("data",modle);
-        startActivity(intent);
-    }
 }

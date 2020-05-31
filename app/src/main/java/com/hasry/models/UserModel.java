@@ -24,7 +24,8 @@ public class UserModel implements Serializable {
         private String drive_documentation_image;
         private String block;
         private String token;
-
+        private String latitude;
+        private String longitude;
         public int getId() {
             return id;
         }
@@ -79,6 +80,14 @@ public class UserModel implements Serializable {
 
         public String getToken() {
             return token;
+        }
+
+        public String getLatitude() {
+            return latitude;
+        }
+
+        public String getLongitude() {
+            return longitude;
         }
     }
 }

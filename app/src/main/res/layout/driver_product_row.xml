@@ -31,6 +31,7 @@
                     android:layout_width="50dp"
                     android:layout_height="70dp"
                     android:layout_marginTop="8dp"
+                    image="@{model.product_info.image}"
                     />
 
                 <TextView
@@ -46,7 +47,9 @@
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:textColor="@color/gray3"
-                    android:textSize="13sp" />
+                    android:textSize="13sp"
+android:text="@{model.product_info.title}"
+                    />
 
                 <LinearLayout
                     android:id="@+id/llAdd"

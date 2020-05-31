@@ -19,16 +19,11 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.hasry.R;
-import com.hasry.activities_fragments.driver.activity_map.MapShowLocationActivity;
-import com.hasry.activities_fragments.driver.activity_signup.SignUpDriverActivity;
-import com.hasry.adapters.MarketAdapter;
-import com.hasry.adapters.ProductAdapter;
+import com.hasry.activities_fragments.driver.activity_map_show_location.MapShowLocationActivity;
+import com.hasry.adapters.DriverProductAdapter;
 import com.hasry.databinding.ActivityOrderDetailsBinding;
-import com.hasry.databinding.ActivityShowlocationMapBinding;
 import com.hasry.interfaces.Listeners;
 import com.hasry.language.Language;
-import com.hasry.models.MarketDataModel;
-import com.hasry.models.OrderDataModel;
 import com.hasry.models.OrderModel;
 import com.hasry.remote.Api;
 import com.hasry.tags.Tags;
@@ -46,7 +41,7 @@ public class OrderDetailsActivity extends AppCompatActivity implements Listeners
     private ActivityOrderDetailsBinding binding;
     private String lang;
 private List<OrderModel.OrderDetails> orderDetailsList;
-    private ProductAdapter productAdapter;
+    private DriverProductAdapter driverProductAdapter;
     String order_id;
     Intent intent ;
     private static final int REQUEST_PHONE_CALL = 1;
@@ -70,7 +65,7 @@ private List<OrderModel.OrderDetails> orderDetailsList;
     private void getDataFromIntent() {
         Intent intent = getIntent();
         if (intent != null) {
-            order_id = intent.getStringExtra("order_id");
+                order_id = intent.getStringExtra("order_id");
 
         }
     }
@@ -80,8 +75,8 @@ if(type==1){
         intent.putExtra("lat",Double.parseDouble(orderModel.getLatitude()));
         intent.putExtra("lng",Double.parseDouble(orderModel.getLongitude()));}
 else {
-//    intent.putExtra("lat",Double.parseDouble(orderModel.getMarkter().getLatitude()));
-//    intent.putExtra("lng",Double.parseDouble(orderModel.getMarkter().getLongitude()));
+    intent.putExtra("lat",Double.parseDouble(orderModel.getMarkter().getLatitude()));
+   intent.putExtra("lng",Double.parseDouble(orderModel.getMarkter().getLongitude()));
 }
         startActivity(intent);
         finish();
@@ -95,8 +90,8 @@ else {
         binding.setLang(lang);
         binding.progBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(this,R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
         binding.recView.setLayoutManager(new GridLayoutManager(this,3));
-        productAdapter = new ProductAdapter(this,orderDetailsList);
-        binding.recView.setAdapter(productAdapter);
+        driverProductAdapter = new DriverProductAdapter(this,orderDetailsList);
+        binding.recView.setAdapter(driverProductAdapter);
         binding.btCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -182,7 +177,7 @@ UPDATEUI(response.body());
         this.orderModel=body;
         binding.setModel(body);
         orderDetailsList.addAll(body.getOrder_details());
-        productAdapter.notifyDataSetChanged();
+        driverProductAdapter.notifyDataSetChanged();
         if(body.getClient().getPhone()!=null) {
             intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", body.getClient().getPhone_code()+body.getClient().getPhone(), null));
         }

@@ -12,11 +12,11 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hasry.R;
-import com.hasry.activities_fragments.client.activity_order.fragments.Fragment_Current_Order;
+
 import com.hasry.activities_fragments.client.activity_order.fragments.Fragment_Previous_Order;
-import com.hasry.databinding.ClientOrderRowBinding;
+import com.hasry.activities_fragments.driver.activity_home_driver.fragments.Fragment_Current_Order;
+import com.hasry.databinding.DriverOrderRowBinding;
 import com.hasry.databinding.LoadMoreBinding;
-import com.hasry.databinding.OrderRowBinding;
 import com.hasry.models.OrderModel;
 
 import java.util.List;
@@ -45,7 +45,7 @@ public class DriverOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         if (viewType==DATA) {
-            OrderRowBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.order_row, parent, false);
+            DriverOrderRowBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.driver_order_row, parent, false);
             return new Holder1(binding);
 
 
@@ -76,6 +76,7 @@ public class DriverOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 if (fragment instanceof Fragment_Current_Order)
                 {
                     Fragment_Current_Order fragmentCurrentOrder = (Fragment_Current_Order) fragment;
+                    fragmentCurrentOrder.setItemData(list.get(holder.getLayoutPosition()).getId());
                 }else if (fragment instanceof Fragment_Previous_Order)
                 {
                     Fragment_Previous_Order fragmentPreviousOrder = (Fragment_Previous_Order) fragment;
@@ -98,9 +99,9 @@ public class DriverOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     public class Holder1 extends RecyclerView.ViewHolder {
-        private OrderRowBinding binding;
+        private DriverOrderRowBinding binding;
 
-        public Holder1(@NonNull OrderRowBinding binding) {
+        public Holder1(@NonNull DriverOrderRowBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }

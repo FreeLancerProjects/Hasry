@@ -19,6 +19,7 @@ import com.hasry.R;
 import com.hasry.activities_fragments.activity_map.MapActivity;
 import com.hasry.activities_fragments.client.activity_home.HomeActivity;
 import com.hasry.activities_fragments.client.activity_product_details.ProductDetailsActivity;
+import com.hasry.activities_fragments.client.activity_search.SearchActivity;
 import com.hasry.adapters.OfferAdapter;
 import com.hasry.databinding.ActivityAboutAppBinding;
 import com.hasry.databinding.ActivityMarketDataBinding;
@@ -180,6 +181,12 @@ public class MarketDataActivity extends AppCompatActivity implements Listeners.B
             intent.putExtra("address",market.getAddress());
             startActivity(intent);
 
+        });
+
+        binding.flSearch.setOnClickListener(v -> {
+            Intent intent = new Intent(this, SearchActivity.class);
+            intent.putExtra("data",market);
+            startActivity(intent);
         });
 
         getOffers();

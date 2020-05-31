@@ -195,7 +195,7 @@
                             android:layout_height="wrap_content"
                             android:textColor="@color/black"
                             android:textSize="14sp"
-                            android:text='@{lang.equals("ar")?model.phone+" "+model.phone_code:model.phone_code+" "+model.phone}'
+                            android:text='@{model.phone_code+" "+model.phone}'
 
                             />
 

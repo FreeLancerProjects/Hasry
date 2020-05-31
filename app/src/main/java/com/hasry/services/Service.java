@@ -13,6 +13,7 @@ import com.hasry.models.OrderModel;
 import com.hasry.models.OrderResponseModel;
 import com.hasry.models.PlaceGeocodeData;
 import com.hasry.models.PlaceMapDetailsData;
+import com.hasry.models.SearchDataModel;
 import com.hasry.models.SettingModel;
 import com.hasry.models.UserModel;
 
@@ -183,5 +184,10 @@ public interface Service {
     @POST("api/send-order")
     Call<OrderResponseModel> createOrder(@Header("Authorization") String user_token,
                                          @Body CreateOrderModel model
+    );
+
+
+    @GET("api/search-product")
+    Call<SearchDataModel> search(@Query("key") String query
     );
 }

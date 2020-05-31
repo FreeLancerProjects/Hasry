@@ -4,13 +4,11 @@ import android.content.Context;
 import android.graphics.PorterDuff;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hasry.R;
@@ -18,13 +16,12 @@ import com.hasry.activities_fragments.client.activity_market_data.MarketDataActi
 import com.hasry.activities_fragments.client.activity_search.SearchActivity;
 import com.hasry.databinding.LoadmoreRow1Binding;
 import com.hasry.databinding.OfferRowBinding;
-import com.hasry.models.OfferDataModel;
+import com.hasry.databinding.SearchRowBinding;
 import com.hasry.models.OfferModel;
-
 
 import java.util.List;
 
-public class OfferAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final int DATA_ROW =1;
     private final int LOAD_ROW =2;
 
@@ -33,7 +30,7 @@ public class OfferAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private LayoutInflater inflater;
     private AppCompatActivity activity;
 
-    public OfferAdapter(List<OfferModel> list, Context context) {
+    public SearchAdapter(List<OfferModel> list, Context context) {
         this.list = list;
         this.context = context;
         inflater = LayoutInflater.from(context);
@@ -47,7 +44,7 @@ public class OfferAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         if (viewType == DATA_ROW){
-            OfferRowBinding binding = DataBindingUtil.inflate(inflater, R.layout.offer_row, parent, false);
+            SearchRowBinding binding = DataBindingUtil.inflate(inflater, R.layout.search_row, parent, false);
             return new MyHolder(binding);
         }else {
             LoadmoreRow1Binding binding = DataBindingUtil.inflate(inflater, R.layout.loadmore_row1, parent, false);
@@ -68,23 +65,14 @@ public class OfferAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             myHolder.binding.setModel(list.get(position));
 
             myHolder.itemView.setOnClickListener(v -> {
-                if (activity instanceof MarketDataActivity){
-                    MarketDataActivity marketDataActivity = (MarketDataActivity) activity;
-                    marketDataActivity.setItemData(list.get(myHolder.getAdapterPosition()));
-
-                }else {
-
+                if (activity instanceof SearchActivity){
                     SearchActivity searchActivity = (SearchActivity) activity;
                     searchActivity.setItemData(list.get(myHolder.getAdapterPosition()));
                 }
             });
 
             myHolder.binding.imageAddToCart.setOnClickListener(v -> {
-                if (activity instanceof MarketDataActivity){
-                    MarketDataActivity marketDataActivity = (MarketDataActivity) activity;
-                    marketDataActivity.addToCart(list.get(myHolder.getAdapterPosition()));
-
-                }else {
+                if (activity instanceof SearchActivity){
                     SearchActivity searchActivity = (SearchActivity) activity;
                     searchActivity.addToCart(list.get(myHolder.getAdapterPosition()));
 
@@ -109,9 +97,9 @@ public class OfferAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     public class MyHolder extends RecyclerView.ViewHolder {
-        public OfferRowBinding binding;
+        public SearchRowBinding binding;
 
-        public MyHolder(@NonNull OfferRowBinding binding) {
+        public MyHolder(@NonNull SearchRowBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
 

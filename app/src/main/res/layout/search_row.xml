@@ -10,7 +10,7 @@
     </data>
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
-        android:layout_width="150dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="20dp"
         app:contentPadding="5dp"
@@ -47,8 +47,8 @@
                     android:maxLines="2"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
-                    android:text="@{model.title}"
-                    android:textColor="@color/gray3"
+                    android:text='@{model.title}'
+                    android:textColor="@color/black"
                     android:textSize="13sp" />
 
                 <LinearLayout
@@ -56,11 +56,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="30dp"
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="5dp"
                     android:gravity="center_vertical"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="20dp"
                     >
                     <ImageView
                         android:id="@+id/imageAddToCart"

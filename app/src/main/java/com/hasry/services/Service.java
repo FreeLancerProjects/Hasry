@@ -159,6 +159,7 @@ public interface Service {
 
     @GET("api/order-details")
     Call<OrderModel> getOrderDetials(@Query("order_id") String order_id
+                                     ,@Header("Authorization") String user_token
 
 
     );

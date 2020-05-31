@@ -17,7 +17,6 @@ import com.hasry.activities_fragments.client.activity_order.fragments.Fragment_C
 import com.hasry.activities_fragments.client.activity_order.fragments.Fragment_Previous_Order;
 import com.hasry.databinding.ClientOrderRowBinding;
 import com.hasry.databinding.LoadMoreBinding;
-import com.hasry.databinding.OrderRowBinding;
 import com.hasry.models.OrderModel;
 
 

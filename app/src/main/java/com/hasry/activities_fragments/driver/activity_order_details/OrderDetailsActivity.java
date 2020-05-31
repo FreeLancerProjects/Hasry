@@ -25,6 +25,8 @@ import com.hasry.databinding.ActivityOrderDetailsBinding;
 import com.hasry.interfaces.Listeners;
 import com.hasry.language.Language;
 import com.hasry.models.OrderModel;
+import com.hasry.models.UserModel;
+import com.hasry.preferences.Preferences;
 import com.hasry.remote.Api;
 import com.hasry.tags.Tags;
 
@@ -46,6 +48,8 @@ private List<OrderModel.OrderDetails> orderDetailsList;
     Intent intent ;
     private static final int REQUEST_PHONE_CALL = 1;
     private OrderModel orderModel;
+    private UserModel userModel;
+    private Preferences preferences;
     @Override
     protected void attachBaseContext(Context newBase) {
         Paper.init(newBase);
@@ -85,6 +89,8 @@ else {
     {
         orderDetailsList=new ArrayList<>();
         Paper.init(this);
+        preferences=Preferences.getInstance();
+        userModel=preferences.getUserData(this);
         lang = Paper.book().read("lang", Locale.getDefault().getLanguage());
         binding.setBackListener(this);
         binding.setLang(lang);
@@ -125,7 +131,7 @@ else {
     {
         try {
             Api.getService(Tags.base_url)
-                    .getOrderDetials(order_id)
+                    .getOrderDetials(order_id,"Bearer "+userModel.getData().getToken())
                     .enqueue(new Callback<OrderModel>() {
                         @Override
                         public void onResponse(Call<OrderModel> call, Response<OrderModel> response) {

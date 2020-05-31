@@ -31,7 +31,6 @@
                     android:layout_width="50dp"
                     android:layout_height="70dp"
                     android:layout_marginTop="8dp"
-                    image="@{model.image}"
                     />
 
                 <TextView
@@ -46,7 +45,6 @@
                     android:maxLines="2"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
-                    android:text="@{model.title}"
                     android:textColor="@color/gray3"
                     android:textSize="13sp" />
 

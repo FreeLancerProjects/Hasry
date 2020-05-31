@@ -23,7 +23,7 @@ public class UserModel implements Serializable {
         private String car_documentation_image;
         private String drive_documentation_image;
         private String block;
-
+        private String token;
 
         public int getId() {
             return id;
@@ -75,6 +75,10 @@ public class UserModel implements Serializable {
 
         public String getBlock() {
             return block;
+        }
+
+        public String getToken() {
+            return token;
         }
     }
 }

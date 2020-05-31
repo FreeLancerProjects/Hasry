@@ -24,6 +24,12 @@ public class MarketDataModel implements Serializable {
             private String logo;
             private String is_login;
             private String city;
+            private String latitude;
+            private String longitude;
+            private String address;
+            private String markter_status;
+
+
 
             public int getId() {
                 return id;
@@ -47,6 +53,22 @@ public class MarketDataModel implements Serializable {
 
             public String getCity() {
                 return city;
+            }
+
+            public String getLatitude() {
+                return latitude;
+            }
+
+            public String getLongitude() {
+                return longitude;
+            }
+
+            public String getAddress() {
+                return address;
+            }
+
+            public String getMarkter_status() {
+                return markter_status;
             }
         }
 

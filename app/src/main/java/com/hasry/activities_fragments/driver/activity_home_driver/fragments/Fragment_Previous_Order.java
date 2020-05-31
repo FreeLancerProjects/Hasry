@@ -14,7 +14,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.hasry.R;
-import com.hasry.activities_fragments.activity_order.OrderActivity;
 import com.hasry.activities_fragments.driver.activity_home_driver.HomeDriverActivity;
 import com.hasry.databinding.FragmentOrderBinding;
 import com.hasry.models.UserModel;

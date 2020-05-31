@@ -1,5 +1,7 @@
 package com.hasry.activities_fragments.client.activity_home;
 
+import android.app.NotificationManager;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.PorterDuff;
@@ -20,6 +22,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.hasry.R;
 import com.hasry.activities_fragments.client.activity_cart.CartActivity;
 import com.hasry.activities_fragments.client.activity_client_profile.ClientProfileActivity;
@@ -52,6 +55,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.paperdb.Paper;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -331,23 +335,22 @@ public class HomeActivity extends AppCompatActivity implements Listeners.HomeLis
         if (userModel != null) {
 
 
-          /*  ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
+            ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
             dialog.show();
 
 
             FirebaseInstanceId.getInstance()
                     .getInstanceId().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
-                    token = task.getResult().getToken();
+                    String token = task.getResult().getToken();
 
                     Api.getService(Tags.base_url)
-                            .logout("Bearer " + userModel.getUser().getToken(), token)
+                            .logout("Bearer " + userModel.getData().getToken(), token)
                             .enqueue(new Callback<ResponseBody>() {
                                 @Override
                                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                                     dialog.dismiss();
                                     if (response.isSuccessful()) {
-                                        Log.e("dd", "ddd");
                                         preferences.clear(HomeActivity.this);
                                         NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                                         if (manager != null) {
@@ -392,7 +395,7 @@ public class HomeActivity extends AppCompatActivity implements Listeners.HomeLis
                             });
 
                 }
-            });*/
+            });
 
 
         } else {

@@ -94,6 +94,7 @@ public class OrderModel implements Serializable {
         private int amount;
         private int order_id;
         private Offer offer;
+        private ProductInfo product_info;
 
 
         public int getId() {
@@ -124,6 +125,10 @@ public class OrderModel implements Serializable {
             return offer;
         }
 
+        public ProductInfo getProduct_info() {
+            return product_info;
+        }
+
         public static class Offer implements Serializable{
             private int id;
             private int product_id;
@@ -131,7 +136,7 @@ public class OrderModel implements Serializable {
             private String from_date;
             private String to_date;
             private String offer_type;
-            private String offer_value;
+            private double offer_value;
             private String offer_status;
             private OfferModel product;
 
@@ -159,7 +164,7 @@ public class OrderModel implements Serializable {
                 return offer_type;
             }
 
-            public String getOffer_value() {
+            public double getOffer_value() {
                 return offer_value;
             }
 
@@ -169,6 +174,30 @@ public class OrderModel implements Serializable {
 
             public OfferModel getProduct() {
                 return product;
+            }
+
+
+        }
+        public static class ProductInfo implements Serializable{
+            private int id;
+            private String title;
+            private String image;
+            private String price;
+
+            public int getId() {
+                return id;
+            }
+
+            public String getTitle() {
+                return title;
+            }
+
+            public String getImage() {
+                return image;
+            }
+
+            public String getPrice() {
+                return price;
             }
         }
     }

@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.hasry.R;
+import com.hasry.activities_fragments.activity_map.MapActivity;
 import com.hasry.activities_fragments.client.activity_home.HomeActivity;
 import com.hasry.activities_fragments.client.activity_product_details.ProductDetailsActivity;
 import com.hasry.adapters.OfferAdapter;
@@ -172,6 +173,14 @@ public class MarketDataActivity extends AppCompatActivity implements Listeners.B
             }
         });
 
+        binding.llLocation.setOnClickListener(v -> {
+            Intent intent = new Intent(this, MapActivity.class);
+            intent.putExtra("lat",Double.parseDouble(market.getLatitude()));
+            intent.putExtra("lng",Double.parseDouble(market.getLongitude()));
+            intent.putExtra("address",market.getAddress());
+            startActivity(intent);
+
+        });
 
         getOffers();
         getMostSeller();

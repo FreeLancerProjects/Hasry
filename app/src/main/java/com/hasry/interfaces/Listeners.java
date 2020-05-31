@@ -41,6 +41,11 @@ public interface Listeners {
     }
 
 
+    interface NextPreviousAction
+    {
+        void onNext();
+        void onPrevious();
+    }
 
 
 

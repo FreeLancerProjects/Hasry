@@ -19,6 +19,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.hasry.R;
 import com.hasry.activities_fragments.client.activity_order.OrderActivity;
+import com.hasry.activities_fragments.client.client_order_details.ClientOrderDetailsActivity;
+import com.hasry.activities_fragments.driver.activity_order_details.OrderDetailsActivity;
 import com.hasry.adapters.OrderAdapter;
 import com.hasry.databinding.FragmentCurrentPreviousOrderBinding;
 import com.hasry.models.OrderDataModel;
@@ -94,7 +96,7 @@ public class Fragment_Previous_Order extends Fragment {
                 }
             }
         });*/
-        //getOrders();
+        getOrders();
 
 
 
@@ -105,7 +107,7 @@ public class Fragment_Previous_Order extends Fragment {
         try {
             current_page = 1;
             Api.getService(Tags.base_url)
-                    .getOrders("previous",userModel.getData().getId(),userModel.getData().getUser_type())
+                    .getOrders("Bearer "+userModel.getData().getToken(),"previous",userModel.getData().getId(),userModel.getData().getUser_type())
                     .enqueue(new Callback<OrderDataModel>() {
                         @Override
                         public void onResponse(Call<OrderDataModel> call, Response<OrderDataModel> response) {
@@ -235,9 +237,9 @@ public class Fragment_Previous_Order extends Fragment {
         }*/
     }
 
-    /*public void setItemData(OrderModel model) {
-        Intent intent = new Intent(activity, OrderDetailsActivity.class);
+    public void setItemData(OrderModel model) {
+        Intent intent = new Intent(activity, ClientOrderDetailsActivity.class);
         intent.putExtra("data",model);
         startActivity(intent);
-    }*/
+    }
 }

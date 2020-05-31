@@ -32,6 +32,7 @@ import com.hasry.language.Language;
 import com.hasry.models.CityDataModel;
 import com.hasry.models.SettingModel;
 import com.hasry.models.SignUpModel;
+import com.hasry.models.UserModel;
 import com.hasry.preferences.Preferences;
 import com.hasry.remote.Api;
 import com.hasry.share.Common;
@@ -46,6 +47,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.paperdb.Paper;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -213,9 +216,6 @@ public class SignUpActivity extends AppCompatActivity implements Listeners.SignU
     @Override
     public void checkDataValid() {
 
-        Intent intent = new Intent(this, HomeActivity.class);
-        startActivity(intent);
-
         if (signUpModel.isDataValid(this)) {
             Common.CloseKeyBoard(this, binding.edtName);
             signUp();
@@ -358,11 +358,11 @@ public class SignUpActivity extends AppCompatActivity implements Listeners.SignU
     }
 
     private void signUpWithoutImage() {
-        /*ProgressDialog dialog = Common.createProgressDialog(this,getString(R.string.wait));
+        ProgressDialog dialog = Common.createProgressDialog(this,getString(R.string.wait));
         dialog.setCancelable(false);
         dialog.show();
         Api.getService(Tags.base_url)
-                .signUpWithoutImage(signUpModel.getName(),signUpModel.getPhone_code(),signUpModel.getPhone(),signUpModel.getEmail(),signUpModel.getPassword(),Tags.type)
+                .signUpWithoutImage(signUpModel.getName(),signUpModel.getEmail(),signUpModel.getPhone_code(),signUpModel.getPhone(),signUpModel.getCity(),"client","1")
                 .enqueue(new Callback<UserModel>() {
                     @Override
                     public void onResponse(Call<UserModel> call, Response<UserModel> response) {
@@ -373,14 +373,12 @@ public class SignUpActivity extends AppCompatActivity implements Listeners.SignU
                             navigateToHomeActivity();
                         }else
                         {
-                            Log.e("nnnnnnnnnnnn",response.code()+"");
-                            Log.e("555555",response.message());
+
                             if (response.code()==500)
                             {
                                 Toast.makeText(SignUpActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
                             }else if (response.code()==422)
                             {
-                                Log.e("2222222",response.errorBody()+"");
 
                                 Toast.makeText(SignUpActivity.this, response.errorBody()+"", Toast.LENGTH_SHORT).show();
                             }else if (response.code()==409)
@@ -427,27 +425,27 @@ public class SignUpActivity extends AppCompatActivity implements Listeners.SignU
                             Log.e("Error",e.getMessage()+"__");
                         }
                     }
-                });*/
+                });
     }
 
     private void signUpWithImage() {
 
-       /* ProgressDialog dialog = Common.createProgressDialog(this,getString(R.string.wait));
+        ProgressDialog dialog = Common.createProgressDialog(this,getString(R.string.wait));
         dialog.setCancelable(false);
         dialog.show();
         RequestBody name_part = Common.getRequestBodyText(signUpModel.getName());
         RequestBody phone_code_part = Common.getRequestBodyText(signUpModel.getPhone_code());
         RequestBody phone_part = Common.getRequestBodyText(signUpModel.getPhone());
         RequestBody email_part = Common.getRequestBodyText(signUpModel.getEmail());
-        RequestBody password_part = Common.getRequestBodyText(signUpModel.getPassword());
+        RequestBody city_part = Common.getRequestBodyText(signUpModel.getCity());
+        RequestBody user_type_part = Common.getRequestBodyText("client");
+        RequestBody software_part = Common.getRequestBodyText("1");
 
-        RequestBody type_part = Common.getRequestBodyText(Tags.type);
-
-        MultipartBody.Part image = Common.getMultiPart(this,uri,"image");
+        MultipartBody.Part image = Common.getMultiPart(this,uri,"logo");
 
 
         Api.getService(Tags.base_url)
-                .signUpWithImage(name_part,phone_code_part,phone_part,email_part,password_part,type_part,image)
+                .signUpWithImage(name_part,email_part,phone_code_part,phone_part,city_part,user_type_part,software_part,image)
                 .enqueue(new Callback<UserModel>() {
                     @Override
                     public void onResponse(Call<UserModel> call, Response<UserModel> response) {
@@ -491,7 +489,6 @@ public class SignUpActivity extends AppCompatActivity implements Listeners.SignU
                         }
                     }
                 });
-*/
     }
 
     private void navigateToHomeActivity() {

@@ -172,5 +172,13 @@
     <string name="ch_city">إختر المدينة</string>
     <string name="diff_market">انت تحاول الشراء من متاجر مختلفة</string>
     <string name="discount">خصم</string>
+    <string name="new_order">قيد الانتظار</string>
+    <string name="in_way">جار التوصيل</string>
+    <string name="accepted">تم إستلام طلبك</string>
+    <string name="refused">تم الرفض</string>
+    <string name="completed">مكتمل</string>
+    <string name="driver_name">إسم السائق :</string>
+    <string name="show_location_on_map">عرض الموقع على الخريطة</string>
+    <string name="amount">الكمية</string>
 
 </resources>

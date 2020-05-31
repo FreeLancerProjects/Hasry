@@ -133,7 +133,7 @@
                            app:layout_constraintStart_toStartOf="parent"
                            app:layout_constraintTop_toTopOf="parent"
                            android:background="@drawable/circle_yellow"
-                           android:visibility='@{model.is_login==null?View.INVISIBLE:(model.is_login.equals("0")?View.INVISIBLE:View.VISIBLE)}'
+                           android:visibility='@{model.markter_status.equals("close")?View.INVISIBLE:View.VISIBLE,default = invisible}'
                            />
 
                        <Space
@@ -152,7 +152,7 @@
                            app:layout_constraintStart_toEndOf="@id/sp"
                            app:layout_constraintTop_toTopOf="parent"
                            android:background="@drawable/circle_gray"
-                           android:visibility='@{model.is_login==null?View.VISIBLE:(model.is_login.equals("0")?View.VISIBLE:View.INVISIBLE)}'
+                           android:visibility='@{model.markter_status.equals("open")?View.INVISIBLE:View.VISIBLE,default = invisible}'
                            />
 
                    </androidx.constraintlayout.widget.ConstraintLayout>

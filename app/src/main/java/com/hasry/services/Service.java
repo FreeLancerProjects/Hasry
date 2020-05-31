@@ -2,21 +2,30 @@ package com.hasry.services;
 
 
 import com.hasry.models.CityDataModel;
+import com.hasry.models.CreateOrderModel;
 import com.hasry.models.MainCategoryDataModel;
 import com.hasry.models.MarketDataModel;
 import com.hasry.models.MostSellerDataModel;
 import com.hasry.models.OfferDataModel;
 import com.hasry.models.OrderDataModel;
+import com.hasry.models.OrderResponseModel;
 import com.hasry.models.PlaceGeocodeData;
 import com.hasry.models.PlaceMapDetailsData;
 import com.hasry.models.SettingModel;
 import com.hasry.models.UserModel;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 public interface Service {
@@ -44,6 +53,32 @@ public interface Service {
     );
 
 
+    @FormUrlEncoded
+    @POST("api/register")
+    Call<UserModel> signUpWithoutImage(@Field("name") String name,
+                                       @Field("email") String email,
+                                       @Field("phone_code") String phone_code,
+                                       @Field("phone") String phone,
+                                       @Field("city") String city,
+                                       @Field("user_type") String user_type,
+                                       @Field("software_type") String software_type
+
+
+    );
+
+    @Multipart
+    @POST("api/register")
+    Call<UserModel> signUpWithImage(@Part("name") RequestBody name,
+                                    @Part("email") RequestBody email,
+                                    @Part("phone_code") RequestBody phone_code,
+                                    @Part("phone") RequestBody phone,
+                                    @Part("city") RequestBody city,
+                                    @Part("user_type") RequestBody user_type,
+                                    @Part("software_type") RequestBody software_type,
+                                    @Part MultipartBody.Part image
+    );
+
+
     @GET("api/main-category")
     Call<MainCategoryDataModel> getMainCategory();
 
@@ -68,7 +103,8 @@ public interface Service {
 
 
     @GET("api/orders")
-    Call<OrderDataModel> getOrders(@Query("order_status") String order_status,
+    Call<OrderDataModel> getOrders(@Header("Authorization") String user_token,
+                                   @Query("order_status") String order_status,
                                    @Query("client_or_driver_id") int client_or_driver_id,
                                    @Query("user_type") String user_type
 
@@ -81,4 +117,17 @@ public interface Service {
     @GET("api/cities")
     Call<CityDataModel> getCity();
 
+
+    @FormUrlEncoded
+    @POST("api/logout")
+    Call<ResponseBody> logout(@Header("Authorization") String user_token,
+                              @Field("user_token") String firebase_token
+
+
+    );
+
+    @POST("api/send-order")
+    Call<OrderResponseModel> createOrder(@Header("Authorization") String user_token,
+                                         @Body CreateOrderModel model
+    );
 }

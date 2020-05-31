@@ -47,7 +47,7 @@ public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         if (viewType==DATA) {
-            ClientOrderRowBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.order_row, parent, false);
+            ClientOrderRowBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.client_order_row, parent, false);
             return new Holder1(binding);
 
 
@@ -78,9 +78,11 @@ public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 if (fragment instanceof Fragment_Current_Order)
                 {
                     Fragment_Current_Order fragmentCurrentOrder = (Fragment_Current_Order) fragment;
+                    fragmentCurrentOrder.setItemData(model2);
                 }else if (fragment instanceof Fragment_Previous_Order)
                 {
                     Fragment_Previous_Order fragmentPreviousOrder = (Fragment_Previous_Order) fragment;
+                    fragmentPreviousOrder.setItemData(model2);
                 }
             });
         }else if (holder instanceof LoadHolder) {

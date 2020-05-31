@@ -1,20 +1,26 @@
 package com.hasry.activities_fragments.client.activity_cart;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import com.hasry.R;
+import com.hasry.activities_fragments.client.activity_checkout.CheckoutActivity;
+import com.hasry.activities_fragments.client.client_order_details.ClientOrderDetailsActivity;
+import com.hasry.activities_fragments.driver.activity_order_details.OrderDetailsActivity;
 import com.hasry.adapters.CartAdapter;
 import com.hasry.databinding.ActivityCartBinding;
 import com.hasry.interfaces.Listeners;
 import com.hasry.language.Language;
 import com.hasry.models.CreateOrderModel;
 import com.hasry.models.ItemCartModel;
+import com.hasry.models.OrderModel;
 import com.hasry.models.UserModel;
 import com.hasry.preferences.Preferences;
 
@@ -64,6 +70,18 @@ public class CartActivity extends AppCompatActivity implements Listeners.BackLis
         adapter = new CartAdapter(itemCartModelList,this);
         binding.recView.setLayoutManager(new LinearLayoutManager(this));
         binding.recView.setAdapter(adapter);
+        updateUi();
+
+
+        binding.btnCheckout.setOnClickListener(v -> {
+            Intent intent = new Intent(this, CheckoutActivity.class);
+            startActivityForResult(intent,100);
+        });
+
+
+    }
+
+    private void updateUi() {
         if (createOrderModel!=null){
             itemCartModelList.addAll(createOrderModel.getProducts());
             adapter.notifyDataSetChanged();
@@ -75,9 +93,6 @@ public class CartActivity extends AppCompatActivity implements Listeners.BackLis
             binding.consTotal.setVisibility(View.GONE);
 
         }
-
-
-
     }
 
     private void calculateTotal() {
@@ -116,6 +131,24 @@ public class CartActivity extends AppCompatActivity implements Listeners.BackLis
             binding.consTotal.setVisibility(View.GONE);
             preferences.clearCart(this);
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==100&&resultCode==RESULT_OK&&data!=null){
+            OrderModel orderModel = (OrderModel) data.getSerializableExtra("data");
+            navigateToOrderDetailsActivity(orderModel);
+            preferences.clearCart(this);
+            updateUi();
+            finish();
+        }
+    }
+
+    private void navigateToOrderDetailsActivity(OrderModel orderModel) {
+        Intent intent = new Intent(this, ClientOrderDetailsActivity.class);
+        intent.putExtra("data",orderModel);
+        startActivity(intent);
     }
 }
 

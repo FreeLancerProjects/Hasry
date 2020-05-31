@@ -166,4 +166,12 @@
     <string name="ch_city">Choose city</string>
     <string name="diff_market">you are trying to buy from different market</string>
     <string name="discount">Discount</string>
+    <string name="new_order">Pending</string>
+    <string name="in_way">In Way</string>
+    <string name="accepted">Accepted</string>
+    <string name="refused">Refused</string>
+    <string name="completed">Completed</string>
+    <string name="driver_name">Driver Name :</string>
+    <string name="show_location_on_map">Show location on map</string>
+    <string name="amount">Amount</string>
 </resources>

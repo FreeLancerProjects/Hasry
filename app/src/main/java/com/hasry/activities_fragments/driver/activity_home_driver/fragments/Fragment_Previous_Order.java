@@ -39,6 +39,7 @@ import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.hasry.R;
 import com.hasry.activities_fragments.driver.activity_home_driver.HomeDriverActivity;
+import com.hasry.activities_fragments.driver.activity_order_details.OrderDetailsActivity;
 import com.hasry.adapters.DriverOrderAdapter;
 import com.hasry.databinding.FragmentOrderBinding;
 import com.hasry.models.OrderDataModel;
@@ -445,5 +446,10 @@ public class Fragment_Previous_Order extends Fragment implements GoogleApiClient
                 Toast.makeText(activity, "Permission denied", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+    public void setItemData(int id) {
+        Intent intent=new Intent(activity, OrderDetailsActivity.class);
+        intent.putExtra("order_id",  id);
+        startActivity(intent);
     }
 }

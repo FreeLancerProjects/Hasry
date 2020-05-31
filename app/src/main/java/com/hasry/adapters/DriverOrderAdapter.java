@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.hasry.R;
 
-import com.hasry.activities_fragments.client.activity_order.fragments.Fragment_Previous_Order;
 import com.hasry.activities_fragments.driver.activity_home_driver.fragments.Fragment_Current_Order;
+import com.hasry.activities_fragments.driver.activity_home_driver.fragments.Fragment_Previous_Order;
 import com.hasry.databinding.DriverOrderRowBinding;
 import com.hasry.databinding.LoadMoreBinding;
 import com.hasry.models.OrderModel;
@@ -80,6 +80,8 @@ public class DriverOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 }else if (fragment instanceof Fragment_Previous_Order)
                 {
                     Fragment_Previous_Order fragmentPreviousOrder = (Fragment_Previous_Order) fragment;
+                    fragmentPreviousOrder.setItemData(list.get(holder.getLayoutPosition()).getId());
+
                 }
             });
         }else if (holder instanceof LoadHolder) {

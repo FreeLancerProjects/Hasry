@@ -159,6 +159,11 @@
     <string name="you">You</string>
     <string name="market">Market</string>
     <string name="total_cost">Total Cost</string>
+    <string name="identity_card_image">Identity card image</string>
+    <string name="license_image">License image</string>
+    <string name="choose_identity_card_image">Choose identity card image</string>
+    <string name="choose_license_image">Choose license image</string>
+    <string name="select_image_to_upload">Select Image to Upload</string>
     <string name="seller">Seller</string>
     <string name="description">Description</string>
     <string name="details">Details</string>
@@ -174,4 +179,7 @@
     <string name="driver_name">Driver Name :</string>
     <string name="show_location_on_map">Show location on map</string>
     <string name="amount">Amount</string>
+    <string name="ch_img_car_form">Choose Image Car Form</string>
+    <string name="car_form">Car Form</string>
+    <string name="ch_neigborhood">Choose NeigborHood</string>
 </resources>

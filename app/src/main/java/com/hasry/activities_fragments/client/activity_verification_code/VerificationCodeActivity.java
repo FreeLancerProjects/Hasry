@@ -14,7 +14,8 @@ import androidx.databinding.DataBindingUtil;
 
 import com.hasry.R;
 import com.hasry.activities_fragments.client.activity_home.HomeActivity;
-import com.hasry.activities_fragments.client.activity_signup.SignUpActivity;
+import com.hasry.activities_fragments.driver.activity_home_driver.HomeDriverActivity;
+import com.hasry.activities_fragments.sign_up_user_type.SignUpUserTypeActivity;
 import com.hasry.databinding.ActivityVerificationCodeBinding;
 import com.hasry.language.Language;
 import com.hasry.models.UserModel;
@@ -207,7 +208,11 @@ public class VerificationCodeActivity extends AppCompatActivity {
                         if (response.isSuccessful()&&response.body()!=null)
                         {
                             preferences.create_update_userdata(VerificationCodeActivity.this,response.body());
-                            navigateToHomeActivity();
+                            if(response.body().getData().getUser_type().equals("client")){
+                            navigateToHomeActivity();}
+                            else {
+                                navigateToHomeDriverActivity( );
+                            }
                         }else
                         {
 
@@ -217,7 +222,7 @@ public class VerificationCodeActivity extends AppCompatActivity {
                                 Toast.makeText(VerificationCodeActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
                             }else if (response.code()==401)
                             {
-                                navigateToSignUpActivity();
+                                navigateToUserTypeActivity();
                             }else
                             {
 
@@ -248,6 +253,12 @@ public class VerificationCodeActivity extends AppCompatActivity {
 
     }
 
+    private void navigateToHomeDriverActivity() {
+        Intent intent = new Intent(this, HomeDriverActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
 
     private void navigateToHomeActivity() {
         Intent intent = new Intent(this, HomeActivity.class);
@@ -255,8 +266,8 @@ public class VerificationCodeActivity extends AppCompatActivity {
         finish();
     }
 
-    private void navigateToSignUpActivity() {
-        Intent intent = new Intent(this, SignUpActivity.class);
+    private void navigateToUserTypeActivity() {
+        Intent intent = new Intent(this, SignUpUserTypeActivity.class);
         intent.putExtra("phone",phone);
         intent.putExtra("phone_code",phone_code);
         startActivity(intent);

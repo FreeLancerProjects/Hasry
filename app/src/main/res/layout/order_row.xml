@@ -8,6 +8,9 @@
         <variable
             name="lang"
             type="String" />
+        <variable
+            name="model"
+            type="com.hasry.models.OrderModel" />
 
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -45,6 +48,8 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:civ_border_color="@color/gray6"
                 app:civ_border_width="1dp"
+                image="@{model.markter.logo}"
+
 
                 />
 
@@ -97,7 +102,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
                     android:singleLine="true"
-                    android:text="10km"
                     android:textColor="@color/black"
                     android:textSize="10sp"
 
@@ -247,7 +251,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:singleLine="true"
-                    android:text="1"
+                    android:text='@{model.id+""}'
                     android:textColor="@color/colorAccent"
                     android:textSize="12sp" />
 
@@ -277,14 +281,16 @@
                     android:layout_height="wrap_content"
                     android:text="@string/total_cost"
                     android:textColor="@color/gray6"
-                    android:textSize="13sp" />
+                    android:textSize="13sp"
+
+                    />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:singleLine="true"
-                    android:text="1"
+                    android:text='@{model.total_price+""}'
                     android:textColor="@color/colorAccent"
                     android:textSize="12sp" />
 

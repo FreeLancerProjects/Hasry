@@ -103,6 +103,10 @@
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
+            android:name=".activities_fragments.driver.activity_signup.SignUpDriverActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
             android:name=".activities_fragments.client.activity_notification.NotificationActivity"
             android:configChanges="keyboardHidden|screenSize|orientation" />
         <activity android:name=".activities_fragments.activity_splash.SplashActivity">

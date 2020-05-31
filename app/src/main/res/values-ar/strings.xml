@@ -162,6 +162,11 @@
     <string name="order_details">تفاصيل الطلب</string>
     <string name="client">العميل</string>
     <string name="call">أتصال</string>
+    <string name="identity_card_image">صورة الهويه</string>
+    <string name="license_image">صورة الرخصة </string>
+    <string name="choose_identity_card_image">إختر صورة البطاقة الهويه</string>
+    <string name="choose_license_image">إختر صورة الرخصة </string>
+    <string name="select_image_to_upload">اختر الصوره لرفعها</string>
     <string name="you">انت</string>
     <string name="market">التاجر</string>
     <string name="total_cost">االإجمالي</string>
@@ -170,6 +175,9 @@
     <string name="details">المواصفات</string>
     <string name="status">حالة الطلب</string>
     <string name="ch_city">إختر المدينة</string>
+    <string name="ch_img_car_form">اختر استمارة السياره </string>
+    <string name="car_form">استمارة السياره</string>
+    <string name="ch_neigborhood">اختر الحى</string>
     <string name="diff_market">انت تحاول الشراء من متاجر مختلفة</string>
     <string name="discount">خصم</string>
     <string name="new_order">قيد الانتظار</string>

@@ -3,6 +3,9 @@ package com.hasry.activities_fragments.client.activity_notification;
 import android.content.Context;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -10,22 +13,33 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.hasry.R;
+import com.hasry.adapters.NotificationAdapter;
 import com.hasry.databinding.ActivityNotificationBinding;
 import com.hasry.interfaces.Listeners;
 import com.hasry.language.Language;
+import com.hasry.models.NotificationDataModel;
 import com.hasry.models.UserModel;
 import com.hasry.preferences.Preferences;
+import com.hasry.remote.Api;
+import com.hasry.tags.Tags;
 
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import io.paperdb.Paper;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class NotificationActivity extends AppCompatActivity implements Listeners.BackListener{
     private ActivityNotificationBinding binding;
     private String lang;
-    /*private List<NotificationDataModel.NotificationModel> notificationModelList;
-    private NotificationAdapter adapter;*/
+    private List<NotificationDataModel.NotificationModel> notificationModelList;
+    private NotificationAdapter adapter;
     private Preferences preferences;
     private UserModel userModel;
     private int current_page=1;
@@ -56,15 +70,11 @@ public class NotificationActivity extends AppCompatActivity implements Listeners
 
         preferences = Preferences.getInstance();
         userModel = preferences.getUserData(this);
-        //notificationModelList = new ArrayList<>();
-        Paper.init(this);
-        lang = Paper.book().read("lang", Locale.getDefault().getLanguage());
-        binding.setBackListener(this);
-        binding.setLang(lang);
-        binding.progBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(this,R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
+        notificationModelList = new ArrayList<>();
+
         binding.recView.setLayoutManager(new LinearLayoutManager(this));
-        /*adapter = new NotificationAdapter(this,notificationModelList);
-        binding.recView.setAdapter(adapter);*/
+        adapter = new NotificationAdapter(notificationModelList,this);
+        binding.recView.setAdapter(adapter);
 
 
        /* binding.recView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -95,9 +105,9 @@ public class NotificationActivity extends AppCompatActivity implements Listeners
 
     private void getNotification()
     {
-       /* try {
+        try {
             Api.getService(Tags.base_url)
-                    .getNotification(userModel.getUser().getToken(),current_page,"on",20)
+                    .getNotification("Bearer "+userModel.getData().getToken(),userModel.getData().getId())
                     .enqueue(new Callback<NotificationDataModel>() {
                         @Override
                         public void onResponse(Call<NotificationDataModel> call, Response<NotificationDataModel> response) {
@@ -152,7 +162,7 @@ public class NotificationActivity extends AppCompatActivity implements Listeners
                     });
         } catch (Exception e) {
 
-        }*/
+        }
     }
 
     private void loadMore(int page)
@@ -227,10 +237,71 @@ public class NotificationActivity extends AppCompatActivity implements Listeners
         }*/
     }
 
+    public void setItemData(NotificationDataModel.NotificationModel notificationModel, int adapterPosition) {
+
+        try {
+            Api.getService(Tags.base_url)
+                    .deleteNotification("Bearer "+userModel.getData().getToken(),notificationModel.getId(),userModel.getData().getId())
+                    .enqueue(new Callback<ResponseBody>() {
+                        @Override
+                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                            if (response.isSuccessful()) {
+                                notificationModelList.remove(adapterPosition);
+                                adapter.notifyItemRemoved(adapterPosition);
+
+                                if (notificationModelList.size() > 0) {
+
+                                    binding.tvNoData.setVisibility(View.GONE);
+                                } else {
+                                    binding.tvNoData.setVisibility(View.VISIBLE);
+
+                                }
+                            } else {
+                                if (response.code() == 500) {
+                                    Toast.makeText(NotificationActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
+
+
+                                } else {
+                                    Toast.makeText(NotificationActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
+
+                                    try {
+
+                                        Log.e("error", response.code() + "_" + response.errorBody().string());
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+                            try {
+                                binding.progBar.setVisibility(View.GONE);
+
+                                if (t.getMessage() != null) {
+                                    Log.e("error", t.getMessage());
+                                    if (t.getMessage().toLowerCase().contains("failed to connect") || t.getMessage().toLowerCase().contains("unable to resolve host")) {
+                                        Toast.makeText(NotificationActivity.this, R.string.something, Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(NotificationActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+
+                            } catch (Exception e) {
+                            }
+                        }
+                    });
+        } catch (Exception e) {
+
+        }
+    }
+
     @Override
     public void back() {
         finish();
     }
+
 
 
 }

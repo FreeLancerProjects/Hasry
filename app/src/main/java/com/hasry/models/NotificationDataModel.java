@@ -6,17 +6,18 @@ import java.util.List;
 public class NotificationDataModel implements Serializable {
 
     private List<NotificationModel> data;
+
     public List<NotificationModel> getData() {
         return data;
     }
 
 
-    public class NotificationModel implements Serializable {
-         private int id;
-                 private String title;
-                 private String message;
-                 private int order_id;
-                 private int from_user;
+    public static class NotificationModel implements Serializable {
+        private int id;
+        private String title;
+        private String message;
+        private int order_id;
+        private int from_user;
         private int to_user;
         private String from_user_type;
         private String to_user_type;

@@ -23,6 +23,7 @@ import com.hasry.models.ItemCartModel;
 import com.hasry.models.OrderModel;
 import com.hasry.models.UserModel;
 import com.hasry.preferences.Preferences;
+import com.hasry.share.Common;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,8 +75,13 @@ public class CartActivity extends AppCompatActivity implements Listeners.BackLis
 
 
         binding.btnCheckout.setOnClickListener(v -> {
-            Intent intent = new Intent(this, CheckoutActivity.class);
-            startActivityForResult(intent,100);
+            if (userModel!=null){
+                Intent intent = new Intent(this, CheckoutActivity.class);
+                startActivityForResult(intent,100);
+            }else {
+                Common.CreateDialogAlert(this,getString(R.string.please_sign_in_or_sign_up));
+            }
+
         });
 
 

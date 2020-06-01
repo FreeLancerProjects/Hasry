@@ -7,6 +7,8 @@ import com.hasry.models.MainCategoryDataModel;
 import com.hasry.models.MarketDataModel;
 import com.hasry.models.MostSellerDataModel;
 import com.hasry.models.NeighborHoodModel;
+import com.hasry.models.NotificationCount;
+import com.hasry.models.NotificationDataModel;
 import com.hasry.models.OfferDataModel;
 import com.hasry.models.OrderDataModel;
 import com.hasry.models.OrderModel;
@@ -146,6 +148,7 @@ public interface Service {
 
     );
 
+
     @GET("api/orders")
     Call<OrderDataModel> getDriverOrders(@Header("Authorization") String user_token,
                                          @Query("order_status") String order_status,
@@ -159,7 +162,7 @@ public interface Service {
 
     @GET("api/order-details")
     Call<OrderModel> getOrderDetials(@Query("order_id") String order_id
-                                     ,@Header("Authorization") String user_token
+            , @Header("Authorization") String user_token
 
 
     );
@@ -191,4 +194,33 @@ public interface Service {
     @GET("api/search-product")
     Call<SearchDataModel> search(@Query("key") String query
     );
+
+    @FormUrlEncoded
+    @POST("api/notification-is-read")
+    Call<ResponseBody> readNotification(@Header("Authorization") String user_token,
+                                        @Field("user_id") int user_id
+    );
+
+
+    @FormUrlEncoded
+    @POST("api/notification-is-read")
+    Call<NotificationCount> getUnreadNotificationCount(@Header("Authorization") String user_token,
+                                                       @Field("user_id") int user_id
+    );
+
+
+    @GET("api/Get-Notifications")
+    Call<NotificationDataModel> getNotification(@Header("Authorization") String user_token,
+                                                @Query("client_or_driver_id") int client_or_driver_id
+    );
+
+
+    @FormUrlEncoded
+    @POST("api/delete_notifications")
+    Call<ResponseBody> deleteNotification(@Header("Authorization") String user_token,
+                                          @Field("user_id") int id,
+                                          @Field("user_id") int user_id
+    );
+
+
 }

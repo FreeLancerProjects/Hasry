@@ -39,6 +39,7 @@ import com.hasry.language.Language;
 import com.hasry.models.CreateOrderModel;
 import com.hasry.models.MainCategoryDataModel;
 import com.hasry.models.NotFireModel;
+import com.hasry.models.NotificationCount;
 import com.hasry.models.UserModel;
 import com.hasry.preferences.Preferences;
 
@@ -106,17 +107,16 @@ public class HomeActivity extends AppCompatActivity implements Listeners.HomeLis
         adapter = new MainCategoryAdapter(mainDepartmentsList,this);
         binding.recView.setAdapter(adapter);
         binding.flNotification.setOnClickListener(view -> {
-            Intent intent = new Intent(this, NotificationActivity.class);
-            startActivity(intent);
 
-           /* if (userModel != null) {
+
+            if (userModel != null) {
                 readNotificationCount();
                 Intent intent = new Intent(this, NotificationActivity.class);
                 startActivity(intent);
 
             } else {
                 Common.CreateDialogAlert(this, getString(R.string.please_sign_in_or_sign_up));
-            }*/
+            }
 
         });
 
@@ -206,8 +206,8 @@ public class HomeActivity extends AppCompatActivity implements Listeners.HomeLis
 
 
     private void getNotificationCount() {
-        /*Api.getService(Tags.base_url)
-                .getUnreadNotificationCount(userModel.getUser().getToken())
+        Api.getService(Tags.base_url)
+                .getUnreadNotificationCount("Bearer "+userModel.getData().getToken(),userModel.getData().getId())
                 .enqueue(new Callback<NotificationCount>() {
                     @Override
                     public void onResponse(Call<NotificationCount> call, Response<NotificationCount> response) {
@@ -244,12 +244,12 @@ public class HomeActivity extends AppCompatActivity implements Listeners.HomeLis
                             Log.e("Error", e.getMessage() + "__");
                         }
                     }
-                });*/
+                });
     }
 
     private void readNotificationCount() {
-        /*Api.getService(Tags.base_url)
-                .readNotification(userModel.getUser().getToken())
+        Api.getService(Tags.base_url)
+                .readNotification("Bearer "+userModel.getData().getToken(),userModel.getData().getId())
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -286,7 +286,7 @@ public class HomeActivity extends AppCompatActivity implements Listeners.HomeLis
                             Log.e("Error", e.getMessage() + "__");
                         }
                     }
-                });*/
+                });
     }
 
 

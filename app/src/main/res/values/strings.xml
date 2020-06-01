@@ -182,4 +182,5 @@
     <string name="ch_img_car_form">Choose Image Car Form</string>
     <string name="car_form">Car Form</string>
     <string name="ch_neigborhood">Choose NeigborHood</string>
+    <string name="you_have_new_order">You Have New Order</string>
 </resources>

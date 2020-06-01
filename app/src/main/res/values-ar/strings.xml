@@ -188,5 +188,6 @@
     <string name="driver_name">إسم السائق :</string>
     <string name="show_location_on_map">عرض الموقع على الخريطة</string>
     <string name="amount">الكمية</string>
+    <string name="you_have_new_order">لديك طلب جديد</string>
 
 </resources>

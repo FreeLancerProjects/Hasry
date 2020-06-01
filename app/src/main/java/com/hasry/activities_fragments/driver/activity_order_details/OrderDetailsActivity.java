@@ -17,6 +17,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.hasry.R;
 import com.hasry.activities_fragments.driver.activity_map_show_location.MapShowLocationActivity;
@@ -24,6 +26,7 @@ import com.hasry.adapters.DriverProductAdapter;
 import com.hasry.databinding.ActivityOrderDetailsBinding;
 import com.hasry.interfaces.Listeners;
 import com.hasry.language.Language;
+import com.hasry.models.OrderDataModel;
 import com.hasry.models.OrderModel;
 import com.hasry.models.UserModel;
 import com.hasry.preferences.Preferences;
@@ -34,27 +37,30 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
 import io.paperdb.Paper;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class OrderDetailsActivity extends AppCompatActivity implements Listeners.BackListener{
+public class OrderDetailsActivity extends AppCompatActivity implements Listeners.BackListener {
     private ActivityOrderDetailsBinding binding;
     private String lang;
-private List<OrderModel.OrderDetails> orderDetailsList;
+    private List<OrderModel.OrderDetails> orderDetailsList;
     private DriverProductAdapter driverProductAdapter;
     String order_id;
-    Intent intent ;
+    Intent intent;
     private static final int REQUEST_PHONE_CALL = 1;
     private OrderModel orderModel;
     private UserModel userModel;
     private Preferences preferences;
+
     @Override
     protected void attachBaseContext(Context newBase) {
         Paper.init(newBase);
-        super.attachBaseContext(Language.updateResources(newBase, Paper.book().read("lang","ar")));
+        super.attachBaseContext(Language.updateResources(newBase, Paper.book().read("lang", "ar")));
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,39 +75,47 @@ private List<OrderModel.OrderDetails> orderDetailsList;
     private void getDataFromIntent() {
         Intent intent = getIntent();
         if (intent != null) {
-                order_id = intent.getStringExtra("order_id");
+            order_id = intent.getStringExtra("order_id");
 
         }
     }
+
     private void navigateToSMapActivity(int type) {
         Intent intent = new Intent(this, MapShowLocationActivity.class);
-if(type==1){
-        intent.putExtra("lat",Double.parseDouble(orderModel.getLatitude()));
-        intent.putExtra("lng",Double.parseDouble(orderModel.getLongitude()));}
-else {
-    intent.putExtra("lat",Double.parseDouble(orderModel.getMarkter().getLatitude()));
-   intent.putExtra("lng",Double.parseDouble(orderModel.getMarkter().getLongitude()));
-}
+        if (type == 1) {
+            intent.putExtra("lat", Double.parseDouble(orderModel.getLatitude()));
+            intent.putExtra("lng", Double.parseDouble(orderModel.getLongitude()));
+        } else {
+            intent.putExtra("lat", Double.parseDouble(orderModel.getMarkter().getLatitude()));
+            intent.putExtra("lng", Double.parseDouble(orderModel.getMarkter().getLongitude()));
+        }
         startActivity(intent);
-        finish();
+      //  finish();
     }
-    private void initView()
-    {
-        orderDetailsList=new ArrayList<>();
+
+    private void initView() {
+        orderDetailsList = new ArrayList<>();
         Paper.init(this);
-        preferences=Preferences.getInstance();
-        userModel=preferences.getUserData(this);
+        preferences = Preferences.getInstance();
+        userModel = preferences.getUserData(this);
         lang = Paper.book().read("lang", Locale.getDefault().getLanguage());
         binding.setBackListener(this);
         binding.setLang(lang);
-        binding.progBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(this,R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
-        binding.recView.setLayoutManager(new GridLayoutManager(this,3));
-        driverProductAdapter = new DriverProductAdapter(this,orderDetailsList);
+        binding.progBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(this, R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
+        binding.recView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL,false));
+        driverProductAdapter = new DriverProductAdapter(this, orderDetailsList);
         binding.recView.setAdapter(driverProductAdapter);
         binding.btCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(intent!=null){
+              //  Log.e("kkkk",orderModel.getClient().getPhone());
+                if(intent==null){
+                    if(orderModel!=null) {
+                        intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", orderModel.getClient().getPhone_code() + orderModel.getClient().getPhone(), null));
+                    }
+                }
+                if (intent != null) {
+                    Log.e("kkkk",orderModel.getClient().getPhone());
                     if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         if (ContextCompat.checkSelfPermission(OrderDetailsActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                             ActivityCompat.requestPermissions(OrderDetailsActivity.this, new String[]{Manifest.permission.CALL_PHONE}, REQUEST_PHONE_CALL);
@@ -127,17 +141,17 @@ else {
             }
         });
     }
-    private void getOrder()
-    {
+
+    private void getOrder() {
         try {
             Api.getService(Tags.base_url)
-                    .getOrderDetials(order_id,"Bearer "+userModel.getData().getToken())
-                    .enqueue(new Callback<OrderModel>() {
+                    .getOrderDetials(order_id, "Bearer " + userModel.getData().getToken())
+                    .enqueue(new Callback<OrderDataModel>() {
                         @Override
-                        public void onResponse(Call<OrderModel> call, Response<OrderModel> response) {
+                        public void onResponse(Call<OrderDataModel> call, Response<OrderDataModel> response) {
                             binding.progBar.setVisibility(View.GONE);
                             if (response.isSuccessful() && response.body() != null) {
-UPDATEUI(response.body());
+                                UPDATEUI(response.body());
                             } else {
                                 if (response.code() == 500) {
                                     Toast.makeText(OrderDetailsActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
@@ -157,7 +171,7 @@ UPDATEUI(response.body());
                         }
 
                         @Override
-                        public void onFailure(Call<OrderModel> call, Throwable t) {
+                        public void onFailure(Call<OrderDataModel> call, Throwable t) {
                             try {
                                 binding.progBar.setVisibility(View.GONE);
 
@@ -179,13 +193,15 @@ UPDATEUI(response.body());
         }
     }
 
-    private void UPDATEUI(OrderModel body) {
-        this.orderModel=body;
-        binding.setModel(body);
-        orderDetailsList.addAll(body.getOrder_details());
+    private void UPDATEUI(OrderDataModel body) {
+        this.orderModel = body.getOrder_details();
+        binding.setModel(body.getOrder_details());
+        orderDetailsList.addAll(body.getOrder_details().getOrder_details());
         driverProductAdapter.notifyDataSetChanged();
-        if(body.getClient().getPhone()!=null) {
-            intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", body.getClient().getPhone_code()+body.getClient().getPhone(), null));
+
+        if (body.getOrder_details().getClient().getPhone() != null) {
+            Log.e("ldkfk",body.getOrder_details().getClient().getPhone());
+            intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", body.getOrder_details().getClient().getPhone_code() + body.getOrder_details().getClient().getPhone(), null));
         }
     }
 
@@ -214,8 +230,7 @@ UPDATEUI(response.body());
                         }
                     }
                     startActivity(intent);
-                }
-                else {
+                } else {
 
                 }
                 return;

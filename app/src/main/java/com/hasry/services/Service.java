@@ -7,6 +7,7 @@ import com.hasry.models.MainCategoryDataModel;
 import com.hasry.models.MarketDataModel;
 import com.hasry.models.MostSellerDataModel;
 import com.hasry.models.NeighborHoodModel;
+import com.hasry.models.NotificationDataModel;
 import com.hasry.models.NotificationCount;
 import com.hasry.models.NotificationDataModel;
 import com.hasry.models.OfferDataModel;
@@ -160,8 +161,16 @@ public interface Service {
 
     );
 
+    @GET("api/Get-Notifications")
+    Call<NotificationDataModel> getNotification(
+            @Query("client_or_driver_id") int client_or_driver_id
+            , @Header("Authorization") String user_token
+
+
+    );
+
     @GET("api/order-details")
-    Call<OrderModel> getOrderDetials(@Query("order_id") String order_id
+    Call<OrderDataModel> getOrderDetials(@Query("order_id") String order_id
             , @Header("Authorization") String user_token
 
 

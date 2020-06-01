@@ -1,10 +1,14 @@
 package com.hasry.activities_fragments.driver.activity_home_driver;
 
+import android.app.NotificationManager;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,33 +20,45 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.hasry.R;
 import com.hasry.activities_fragments.activity_about_app.AboutAppActivity;
 import com.hasry.activities_fragments.activity_contact_us.ContactUsActivity;
+import com.hasry.activities_fragments.client.activity_home.HomeActivity;
 import com.hasry.activities_fragments.driver.activity_home_driver.fragments.Fragment_Current_Order;
 import com.hasry.activities_fragments.driver.activity_home_driver.fragments.Fragment_Previous_Order;
 import com.hasry.activities_fragments.client.activity_login.LoginActivity;
 import com.hasry.activities_fragments.client.activity_markets.MarketsActivity;
 import com.hasry.activities_fragments.client.activity_notification.NotificationActivity;
+import com.hasry.activities_fragments.driver.activity_notification.NotificationDriverActivity;
 import com.hasry.activities_fragments.driver.activity_profile.ProfileActivity;
 import com.hasry.adapters.ViewPagerOrderAdapter;
 import com.hasry.databinding.ActivityDriverHomeBinding;
+import com.hasry.interfaces.Listeners;
 import com.hasry.language.Language;
 import com.hasry.models.MainCategoryDataModel;
 import com.hasry.models.NotFireModel;
 import com.hasry.models.UserModel;
 import com.hasry.preferences.Preferences;
+import com.hasry.remote.Api;
+import com.hasry.share.Common;
+import com.hasry.tags.Tags;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import io.paperdb.Paper;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-public class HomeDriverActivity extends AppCompatActivity {
+public class HomeDriverActivity extends AppCompatActivity  {
     private ActivityDriverHomeBinding binding;
     private Preferences preferences;
     private FragmentManager fragmentManager;
@@ -91,7 +107,12 @@ public class HomeDriverActivity extends AppCompatActivity {
         adapter.addFragments(fragmentList);
         adapter.addTitles(title);
         binding.pager.setAdapter(adapter);
-
+binding.lllogout.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        Logout();
+    }
+});
         binding.flNotification.setOnClickListener(view -> {
             Intent intent = new Intent(this, NotificationActivity.class);
             startActivity(intent);
@@ -102,7 +123,7 @@ binding.llNotification.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
         binding.drawer.closeDrawer(GravityCompat.START);
-        Intent intent = new Intent(HomeDriverActivity.this, NotificationActivity.class);
+        Intent intent = new Intent(HomeDriverActivity.this, NotificationDriverActivity.class);
         startActivity(intent);
 
     }
@@ -165,6 +186,78 @@ binding.llProfile.setOnClickListener(new View.OnClickListener() {
 
     }
 
+    private void Logout() {
+        if (userModel != null) {
+
+
+            ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
+            dialog.show();
+
+
+            FirebaseInstanceId.getInstance()
+                    .getInstanceId().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    String token = task.getResult().getToken();
+
+                    Api.getService(Tags.base_url)
+                            .logout("Bearer " + userModel.getData().getToken(), token)
+                            .enqueue(new Callback<ResponseBody>() {
+                                @Override
+                                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                    dialog.dismiss();
+                                    if (response.isSuccessful()) {
+                                        preferences.clear(HomeDriverActivity.this);
+                                        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                                        if (manager != null) {
+                                            manager.cancel(Tags.not_tag, Tags.not_id);
+                                        }
+                                        navigateToSignInActivity();
+
+
+                                    } else {
+                                        dialog.dismiss();
+                                        try {
+                                            Log.e("error", response.code() + "__" + response.errorBody().string());
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
+
+                                        if (response.code() == 500) {
+                                            Toast.makeText(HomeDriverActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            Toast.makeText(HomeDriverActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                    try {
+                                        dialog.dismiss();
+                                        if (t.getMessage() != null) {
+                                            Log.e("error", t.getMessage() + "__");
+
+                                            if (t.getMessage().toLowerCase().contains("failed to connect") || t.getMessage().toLowerCase().contains("unable to resolve host")) {
+                                                Toast.makeText(HomeDriverActivity.this, getString(R.string.something), Toast.LENGTH_SHORT).show();
+                                            } else {
+                                                Toast.makeText(HomeDriverActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    } catch (Exception e) {
+                                        Log.e("Error", e.getMessage() + "__");
+                                    }
+                                }
+                            });
+
+                }
+            });
+
+
+        } else {
+            navigateToSignInActivity();
+        }
+
+    }
 
 
     private void getNotificationCount() {

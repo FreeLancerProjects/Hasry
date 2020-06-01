@@ -6,9 +6,14 @@ import java.util.List;
 public class OrderDataModel implements Serializable {
 
     public Data data;
+private OrderModel order_details;
 
     public Data getData() {
         return data;
+    }
+
+    public OrderModel getOrder_details() {
+        return order_details;
     }
 
     public static class Data implements Serializable{

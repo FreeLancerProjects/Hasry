@@ -14,6 +14,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.hasry.R;
@@ -53,7 +54,6 @@ public class MapShowLocationActivity extends AppCompatActivity implements OnMapR
         binding.setBackListener(this);
 getDataFromIntent();
         updateUI();
-        AddMarker(lat,lng);
     }
     private void getDataFromIntent() {
         Intent intent = getIntent();
@@ -78,9 +78,11 @@ getDataFromIntent();
 
         if (googleMap != null) {
             mMap = googleMap;
+            mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.maps));
             mMap.setTrafficEnabled(false);
             mMap.setBuildingsEnabled(false);
             mMap.setIndoorEnabled(true);
+            AddMarker(lat,lng);
 
 
         }

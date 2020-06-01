@@ -10,7 +10,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
     <application
         android:name=".share.App"
         android:allowBackup="true"
@@ -95,7 +95,9 @@
         <activity
             android:name=".activities_fragments.client.activity_my_favorite.MyFavoriteActivity"
             android:configChanges="keyboardHidden|screenSize|orientation" />
-
+        <activity
+            android:name=".activities_fragments.driver.activity_map_show_location.MapShowLocationActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation" />
         <activity
             android:name=".activities_fragments.client.activity_search.SearchActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"

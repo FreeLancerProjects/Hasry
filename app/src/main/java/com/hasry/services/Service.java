@@ -212,7 +212,7 @@ public interface Service {
 
 
     @FormUrlEncoded
-    @POST("api/notification-is-read")
+    @POST("api/notification-count")
     Call<NotificationCount> getUnreadNotificationCount(@Header("Authorization") String user_token,
                                                        @Field("user_id") int user_id
     );

@@ -110,6 +110,7 @@ public class HomeActivity extends AppCompatActivity implements Listeners.HomeLis
 
 
             if (userModel != null) {
+                binding.setNotCount(0);
                 readNotificationCount();
                 Intent intent = new Intent(this, NotificationActivity.class);
                 startActivity(intent);
@@ -212,6 +213,7 @@ public class HomeActivity extends AppCompatActivity implements Listeners.HomeLis
                     @Override
                     public void onResponse(Call<NotificationCount> call, Response<NotificationCount> response) {
                         if (response.isSuccessful()) {
+                            Log.e("count",response.body().getCount()+"_");
                             binding.setNotCount(response.body().getCount());
                         } else {
                             try {

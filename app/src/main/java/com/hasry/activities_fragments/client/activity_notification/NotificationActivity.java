@@ -1,5 +1,6 @@
 package com.hasry.activities_fragments.client.activity_notification;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import com.hasry.models.NotificationDataModel;
 import com.hasry.models.UserModel;
 import com.hasry.preferences.Preferences;
 import com.hasry.remote.Api;
+import com.hasry.share.Common;
 import com.hasry.tags.Tags;
 
 
@@ -239,12 +241,18 @@ public class NotificationActivity extends AppCompatActivity implements Listeners
 
     public void setItemData(NotificationDataModel.NotificationModel notificationModel, int adapterPosition) {
 
+
         try {
+            ProgressDialog dialog = Common.createProgressDialog(this,getString(R.string.wait));
+            dialog.setCancelable(false);
+            dialog.setCanceledOnTouchOutside(false);
+            dialog.show();
             Api.getService(Tags.base_url)
                     .deleteNotification("Bearer "+userModel.getData().getToken(),notificationModel.getId(),userModel.getData().getId())
                     .enqueue(new Callback<ResponseBody>() {
                         @Override
                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                            dialog.dismiss();
                             if (response.isSuccessful()) {
                                 notificationModelList.remove(adapterPosition);
                                 adapter.notifyItemRemoved(adapterPosition);
@@ -257,6 +265,7 @@ public class NotificationActivity extends AppCompatActivity implements Listeners
 
                                 }
                             } else {
+                                dialog.dismiss();
                                 if (response.code() == 500) {
                                     Toast.makeText(NotificationActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
 
@@ -277,8 +286,7 @@ public class NotificationActivity extends AppCompatActivity implements Listeners
                         @Override
                         public void onFailure(Call<ResponseBody> call, Throwable t) {
                             try {
-                                binding.progBar.setVisibility(View.GONE);
-
+                                dialog.dismiss();
                                 if (t.getMessage() != null) {
                                     Log.e("error", t.getMessage());
                                     if (t.getMessage().toLowerCase().contains("failed to connect") || t.getMessage().toLowerCase().contains("unable to resolve host")) {

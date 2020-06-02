@@ -20,6 +20,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             >
             <FrameLayout
                 android:layout_width="match_parent"
@@ -75,13 +76,14 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
                         android:textColor="@color/black"
-                        android:textSize="15sp"
+                        android:textSize="13sp"
                         android:text="@{model.message}"
                         android:layout_marginTop="5dp"
                         app:layout_constraintHorizontal_bias="0"
                         app:layout_constraintWidth_default="wrap"
                         android:maxLines="2"
                         android:ellipsize="end"
+                        android:lines="2"
 
                         />
 
@@ -96,6 +98,9 @@
                     android:layout_gravity="end"
                     android:src="@drawable/ic_error"
                     android:tint="@color/red2"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="5dp"
                     />
 
             </FrameLayout>

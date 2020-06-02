@@ -262,7 +262,7 @@ NotificationDriverActivity extends AppCompatActivity implements Listeners.BackLi
 
             DialogAcceptRefuseBinding binding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.dialog_accept_refuse, null, false);
             if (actiontype.equals(Tags.marketer_to_driver_order)) {
-                binding.tvTitle.setText(getResources().getString(R.string.you_have_new_order)+"\n" + ":" + order_id);
+                binding.tvTitle.setText(getResources().getString(R.string.you_have_new_order)+"\n" +  getResources().getString(R.string.num)+ order_id);
                 binding.btnSend.setText(getResources().getString(R.string.accept));
                 binding.btnCancel.setText(getResources().getString(R.string.refuse));
             } else if (actiontype.equals(Tags.driver_to_marketer_order_delivery)) {
@@ -309,7 +309,7 @@ NotificationDriverActivity extends AppCompatActivity implements Listeners.BackLi
                     });
 
             dialog.getWindow().getAttributes().windowAnimations = R.style.dialog_congratulation_animation;
-            dialog.setCanceledOnTouchOutside(false);
+            dialog.setCanceledOnTouchOutside(true);
             dialog.getWindow().setBackgroundDrawableResource(R.drawable.dialog_window_bg);
             dialog.setView(binding.getRoot());
             dialog.show();

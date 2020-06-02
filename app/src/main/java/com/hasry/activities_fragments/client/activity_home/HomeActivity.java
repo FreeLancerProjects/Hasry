@@ -106,20 +106,7 @@ public class HomeActivity extends AppCompatActivity implements Listeners.HomeLis
         binding.recView.setLayoutManager(new GridLayoutManager(this,2));
         adapter = new MainCategoryAdapter(mainDepartmentsList,this);
         binding.recView.setAdapter(adapter);
-        binding.flNotification.setOnClickListener(view -> {
 
-
-            if (userModel != null) {
-                binding.setNotCount(0);
-                readNotificationCount();
-                Intent intent = new Intent(this, NotificationActivity.class);
-                startActivity(intent);
-
-            } else {
-                Common.CreateDialogAlert(this, getString(R.string.please_sign_in_or_sign_up));
-            }
-
-        });
 
 
 
@@ -257,6 +244,7 @@ public class HomeActivity extends AppCompatActivity implements Listeners.HomeLis
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         if (response.isSuccessful()) {
                             binding.setNotCount(0);
+                            Log.e("bb","bb");
                         } else {
                             try {
                                 Log.e("error", response.code() + "__" + response.errorBody().string());
@@ -552,11 +540,14 @@ public class HomeActivity extends AppCompatActivity implements Listeners.HomeLis
 
     @Override
     public void notification() {
-        if (userModel!=null){
+        if (userModel != null) {
+            binding.setNotCount(0);
+            readNotificationCount();
             Intent intent = new Intent(this, NotificationActivity.class);
             startActivity(intent);
-        }else {
-            Common.CreateDialogAlert(this,getString(R.string.please_sign_in_or_sign_up));
+
+        } else {
+            Common.CreateDialogAlert(this, getString(R.string.please_sign_in_or_sign_up));
         }
     }
 

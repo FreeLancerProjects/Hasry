@@ -79,8 +79,8 @@ public class DriverOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     fragmentCurrentOrder.setItemData(list.get(holder.getLayoutPosition()).getId());
                 }else if (fragment instanceof Fragment_Previous_Order)
                 {
-                    Fragment_Previous_Order fragmentPreviousOrder = (Fragment_Previous_Order) fragment;
-                    fragmentPreviousOrder.setItemData(list.get(holder.getLayoutPosition()).getId());
+//                    Fragment_Previous_Order fragmentPreviousOrder = (Fragment_Previous_Order) fragment;
+  //                  fragmentPreviousOrder.setItemData(list.get(holder.getLayoutPosition()).getId());
 
                 }
             });

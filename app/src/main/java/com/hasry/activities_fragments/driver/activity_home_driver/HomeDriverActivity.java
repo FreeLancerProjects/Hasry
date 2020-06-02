@@ -140,6 +140,8 @@ binding.llTerms.setOnClickListener(new View.OnClickListener() {
         binding.drawer.closeDrawer(GravityCompat.START);
 
         Intent intent = new Intent(HomeDriverActivity.this, AboutAppActivity.class);
+        intent.putExtra("type",1);
+
         startActivity(intent);
     }
 });
@@ -149,6 +151,8 @@ binding.llAbout.setOnClickListener(new View.OnClickListener() {
         binding.drawer.closeDrawer(GravityCompat.START);
 
         Intent intent = new Intent(HomeDriverActivity.this, AboutAppActivity.class);
+        intent.putExtra("type",2);
+
         startActivity(intent);
     }
 });

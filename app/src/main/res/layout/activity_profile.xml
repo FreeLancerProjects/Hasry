@@ -272,8 +272,136 @@ android:text="@{model.data.email}"
 
                     </LinearLayout>
 
+                    <View
+                        android:id="@+id/view4"
+                        android:layout_width="0dp"
+                        android:layout_height="1px"
+                        app:layout_constraintStart_toStartOf="@id/flEmail"
+                        app:layout_constraintTop_toBottomOf="@id/llEmail"
+                        app:layout_constraintEnd_toEndOf="@id/llEmail"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/gray4"
+                        />
+                    <FrameLayout
+                        android:id="@+id/flcity"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/view4"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginEnd="40dp"
+                        >
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@color/colorPrimaryDark"
+                            android:layout_gravity="center"
+                            />
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_map"
+                            android:layout_gravity="center"
+                            android:tint="@color/white"
+                            />
+                    </FrameLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llCity"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintStart_toEndOf="@id/flcity"
+                        app:layout_constraintTop_toTopOf="@id/flcity"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginEnd="30dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="13sp"
+                            android:textColor="@color/gray6"
+                            android:text="@string/city"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:text="@{model.data.city}"
+                            />
 
 
+
+                    </LinearLayout>
+                    <View
+                        android:id="@+id/view5"
+                        android:layout_width="0dp"
+                        android:layout_height="1px"
+                        app:layout_constraintStart_toStartOf="@id/flcity"
+                        app:layout_constraintTop_toBottomOf="@id/llCity"
+                        app:layout_constraintEnd_toEndOf="@id/llCity"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/gray4"
+                        />
+                    <FrameLayout
+                        android:id="@+id/flneigborhood"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/view5"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginEnd="40dp"
+                        >
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@color/colorPrimaryDark"
+                            android:layout_gravity="center"
+                            />
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_map"
+                            android:layout_gravity="center"
+                            android:tint="@color/white"
+                            />
+                    </FrameLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llnegiboorhood"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintStart_toEndOf="@id/flneigborhood"
+                        app:layout_constraintTop_toTopOf="@id/flneigborhood"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginEnd="30dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="13sp"
+                            android:textColor="@color/gray6"
+                            android:text="@string/neigboorhood"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:text="@{model.data.city}"
+                            />
+
+
+
+                    </LinearLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 

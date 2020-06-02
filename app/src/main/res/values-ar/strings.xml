@@ -193,5 +193,9 @@
 <string name="end_oder">هل تريد انهاء الطلب ؟ </string>
     <string name="num">رقم  :</string>
     <string name="market_not_available">المتجر غير متاج الان</string>
+    <string name="neigboorhood">الحى</string>
+    <string name="order_detials">تفاصيل الطلب</string>
+    <string name="accept">قبول</string>
+    <string name="refuse">رفض</string>
 
 </resources>

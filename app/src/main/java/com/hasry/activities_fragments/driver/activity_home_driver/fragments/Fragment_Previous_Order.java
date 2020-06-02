@@ -86,7 +86,8 @@ public class Fragment_Previous_Order extends Fragment implements GoogleApiClient
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_order,container,false);
         initView();
-        CheckPermission();
+        if(this.isVisible()){
+        CheckPermission();}
         getOrders();
         return binding.getRoot();
     }

@@ -6,7 +6,114 @@
         <variable
             name="model"
             type="com.hasry.models.MainCategoryDataModel.Data.MainDepartments" />
+
+        <variable
+            name="lang"
+            type="String" />
+
     </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="5dp"
+        app:cardCornerRadius="5dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="3dp"
+        android:layout_marginTop="15dp"
+        android:id="@+id/cardView"
+
+        >
+        <FrameLayout
+            android:id="@+id/flBus"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/custom_bg"
+            >
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:longClickable="false"
+                >
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/imageBus"
+                    android:layout_width="120dp"
+                    android:layout_height="80dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:riv_corner_radius="5dp"
+                    app:riv_border_width="0dp"
+                    image="@{model.icon}"
+                    android:scaleType="fitXY"
+
+                    >
+
+
+
+
+
+                </com.makeramen.roundedimageview.RoundedImageView>
+
+                <TextView
+                    android:id="@+id/tvBus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/imageBus"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:text="@{model.title}"
+                    />
+                <TextView
+                    android:id="@+id/tvShowAllBus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/tvBus"
+                    app:layout_constraintStart_toStartOf="@id/tvBus"
+                    android:layout_marginTop="10dp"
+                    android:textSize="13sp"
+                    android:textColor="@color/white"
+                    android:text="@string/show_all"/>
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    app:layout_constraintTop_toTopOf="@id/tvShowAllBus"
+                    app:layout_constraintBottom_toBottomOf="@id/tvShowAllBus"
+                    app:layout_constraintStart_toEndOf="@id/tvShowAllBus"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/circle_trans_white"
+                    android:src="@drawable/ic_right_arrow"
+                    android:padding="1dp"
+                    android:rotation='@{lang.equals("ar")?180:0}'
+                    />
+
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    image="@{model.icon}"
+                    android:tint="@color/white"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </FrameLayout>
+    </androidx.cardview.widget.CardView>
+
+<!--
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
@@ -49,4 +156,5 @@
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
+-->
 </layout>

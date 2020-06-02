@@ -5,6 +5,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.PorterDuff;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -86,7 +88,6 @@ public class HomeActivity extends AppCompatActivity implements Listeners.HomeLis
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home);
         initView();
 
-
     }
 
     private void initView() {
@@ -103,7 +104,7 @@ public class HomeActivity extends AppCompatActivity implements Listeners.HomeLis
         toggle = new ActionBarDrawerToggle(this,binding.drawer,binding.toolbar,R.string.open,R.string.close);
         toggle.syncState();
 
-        binding.recView.setLayoutManager(new GridLayoutManager(this,2));
+        binding.recView.setLayoutManager(new GridLayoutManager(this,1));
         adapter = new MainCategoryAdapter(mainDepartmentsList,this);
         binding.recView.setAdapter(adapter);
 

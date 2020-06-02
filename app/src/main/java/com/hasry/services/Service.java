@@ -227,7 +227,7 @@ public interface Service {
     @FormUrlEncoded
     @POST("api/delete_notifications")
     Call<ResponseBody> deleteNotification(@Header("Authorization") String user_token,
-                                          @Field("user_id") int id,
+                                          @Field("id") int id,
                                           @Field("user_id") int user_id
     );
 

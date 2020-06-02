@@ -2,6 +2,7 @@ package com.hasry.adapters;
 
 import android.content.Context;
 import android.graphics.PorterDuff;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -60,7 +61,7 @@ public class DriverProductAdapter extends RecyclerView.Adapter<RecyclerView.View
         if (holder instanceof Holder1)
         {
             Holder1 holder1 = (Holder1) holder;
-
+            Log.e("fllflfl",model.getProduct_info().getTitle());
             holder1.binding.setModel(model);
 
 

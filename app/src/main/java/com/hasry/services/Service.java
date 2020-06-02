@@ -231,5 +231,28 @@ public interface Service {
                                           @Field("user_id") int user_id
     );
 
+    @FormUrlEncoded
+    @POST("/api/Driver-action-Order")
+    Call<ResponseBody> DriverAcceptRefuse(
+            @Header("Authorization") String user_token,
+            @Field("notification_id") String notification_id,
+            @Field("type") String type
 
+    );
+
+    @FormUrlEncoded
+    @POST("/api/Driver-delivery-Order")
+    Call<ResponseBody> Driverdeliverorder(
+            @Header("Authorization") String user_token,
+            @Field("notification_id") String notification_id
+
+    );
+    @FormUrlEncoded
+    @POST("/api/Driver-end-Order")
+    Call<ResponseBody> DriverEndOrder(
+            @Header("Authorization") String user_token,
+            @Field("notification_id") String notification_id,
+            @Field("type") String type
+
+    );
 }

@@ -1,7 +1,9 @@
 package com.hasry.activities_fragments.driver.activity_notification;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.PorterDuff;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +19,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.hasry.R;
 import com.hasry.databinding.ActivityNotificationBinding;
+import com.hasry.databinding.DialogAcceptRefuseBinding;
+import com.hasry.databinding.DialogAlertBinding;
 import com.hasry.interfaces.Listeners;
 import com.hasry.language.Language;
 import com.hasry.adapters.Notification_Adapter;
@@ -24,6 +28,7 @@ import com.hasry.models.NotificationDataModel;
 import com.hasry.models.UserModel;
 import com.hasry.preferences.Preferences;
 import com.hasry.remote.Api;
+import com.hasry.share.Common;
 import com.hasry.tags.Tags;
 
 import java.io.IOException;
@@ -32,11 +37,13 @@ import java.util.List;
 import java.util.Locale;
 
 import io.paperdb.Paper;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class NotificationDriverActivity extends AppCompatActivity implements Listeners.BackListener{
+public class
+NotificationDriverActivity extends AppCompatActivity implements Listeners.BackListener{
     private ActivityNotificationBinding binding;
     private String lang;
     private List<NotificationDataModel.NotificationModel> notificationModelList;
@@ -110,6 +117,8 @@ public class NotificationDriverActivity extends AppCompatActivity implements Lis
 
     private void getNotification()
     {
+        notificationModelList.clear();
+        adapter.notifyDataSetChanged();
         try {
             Api.getService(Tags.base_url)
                     .getNotification(userModel.getData().getId(),"Bearer "+userModel.getData().getToken())
@@ -246,44 +255,163 @@ public class NotificationDriverActivity extends AppCompatActivity implements Lis
     public void back() {
         finish();
     }
- public  void CreateAcceptRefuseDialog(final String notification_id)
+ public  void CreateAcceptRefuseDialog(final String notification_id,String order_id,String actiontype)
     {
+        if(!actiontype.equals("nothing")){
         final AlertDialog dialog = new AlertDialog.Builder(this)
                 .setCancelable(true)
                 .create();
 
-        View view = LayoutInflater.from(this).inflate(R.layout.dialog_accept_refuse,null);
-        Button btn_send = view.findViewById(R.id.btn_send);
-        Button btn_cancel = view.findViewById(R.id.btn_cancel);
+        DialogAcceptRefuseBinding binding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.dialog_accept_refuse, null, false);
+if(actiontype.equals(Tags.marketer_to_driver_order)) {
+    binding.tvTitle.setText(getResources().getString(R.string.you_have_new_order) + ":" + order_id);
+}
+else if(actiontype.equals(Tags.driver_to_marketer_order_delivery)){
+    binding.tvTitle.setText(getResources().getString(R.string.collected_will_you_get_it_now) + getResources().getString(R.string.num) + order_id);
 
-        btn_send.setOnClickListener(new View.OnClickListener() {
+}
+else if(actiontype.equals(Tags.driver_end_order)){
+    binding.tvTitle.setText(getResources().getString(R.string.end_oder) + getResources().getString(R.string.num)  + order_id);
+}
+        binding.btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-AcceptOrder(notification_id);
+                if(actiontype.equals(Tags.marketer_to_driver_order)) {
+
+                    AcceptOrder(notification_id,"accept");}
+                else if(actiontype.equals(Tags.driver_to_marketer_order_delivery)){
+                    deliverOrder(notification_id);
+                }
+                else if(actiontype.equals(Tags.driver_end_order)){
+                    EndOrder(notification_id,"end");
+                }
                 dialog.dismiss();
             }
         });
-        btn_cancel.setOnClickListener(
+        binding.btnCancel.setOnClickListener(
                 new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 dialog.dismiss();
-                CancelOrder(notification_id);
+                if(actiontype.equals(Tags.marketer_to_driver_order)) {
+
+                    AcceptOrder(notification_id,"refuse");}
             }
         });
 
         dialog.getWindow().getAttributes().windowAnimations=R.style.dialog_congratulation_animation;
         dialog.setCanceledOnTouchOutside(false);
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.dialog_window_bg);
-        dialog.setView(view);
+        dialog.setView(binding.getRoot());
         dialog.show();
-    }
+    }}
 
-    private void CancelOrder(String notification_id) {
-    }
 
-    private void AcceptOrder(String notification_id) {
+    private void AcceptOrder(String notification_id,String status) {
+
+        final ProgressDialog dialog = Common.createProgressDialog(this,getString(R.string.wait));
+        dialog.setCancelable(false);
+        dialog.show();
+        Api.getService(Tags.base_url)
+                .DriverAcceptRefuse("Bearer "+userModel.getData().getToken(),notification_id,status)
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        dialog.dismiss();
+                        if (response.isSuccessful())
+                        {
+                            getNotification();
+                        }else
+                        {
+                            dialog.dismiss();
+                            Toast.makeText(NotificationDriverActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
+                            try {
+                                Log.e("error_code",response.code()+""+response.errorBody().string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        try {
+                            dialog.dismiss();
+                            Log.e("Error",t.getMessage());
+                        }catch (Exception e){}
+                    }
+                });
+    }
+    private void deliverOrder(String notification_id) {
+
+        final ProgressDialog dialog = Common.createProgressDialog(this,getString(R.string.wait));
+        dialog.setCancelable(false);
+        dialog.show();
+        Api.getService(Tags.base_url)
+                .Driverdeliverorder("Bearer "+userModel.getData().getToken(),notification_id)
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        dialog.dismiss();
+                        if (response.isSuccessful())
+                        {
+                            getNotification();
+                        }else
+                        {
+                            dialog.dismiss();
+                            Toast.makeText(NotificationDriverActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
+                            try {
+                                Log.e("error_code",response.code()+""+response.errorBody().string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        try {
+                            dialog.dismiss();
+                            Log.e("Error",t.getMessage());
+                        }catch (Exception e){}
+                    }
+                });
+    }
+    private void EndOrder(String notification_id,String status) {
+
+        final ProgressDialog dialog = Common.createProgressDialog(this,getString(R.string.wait));
+        dialog.setCancelable(false);
+        dialog.show();
+        Api.getService(Tags.base_url)
+                .DriverEndOrder("Bearer "+userModel.getData().getToken(),notification_id,status)
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        dialog.dismiss();
+                        if (response.isSuccessful())
+                        {
+                            getNotification();
+                        }else
+                        {
+                            dialog.dismiss();
+                            Toast.makeText(NotificationDriverActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
+                            try {
+                                Log.e("error_code",response.code()+""+response.errorBody().string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        try {
+                            dialog.dismiss();
+                            Log.e("Error",t.getMessage());
+                        }catch (Exception e){}
+                    }
+                });
     }
 
 }

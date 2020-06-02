@@ -38,6 +38,7 @@ import com.hasry.interfaces.Listeners;
 import com.hasry.language.Language;
 import com.hasry.models.MainCategoryDataModel;
 import com.hasry.models.NotFireModel;
+import com.hasry.models.NotificationCount;
 import com.hasry.models.UserModel;
 import com.hasry.preferences.Preferences;
 import com.hasry.remote.Api;
@@ -113,12 +114,7 @@ binding.lllogout.setOnClickListener(new View.OnClickListener() {
         Logout();
     }
 });
-        binding.flNotification.setOnClickListener(view -> {
-            Intent intent = new Intent(this, NotificationActivity.class);
-            startActivity(intent);
 
-
-        });
 binding.llNotification.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
@@ -174,6 +170,22 @@ binding.llProfile.setOnClickListener(new View.OnClickListener() {
         startActivity(intent);
     }
 });
+        binding.flNotification.setOnClickListener(view -> {
+
+
+            if (userModel != null) {
+                readNotificationCount();
+                Intent intent = new Intent(this, NotificationDriverActivity.class);
+                startActivity(intent);
+
+            } else {
+                Common.CreateDialogAlert(this, getString(R.string.please_sign_in_or_sign_up));
+            }
+
+        });
+
+
+
 
 
         if (userModel != null) {
@@ -261,12 +273,13 @@ binding.llProfile.setOnClickListener(new View.OnClickListener() {
 
 
     private void getNotificationCount() {
-        /*Api.getService(Tags.base_url)
-                .getUnreadNotificationCount(userModel.getUser().getToken())
+        Api.getService(Tags.base_url)
+                .getUnreadNotificationCount("Bearer "+userModel.getData().getToken(),userModel.getData().getId())
                 .enqueue(new Callback<NotificationCount>() {
                     @Override
                     public void onResponse(Call<NotificationCount> call, Response<NotificationCount> response) {
                         if (response.isSuccessful()) {
+                          //  Log.e("ldlldl",response.body().getCount()+""+"Bearer "+userModel.getData().getToken()+userModel.getData().getId());
                             binding.setNotCount(response.body().getCount());
                         } else {
                             try {
@@ -276,9 +289,9 @@ binding.llProfile.setOnClickListener(new View.OnClickListener() {
                             }
 
                             if (response.code() == 500) {
-                                Toast.makeText(HomeActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(HomeDriverActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
                             } else {
-                                Toast.makeText(HomeActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(HomeDriverActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
@@ -290,21 +303,21 @@ binding.llProfile.setOnClickListener(new View.OnClickListener() {
                                 Log.e("error_not_code", t.getMessage() + "__");
 
                                 if (t.getMessage().toLowerCase().contains("failed to connect") || t.getMessage().toLowerCase().contains("unable to resolve host")) {
-                                    Toast.makeText(HomeActivity.this, getString(R.string.something), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(HomeDriverActivity.this, getString(R.string.something), Toast.LENGTH_SHORT).show();
                                 } else {
-                                    Toast.makeText(HomeActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(HomeDriverActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
                                 }
                             }
                         } catch (Exception e) {
                             Log.e("Error", e.getMessage() + "__");
                         }
                     }
-                });*/
+                });
     }
 
     private void readNotificationCount() {
-        /*Api.getService(Tags.base_url)
-                .readNotification(userModel.getUser().getToken())
+        Api.getService(Tags.base_url)
+                .readNotification("Bearer "+userModel.getData().getToken(),userModel.getData().getId())
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -318,9 +331,9 @@ binding.llProfile.setOnClickListener(new View.OnClickListener() {
                             }
 
                             if (response.code() == 500) {
-                                Toast.makeText(HomeActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(HomeDriverActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
                             } else {
-                                Toast.makeText(HomeActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(HomeDriverActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
@@ -332,20 +345,17 @@ binding.llProfile.setOnClickListener(new View.OnClickListener() {
                                 Log.e("error", t.getMessage() + "__");
 
                                 if (t.getMessage().toLowerCase().contains("failed to connect") || t.getMessage().toLowerCase().contains("unable to resolve host")) {
-                                    Toast.makeText(HomeActivity.this, getString(R.string.something), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(HomeDriverActivity.this, getString(R.string.something), Toast.LENGTH_SHORT).show();
                                 } else {
-                                    Toast.makeText(HomeActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(HomeDriverActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
                                 }
                             }
                         } catch (Exception e) {
                             Log.e("Error", e.getMessage() + "__");
                         }
                     }
-                });*/
+                });
     }
-
-
-
 
 
     private void updateTokenFireBase() {
@@ -401,80 +411,6 @@ binding.llProfile.setOnClickListener(new View.OnClickListener() {
     }
 
 
-    public void logout() {
-        if (userModel != null) {
-
-
-          /*  ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
-            dialog.show();
-
-
-            FirebaseInstanceId.getInstance()
-                    .getInstanceId().addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    token = task.getResult().getToken();
-
-                    Api.getService(Tags.base_url)
-                            .logout("Bearer " + userModel.getUser().getToken(), token)
-                            .enqueue(new Callback<ResponseBody>() {
-                                @Override
-                                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                                    dialog.dismiss();
-                                    if (response.isSuccessful()) {
-                                        Log.e("dd", "ddd");
-                                        preferences.clear(HomeActivity.this);
-                                        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                                        if (manager != null) {
-                                            manager.cancel(Tags.not_tag, Tags.not_id);
-                                        }
-                                        navigateToSignInActivity();
-
-
-                                    } else {
-                                        dialog.dismiss();
-                                        try {
-                                            Log.e("error", response.code() + "__" + response.errorBody().string());
-                                        } catch (IOException e) {
-                                            e.printStackTrace();
-                                        }
-
-                                        if (response.code() == 500) {
-                                            Toast.makeText(HomeActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
-                                        } else {
-                                            Toast.makeText(HomeActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                                }
-
-                                @Override
-                                public void onFailure(Call<ResponseBody> call, Throwable t) {
-                                    try {
-                                        dialog.dismiss();
-                                        if (t.getMessage() != null) {
-                                            Log.e("error", t.getMessage() + "__");
-
-                                            if (t.getMessage().toLowerCase().contains("failed to connect") || t.getMessage().toLowerCase().contains("unable to resolve host")) {
-                                                Toast.makeText(HomeActivity.this, getString(R.string.something), Toast.LENGTH_SHORT).show();
-                                            } else {
-                                                Toast.makeText(HomeActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
-                                            }
-                                        }
-                                    } catch (Exception e) {
-                                        Log.e("Error", e.getMessage() + "__");
-                                    }
-                                }
-                            });
-
-                }
-            });*/
-
-
-        } else {
-            navigateToSignInActivity();
-        }
-
-    }
-
 
 
     public void refreshActivity(String lang) {
@@ -495,7 +431,6 @@ binding.llProfile.setOnClickListener(new View.OnClickListener() {
     public void listenToNotifications(NotFireModel notFireModel) {
         if (userModel != null) {
             getNotificationCount();
-
         }
     }
 

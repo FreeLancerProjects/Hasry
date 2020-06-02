@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.PorterDuff;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -13,9 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.hasry.R;
+import com.hasry.activities_fragments.driver.activity_notification.NotificationDriverActivity;
 import com.hasry.databinding.LoadMoreBinding;
 import com.hasry.databinding.NotificationRowBinding;
 import com.hasry.models.NotificationDataModel;
+import com.hasry.tags.Tags;
 
 import java.util.List;
 import java.util.Locale;
@@ -29,7 +32,7 @@ public class Notification_Adapter extends RecyclerView.Adapter<RecyclerView.View
     private Context context;
     private LayoutInflater inflater;
     private String lang;
-
+private NotificationDriverActivity notificationDriverActivity;
     public Notification_Adapter(List<NotificationDataModel.NotificationModel> orderlist, Context context) {
         this.orderlist = orderlist;
         this.context = context;
@@ -62,7 +65,17 @@ public class Notification_Adapter extends RecyclerView.Adapter<RecyclerView.View
             eventHolder.binding.setLang(lang);
 
             eventHolder.binding.setNotificationModel(order_data);
-            Log.e("jdjhj",order_data.getId()+"");
+           // Log.e("jdjhj",order_data.getId()+"");
+            eventHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(context instanceof NotificationDriverActivity){
+                        notificationDriverActivity=(NotificationDriverActivity)context;
+                   // if(orderlist.get(eventHolder.getLayoutPosition()).getAction_type().equals(Tags.marketer_to_driver_order)){
+                        notificationDriverActivity.CreateAcceptRefuseDialog(orderlist.get(eventHolder.getLayoutPosition()).getId()+"",orderlist.get(eventHolder.getLayoutPosition()).getOrder_id()+"",orderlist.get(eventHolder.getLayoutPosition()).getAction_type());
+                   // }
+                }}
+            });
 
         }else
             {

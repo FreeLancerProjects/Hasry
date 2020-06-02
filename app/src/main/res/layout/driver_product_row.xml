@@ -35,7 +35,7 @@
                     />
 
                 <TextView
-                    android:layout_width="9dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
@@ -46,10 +46,9 @@
                     android:maxLines="2"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
-                    android:textColor="@color/gray3"
-                    android:textSize="13sp"
-android:text="@{model.product_info.title}"
-                    />
+                    android:text="@{model.product_info.title}"
+                    android:textColor="@color/black"
+                    android:textSize="13sp" />
 
                 <LinearLayout
                     android:id="@+id/llAdd"

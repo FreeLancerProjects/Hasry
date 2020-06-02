@@ -23,6 +23,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.hasry.R;
@@ -104,7 +105,7 @@ public class HomeActivity extends AppCompatActivity implements Listeners.HomeLis
         toggle = new ActionBarDrawerToggle(this,binding.drawer,binding.toolbar,R.string.open,R.string.close);
         toggle.syncState();
 
-        binding.recView.setLayoutManager(new GridLayoutManager(this,1));
+        binding.recView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new MainCategoryAdapter(mainDepartmentsList,this);
         binding.recView.setAdapter(adapter);
 

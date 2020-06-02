@@ -18,18 +18,23 @@ import com.hasry.models.MainCategoryDataModel;
 
 import java.util.List;
 
+import io.paperdb.Paper;
+
 public class MainCategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<MainCategoryDataModel.Data.MainDepartments> list;
     private Context context;
     private LayoutInflater inflater;
     private HomeActivity activity;
+    private String lang;
 
     public MainCategoryAdapter(List<MainCategoryDataModel.Data.MainDepartments> list, Context context) {
         this.list = list;
         this.context = context;
         inflater = LayoutInflater.from(context);
         activity = (HomeActivity) context;
+        Paper.init(context);
+        lang = Paper.book().read("lang","ar");
 
 
     }
@@ -53,7 +58,7 @@ public class MainCategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         myHolder.binding.cardView.setCardBackgroundColor(Color.parseColor(mainDepartments.getBackground()));
         myHolder.binding.setModel(mainDepartments);
-
+        myHolder.binding.setLang(lang);
         myHolder.itemView.setOnClickListener(view -> {
             MainCategoryDataModel.Data.MainDepartments model = list.get(holder.getAdapterPosition());
 

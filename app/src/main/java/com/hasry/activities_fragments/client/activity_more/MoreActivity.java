@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.hasry.BuildConfig;
 import com.hasry.R;
 import com.hasry.activities_fragments.activity_about_app.AboutAppActivity;
+import com.hasry.activities_fragments.activity_contact_us.ContactUsActivity;
 import com.hasry.databinding.ActivityAboutAppBinding;
 import com.hasry.databinding.ActivityMoreBinding;
 import com.hasry.interfaces.Listeners;
@@ -74,6 +75,12 @@ public class MoreActivity extends AppCompatActivity implements Listeners.BackLis
     @Override
     public void back() {
         finish();
+    }
+
+    @Override
+    public void contactUs() {
+        Intent intent = new Intent(this, ContactUsActivity.class);
+        startActivity(intent);
     }
 
     @Override

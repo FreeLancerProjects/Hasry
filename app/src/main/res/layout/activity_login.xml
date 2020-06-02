@@ -183,7 +183,7 @@
                         android:background="@drawable/small_rounded_btn_primary"
                         android:textColor="@color/white"
                         android:textSize="17sp"
-                        android:text="@string/confirm2"
+                        android:text="@string/log_in"
                         android:onClick="@{()->listener.validate()}"
 
                         />

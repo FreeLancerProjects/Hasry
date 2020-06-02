@@ -22,7 +22,10 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="m">
-        <activity android:name=".activities_fragments.client.client_order_details.ClientOrderDetailsActivity"></activity>
+        <activity android:name=".activities_fragments.client.client_order_details.ClientOrderDetailsActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -91,7 +94,9 @@
             android:configChanges="keyboardHidden|screenSize|orientation" />
         <activity
             android:name=".activities_fragments.activity_contact_us.ContactUsActivity"
-            android:configChanges="keyboardHidden|screenSize|orientation" />
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            />
 
         <activity
             android:name=".activities_fragments.driver.activity_map_show_location.MapShowLocationActivity"

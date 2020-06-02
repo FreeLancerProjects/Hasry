@@ -13,9 +13,11 @@
         <variable
             name="lang"
             type="String" />
-<!--        <variable-->
-<!--            name="contactUs"-->
-<!--            type="com.creative.share.apps.e_branchdriver.models.ContactUsModel" />-->
+
+
+        <variable
+            name="contactUs"
+            type="com.hasry.models.ContactUsModel" />
 
 <!--        <variable-->
 <!--            name="contactListener"-->
@@ -127,6 +129,8 @@
                             android:textColor="@color/black"
                             android:hint="@string/name"
                             android:textSize="15sp"
+                            android:text="@={contactUs.name}"
+                            error="@{contactUs.error_name}"
 
 
                             />
@@ -173,16 +177,96 @@
                             android:textSize="15sp"
                             android:hint="@string/email"
                             android:inputType="textEmailAddress"
-
+                            android:text="@={contactUs.email}"
+                            error="@{contactUs.error_email}"
                             />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
                 </androidx.cardview.widget.CardView>
 
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="3dp"
+                    app:cardBackgroundColor="@color/white"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginEnd="3dp"
+
+                    >
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:counterEnabled="false"
+                        app:errorEnabled="false"
+                        app:helperTextEnabled="false"
+                        app:startIconDrawable="@drawable/ic_comment"
+                        app:startIconTint="@color/colorPrimaryDark"
+                        app:hintAnimationEnabled="false"
+                        app:hintEnabled="false"
+                        app:hintTextColor="@color/black"
+                        android:background="@drawable/rounded_white"
+
+                        >
+                        <EditText
+                            android:id="@+id/edtSubject"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:background="@color/transparent"
+                            android:singleLine="true"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:textColorHint="@color/gray4"
+                            android:textColor="@color/black"
+                            android:textSize="15sp"
+                            android:hint="@string/subject"
+                            android:text="@={contactUs.subject}"
+                            error="@{contactUs.error_subject}"
+                            />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="3dp"
+                    app:cardBackgroundColor="@color/white"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginEnd="3dp"
+
+                    >
+
+                    <EditText
+                        android:id="@+id/edtMessage"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:background="@color/transparent"
+                        android:singleLine="true"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:textColorHint="@color/gray4"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:hint="@string/message"
+                        android:gravity="top|start"
+                        android:padding="10dp"
+                        android:inputType="textMultiLine"
+                        android:text="@={contactUs.message}"
+                        error="@{contactUs.error_message}"
+                        />
+
+                </androidx.cardview.widget.CardView>
+
+
                 <Button
                     android:id="@+id/btnSend"
-                    android:layout_width="200dp"
+                    android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="20dp"

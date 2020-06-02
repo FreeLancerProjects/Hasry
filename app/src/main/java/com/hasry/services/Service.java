@@ -86,7 +86,7 @@ public interface Service {
 
 
     @Multipart
-    @POST("/api/register")
+    @POST("api/register")
     Call<UserModel> registerDelegatewithimage(@Part("name") RequestBody name,
                                               @Part("email") RequestBody email,
                                               @Part("phone_code") RequestBody phone_code,
@@ -103,7 +103,7 @@ public interface Service {
     );
 
     @Multipart
-    @POST("/api/register")
+    @POST("api/register")
     Call<UserModel> registerDelegatewithoutimage(@Part("name") RequestBody name,
                                                  @Part("email") RequestBody email,
                                                  @Part("phone_code") RequestBody phone_code,
@@ -232,7 +232,7 @@ public interface Service {
     );
 
     @FormUrlEncoded
-    @POST("/api/Driver-action-Order")
+    @POST("api/Driver-action-Order")
     Call<ResponseBody> DriverAcceptRefuse(
             @Header("Authorization") String user_token,
             @Field("notification_id") String notification_id,
@@ -241,18 +241,29 @@ public interface Service {
     );
 
     @FormUrlEncoded
-    @POST("/api/Driver-delivery-Order")
+    @POST("api/Driver-delivery-Order")
     Call<ResponseBody> Driverdeliverorder(
             @Header("Authorization") String user_token,
             @Field("notification_id") String notification_id
 
     );
+
     @FormUrlEncoded
-    @POST("/api/Driver-end-Order")
+    @POST("api/Driver-end-Order")
     Call<ResponseBody> DriverEndOrder(
             @Header("Authorization") String user_token,
             @Field("notification_id") String notification_id,
             @Field("type") String type
+
+    );
+
+
+    @FormUrlEncoded
+    @POST("api/contact")
+    Call<ResponseBody> sendContact(@Field("name") String name,
+                                   @Field("email") String email,
+                                   @Field("subject") String subject,
+                                   @Field("message") String message
 
     );
 }

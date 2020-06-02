@@ -20,6 +20,7 @@ public interface Listeners {
 
     interface SettingActions
     {
+        void contactUs();
         void terms();
         void aboutApp();
         void logout();

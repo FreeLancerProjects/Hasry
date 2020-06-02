@@ -178,12 +178,13 @@
     <string name="completed">Completed</string>
     <string name="driver_name">Driver Name :</string>
     <string name="show_location_on_map">Show location on map</string>
-    <string name="amount">Amount</string>
+    <string name="amount">Amount : </string>
     <string name="ch_img_car_form">Choose Image Car Form</string>
     <string name="car_form">Car Form</string>
-    <string name="ch_neigborhood">Choose NeigborHood</string>
+    <string name="ch_neigborhood">Choose NeighborHood</string>
     <string name="you_have_new_order">You Have New Order</string>
     <string name="collected_will_you_get_it_now">Collected, will you get it now?</string>
     <string name="end_oder">Do you want to end the request?</string>
 <string name="num">Num :</string>
+    <string name="market_not_available">Market is not available</string>
 </resources>

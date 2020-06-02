@@ -22,7 +22,7 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="m">
-        <activity android:name=".activities_fragments.client.client_order_details.ClientOrderDetailsActivity"
+        <activity android:name=".activities_fragments.client.activity_client_order_details.ClientOrderDetailsActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:windowSoftInputMode="stateAlwaysHidden"
             />

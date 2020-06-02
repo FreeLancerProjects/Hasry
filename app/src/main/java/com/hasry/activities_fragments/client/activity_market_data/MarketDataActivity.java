@@ -614,41 +614,47 @@ public class MarketDataActivity extends AppCompatActivity implements Listeners.B
     }
 
     public void addToCart(OfferModel offerModel) {
-        if (market.getId()==createOrderModel.getMarkter_id())
-        {
-            ItemCartModel model = new ItemCartModel(offerModel.getId(),offerModel.getId(),offerModel.getImage(),offerModel.getTitle(),1);
-            model.setPrice_before_discount(Double.parseDouble(offerModel.getPrice()));
+        if (market.getMarkter_status().equals("open")){
+            if (market.getId()==createOrderModel.getMarkter_id())
+            {
+                ItemCartModel model = new ItemCartModel(offerModel.getId(),offerModel.getId(),offerModel.getImage(),offerModel.getTitle(),1);
+                model.setPrice_before_discount(Double.parseDouble(offerModel.getPrice()));
 
-            if (offerModel.getOffer()==null){
-                model.setPrice(Double.parseDouble(offerModel.getPrice()));
-                model.setOffer_id(0);
-            }else {
-
-                if (offerModel.getOffer().getOffer_status().trim().equals("open"))
-                {
-                    if (offerModel.getOffer().getOffer_type().trim().equals("per")){
-                        double price_before_discount = Double.parseDouble(offerModel.getPrice());
-                        double price_after_discount = price_before_discount-(price_before_discount*(offerModel.getOffer().getOffer_value()/100));
-                        model.setPrice(price_after_discount);
-                        model.setOffer_id(offerModel.getOffer().getId());
-                    }else {
-                        double price_before_discount = Double.parseDouble(offerModel.getPrice());
-                        double price_after_discount = price_before_discount-offerModel.getOffer().getOffer_value();
-                        model.setPrice(price_after_discount);
-                        model.setOffer_id(offerModel.getOffer().getId());
-                    }
-                }else {
+                if (offerModel.getOffer()==null){
                     model.setPrice(Double.parseDouble(offerModel.getPrice()));
                     model.setOffer_id(0);
+                }else {
+
+                    if (offerModel.getOffer().getOffer_status().trim().equals("open"))
+                    {
+                        if (offerModel.getOffer().getOffer_type().trim().equals("per")){
+                            double price_before_discount = Double.parseDouble(offerModel.getPrice());
+                            double price_after_discount = price_before_discount-(price_before_discount*(offerModel.getOffer().getOffer_value()/100));
+                            model.setPrice(price_after_discount);
+                            model.setOffer_id(offerModel.getOffer().getId());
+                        }else {
+                            double price_before_discount = Double.parseDouble(offerModel.getPrice());
+                            double price_after_discount = price_before_discount-offerModel.getOffer().getOffer_value();
+                            model.setPrice(price_after_discount);
+                            model.setOffer_id(offerModel.getOffer().getId());
+                        }
+                    }else {
+                        model.setPrice(Double.parseDouble(offerModel.getPrice()));
+                        model.setOffer_id(0);
+                    }
                 }
+
+
+                createOrderModel.addNewProduct(model);
+                preferences.create_update_cart(this,createOrderModel);
+                Toast.makeText(this, getString(R.string.added_suc), Toast.LENGTH_SHORT).show();
+            }else {
+                Common.CreateDialogAlert(this,getString(R.string.diff_market));
             }
-
-
-            createOrderModel.addNewProduct(model);
-            preferences.create_update_cart(this,createOrderModel);
-            Toast.makeText(this, getString(R.string.added_suc), Toast.LENGTH_SHORT).show();
         }else {
-            Common.CreateDialogAlert(this,getString(R.string.diff_market));
+            Common.CreateDialogAlert(this,getString(R.string.market_not_available));
+
         }
+
     }
 }

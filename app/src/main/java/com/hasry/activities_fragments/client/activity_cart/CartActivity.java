@@ -12,8 +12,7 @@ import android.view.View;
 
 import com.hasry.R;
 import com.hasry.activities_fragments.client.activity_checkout.CheckoutActivity;
-import com.hasry.activities_fragments.client.client_order_details.ClientOrderDetailsActivity;
-import com.hasry.activities_fragments.driver.activity_order_details.OrderDetailsActivity;
+import com.hasry.activities_fragments.client.activity_client_order_details.ClientOrderDetailsActivity;
 import com.hasry.adapters.CartAdapter;
 import com.hasry.databinding.ActivityCartBinding;
 import com.hasry.interfaces.Listeners;

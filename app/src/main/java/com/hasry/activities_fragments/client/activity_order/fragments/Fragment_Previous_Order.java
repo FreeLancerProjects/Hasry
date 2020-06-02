@@ -15,12 +15,10 @@ import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.hasry.R;
 import com.hasry.activities_fragments.client.activity_order.OrderActivity;
-import com.hasry.activities_fragments.client.client_order_details.ClientOrderDetailsActivity;
-import com.hasry.activities_fragments.driver.activity_order_details.OrderDetailsActivity;
+import com.hasry.activities_fragments.client.activity_client_order_details.ClientOrderDetailsActivity;
 import com.hasry.adapters.OrderAdapter;
 import com.hasry.databinding.FragmentCurrentPreviousOrderBinding;
 import com.hasry.models.OrderDataModel;

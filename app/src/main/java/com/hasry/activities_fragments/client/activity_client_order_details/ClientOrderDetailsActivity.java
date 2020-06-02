@@ -1,39 +1,26 @@
-package com.hasry.activities_fragments.client.client_order_details;
+package com.hasry.activities_fragments.client.activity_client_order_details;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
 
 import com.hasry.R;
-import com.hasry.activities_fragments.activity_about_app.AboutAppActivity;
 import com.hasry.adapters.ProductDetailsAdapter;
-import com.hasry.databinding.ActivityAboutAppBinding;
 import com.hasry.databinding.ActivityClientOrderDetailsBinding;
 import com.hasry.interfaces.Listeners;
 import com.hasry.language.Language;
 import com.hasry.models.OrderModel;
-import com.hasry.models.SettingModel;
-import com.hasry.remote.Api;
-import com.hasry.tags.Tags;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 import io.paperdb.Paper;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class ClientOrderDetailsActivity extends AppCompatActivity implements Listeners.BackListener{
     private ActivityClientOrderDetailsBinding binding;
@@ -77,6 +64,7 @@ public class ClientOrderDetailsActivity extends AppCompatActivity implements Lis
         adapter = new ProductDetailsAdapter(orderDetailsList,this);
         binding.recView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
         binding.recView.setAdapter(adapter);
+        Log.e("order",orderModel.getOrder_status()+"_");
     }
 
 

@@ -187,10 +187,11 @@
     <string name="completed">مكتمل</string>
     <string name="driver_name">إسم السائق :</string>
     <string name="show_location_on_map">عرض الموقع على الخريطة</string>
-    <string name="amount">الكمية</string>
+    <string name="amount">الكمية : </string>
     <string name="you_have_new_order">لديك طلب جديد</string>
     <string name="collected_will_you_get_it_now">تم تجميع الطلب هل تريد توصيله ؟</string>
 <string name="end_oder">هل تريد انهاء الطلب ؟ </string>
     <string name="num">رقم  :</string>
+    <string name="market_not_available">المتجر غير متاج الان</string>
 
 </resources>

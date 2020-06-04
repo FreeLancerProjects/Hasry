@@ -210,6 +210,7 @@ public class OrderDetailsActivity extends AppCompatActivity implements Listeners
     }
 
     private void UPDATEUI(OrderDataModel body) {
+        orderDetailsList.clear();
         this.orderModel = body.getOrder_details();
         binding.setModel(body.getOrder_details());
         orderDetailsList.addAll(body.getOrder_details().getOrder_details());

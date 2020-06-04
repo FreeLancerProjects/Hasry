@@ -198,5 +198,7 @@
     <string name="accept">قبول</string>
     <string name="refuse">رفض</string>
     <string name="delivery_in_progress">جارى التوصيل</string>
+    <string name="copy">نسخ الرابط</string>
+    <string name="link_is_copied">تم نسخ الرابط</string>
 
 </resources>

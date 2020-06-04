@@ -192,4 +192,6 @@
     <string name="refuse">Refuse</string>
     <string name="market_not_available">Market is not available</string>
     <string name="delivery_in_progress">Delivery in progress</string>
+    <string name="copy">Copy Link</string>
+    <string name="link_is_copied">Link is copied</string>
 </resources>

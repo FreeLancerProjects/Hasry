@@ -244,7 +244,7 @@ public interface Service {
     @POST("api/Driver-delivery-Order")
     Call<ResponseBody> Driverdeliverorder(
             @Header("Authorization") String user_token,
-            @Field("notification_id") String notification_id
+            @Field("order_id") String notification_id
 
     );
 
@@ -252,7 +252,7 @@ public interface Service {
     @POST("api/Driver-end-Order")
     Call<ResponseBody> DriverEndOrder(
             @Header("Authorization") String user_token,
-            @Field("notification_id") String notification_id,
+            @Field("order_id") String notification_id,
             @Field("type") String type
 
     );

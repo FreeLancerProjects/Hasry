@@ -190,12 +190,13 @@
     <string name="amount">الكمية : </string>
     <string name="you_have_new_order">لديك طلب جديد</string>
     <string name="collected_will_you_get_it_now">تم تجميع الطلب هل تريد توصيله ؟</string>
-<string name="end_oder">هل تريد انهاء الطلب ؟ </string>
+<string name="end_oder"> انهاء الطلب </string>
     <string name="num">رقم  :</string>
     <string name="market_not_available">المتجر غير متاج الان</string>
     <string name="neigboorhood">الحى</string>
     <string name="order_detials">تفاصيل الطلب</string>
     <string name="accept">قبول</string>
     <string name="refuse">رفض</string>
+    <string name="delivery_in_progress">جارى التوصيل</string>
 
 </resources>

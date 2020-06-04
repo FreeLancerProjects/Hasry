@@ -451,6 +451,11 @@ public class Fragment_Current_Order extends Fragment implements GoogleApiClient.
             }
         }
     }
+    @Override
+    public void onResume() {
+        super.onResume();
+        getOrders();
+    }
 
     public void setItemData(int id) {
         Intent intent=new Intent(activity, OrderDetailsActivity.class);

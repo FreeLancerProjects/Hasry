@@ -92,6 +92,12 @@ public class Fragment_Previous_Order extends Fragment implements GoogleApiClient
         return binding.getRoot();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        getOrders();
+    }
+
     private void initView() {
         orderModelList = new ArrayList<>();
         activity = (HomeDriverActivity) getActivity();

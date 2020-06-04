@@ -1,6 +1,7 @@
 package com.hasry.activities_fragments.driver.activity_order_details;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -22,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.hasry.R;
 import com.hasry.activities_fragments.driver.activity_map_show_location.MapShowLocationActivity;
+import com.hasry.activities_fragments.driver.activity_notification.NotificationDriverActivity;
 import com.hasry.adapters.DriverProductAdapter;
 import com.hasry.databinding.ActivityOrderDetailsBinding;
 import com.hasry.interfaces.Listeners;
@@ -31,6 +33,7 @@ import com.hasry.models.OrderModel;
 import com.hasry.models.UserModel;
 import com.hasry.preferences.Preferences;
 import com.hasry.remote.Api;
+import com.hasry.share.Common;
 import com.hasry.tags.Tags;
 
 import java.io.IOException;
@@ -39,6 +42,7 @@ import java.util.List;
 import java.util.Locale;
 
 import io.paperdb.Paper;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -90,7 +94,7 @@ public class OrderDetailsActivity extends AppCompatActivity implements Listeners
             intent.putExtra("lng", Double.parseDouble(orderModel.getMarkter().getLongitude()));
         }
         startActivity(intent);
-      //  finish();
+        //  finish();
     }
 
     private void initView() {
@@ -102,20 +106,20 @@ public class OrderDetailsActivity extends AppCompatActivity implements Listeners
         binding.setBackListener(this);
         binding.setLang(lang);
         binding.progBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(this, R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
-        binding.recView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL,false));
+        binding.recView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         driverProductAdapter = new DriverProductAdapter(this, orderDetailsList);
         binding.recView.setAdapter(driverProductAdapter);
         binding.btCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              //  Log.e("kkkk",orderModel.getClient().getPhone());
-                if(intent==null){
-                    if(orderModel!=null) {
+                //  Log.e("kkkk",orderModel.getClient().getPhone());
+                if (intent == null) {
+                    if (orderModel != null) {
                         intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", orderModel.getClient().getPhone_code() + orderModel.getClient().getPhone(), null));
                     }
                 }
                 if (intent != null) {
-                    Log.e("kkkk",orderModel.getClient().getPhone());
+                    Log.e("kkkk", orderModel.getClient().getPhone());
                     if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         if (ContextCompat.checkSelfPermission(OrderDetailsActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                             ActivityCompat.requestPermissions(OrderDetailsActivity.this, new String[]{Manifest.permission.CALL_PHONE}, REQUEST_PHONE_CALL);
@@ -138,6 +142,18 @@ public class OrderDetailsActivity extends AppCompatActivity implements Listeners
             @Override
             public void onClick(View v) {
                 navigateToSMapActivity(2);
+            }
+        });
+        binding.flUpdateOrderState.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (orderModel.getOrder_status().equals(Tags.driver_accept)) {
+                    //binding.tvOrderNextState.setText(getResources().getString(R.string.delivery_in_progress));
+                    deliverOrder(order_id);
+                } else if (orderModel.getOrder_status().equals(Tags.delivery)) {
+                    //binding.tvOrderNextState.setText(getResources().getString(R.string.end_oder));
+                    EndOrder(order_id, "end");
+                }
             }
         });
     }
@@ -198,9 +214,17 @@ public class OrderDetailsActivity extends AppCompatActivity implements Listeners
         binding.setModel(body.getOrder_details());
         orderDetailsList.addAll(body.getOrder_details().getOrder_details());
         driverProductAdapter.notifyDataSetChanged();
+        if (body.getOrder_details().getOrder_status().equals(Tags.driver_accept)) {
+            binding.tvOrderNextState.setText(getResources().getString(R.string.delivery_in_progress));
 
+        } else if (body.getOrder_details().getOrder_status().equals(Tags.delivery)) {
+            binding.tvOrderNextState.setText(getResources().getString(R.string.end_oder));
+
+        } else {
+            binding.flUpdateOrderState.setVisibility(View.GONE);
+        }
         if (body.getOrder_details().getClient().getPhone() != null) {
-            Log.e("ldkfk",body.getOrder_details().getClient().getPhone());
+            Log.e("ldkfk", body.getOrder_details().getClient().getPhone());
             intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", body.getOrder_details().getClient().getPhone_code() + body.getOrder_details().getClient().getPhone(), null));
         }
     }
@@ -236,5 +260,75 @@ public class OrderDetailsActivity extends AppCompatActivity implements Listeners
                 return;
             }
         }
+    }
+
+    private void deliverOrder(String notification_id) {
+
+        final ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
+        dialog.setCancelable(false);
+        dialog.show();
+        Api.getService(Tags.base_url)
+                .Driverdeliverorder("Bearer " + userModel.getData().getToken(), notification_id)
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        dialog.dismiss();
+                        if (response.isSuccessful()) {
+                            getOrder();
+                        } else {
+                            dialog.dismiss();
+                            Toast.makeText(OrderDetailsActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
+                            try {
+                                Log.e("error_code", response.code() + "" + response.errorBody().string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        try {
+                            dialog.dismiss();
+                            Log.e("Error", t.getMessage());
+                        } catch (Exception e) {
+                        }
+                    }
+                });
+    }
+
+    private void EndOrder(String notification_id, String status) {
+
+        final ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
+        dialog.setCancelable(false);
+        dialog.show();
+        Api.getService(Tags.base_url)
+                .DriverEndOrder("Bearer " + userModel.getData().getToken(), notification_id, status)
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        dialog.dismiss();
+                        if (response.isSuccessful()) {
+                            getOrder();
+                        } else {
+                            dialog.dismiss();
+                            Toast.makeText(OrderDetailsActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
+                            try {
+                                Log.e("error_code", response.code() + "" + response.errorBody().string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        try {
+                            dialog.dismiss();
+                            Log.e("Error", t.getMessage());
+                        } catch (Exception e) {
+                        }
+                    }
+                });
     }
 }

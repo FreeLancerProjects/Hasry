@@ -127,7 +127,6 @@ binding.flAddToCart.setOnClickListener(new View.OnClickListener() {
 
 
                 createOrderModel.addNewProduct(model);
-                binding.setCartCount(createOrderModel.getProducts().size());
                 preferences.create_update_cart(this,createOrderModel);
                 Toast.makeText(this, getString(R.string.added_suc), Toast.LENGTH_SHORT).show();
             }else {

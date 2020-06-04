@@ -1,5 +1,6 @@
 package com.hasry.activities_fragments.client.activity_product_details;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
@@ -29,19 +30,21 @@ import java.util.Locale;
 
 import io.paperdb.Paper;
 
-public class ProductDetailsActivity extends AppCompatActivity  implements Listeners.BackListener,Listeners.HomeListener{
+public class ProductDetailsActivity extends AppCompatActivity implements Listeners.BackListener, Listeners.HomeListener {
     private ActivityProductDetailsBinding binding;
     private String lang;
     private MarketDataModel.Data.Market market;
     private OfferModel offerModel;
     private CreateOrderModel createOrderModel;
-private Preferences preferences;
+    private Preferences preferences;
+    private boolean isDataAdded = false;
 
     @Override
     protected void attachBaseContext(Context newBase) {
         Paper.init(newBase);
-        super.attachBaseContext(Language.updateResources(newBase, Paper.book().read("lang","ar")));
+        super.attachBaseContext(Language.updateResources(newBase, Paper.book().read("lang", "ar")));
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,8 +55,7 @@ private Preferences preferences;
 
     private void getDataFromIntent() {
         Intent intent = getIntent();
-        if (intent!=null)
-        {
+        if (intent != null) {
             market = (MarketDataModel.Data.Market) intent.getSerializableExtra("name");
             offerModel = (OfferModel) intent.getSerializableExtra("data");
 
@@ -61,10 +63,9 @@ private Preferences preferences;
     }
 
 
-    private void initView()
-    {
+    private void initView() {
         Paper.init(this);
-        preferences=Preferences.getInstance();
+        preferences = Preferences.getInstance();
         lang = Paper.book().read("lang", Locale.getDefault().getLanguage());
         binding.setBackListener(this);
         binding.setLang(lang);
@@ -73,20 +74,13 @@ private Preferences preferences;
         binding.setMarketName(market.getName());
         binding.setModel(offerModel);
         createOrderModel = preferences.getCartData(this);
-        if (createOrderModel==null){
-            //Log.e("lflflfl",market.getId()+"");
+        if (createOrderModel == null) {
             createOrderModel = new CreateOrderModel();
             createOrderModel.setMarkter_id(market.getId());
-        }
-        else {
+        } else {
             binding.setCartCount(createOrderModel.getProducts().size());
         }
-binding.flAddToCart.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        addToCart(offerModel);
-    }
-});
+        binding.flAddToCart.setOnClickListener(v -> addToCart(offerModel));
 
     }
 
@@ -94,32 +88,31 @@ binding.flAddToCart.setOnClickListener(new View.OnClickListener() {
     public void main() {
 
     }
+
     public void addToCart(OfferModel offerModel) {
-        if (market.getMarkter_status().equals("open")){
-            if (market.getId()==createOrderModel.getMarkter_id())
-            {
-                ItemCartModel model = new ItemCartModel(offerModel.getId(),offerModel.getId(),offerModel.getImage(),offerModel.getTitle(),1);
+        if (market.getMarkter_status().equals("open")) {
+            if (market.getId() == createOrderModel.getMarkter_id()) {
+                ItemCartModel model = new ItemCartModel(offerModel.getId(), offerModel.getId(), offerModel.getImage(), offerModel.getTitle(), 1);
                 model.setPrice_before_discount(Double.parseDouble(offerModel.getPrice()));
 
-                if (offerModel.getOffer()==null){
+                if (offerModel.getOffer() == null) {
                     model.setPrice(Double.parseDouble(offerModel.getPrice()));
                     model.setOffer_id(0);
-                }else {
+                } else {
 
-                    if (offerModel.getOffer().getOffer_status().trim().equals("open"))
-                    {
-                        if (offerModel.getOffer().getOffer_type().trim().equals("per")){
+                    if (offerModel.getOffer().getOffer_status().trim().equals("open")) {
+                        if (offerModel.getOffer().getOffer_type().trim().equals("per")) {
                             double price_before_discount = Double.parseDouble(offerModel.getPrice());
-                            double price_after_discount = price_before_discount-(price_before_discount*(offerModel.getOffer().getOffer_value()/100));
+                            double price_after_discount = price_before_discount - (price_before_discount * (offerModel.getOffer().getOffer_value() / 100));
                             model.setPrice(price_after_discount);
                             model.setOffer_id(offerModel.getOffer().getId());
-                        }else {
+                        } else {
                             double price_before_discount = Double.parseDouble(offerModel.getPrice());
-                            double price_after_discount = price_before_discount-offerModel.getOffer().getOffer_value();
+                            double price_after_discount = price_before_discount - offerModel.getOffer().getOffer_value();
                             model.setPrice(price_after_discount);
                             model.setOffer_id(offerModel.getOffer().getId());
                         }
-                    }else {
+                    } else {
                         model.setPrice(Double.parseDouble(offerModel.getPrice()));
                         model.setOffer_id(0);
                     }
@@ -127,13 +120,15 @@ binding.flAddToCart.setOnClickListener(new View.OnClickListener() {
 
 
                 createOrderModel.addNewProduct(model);
-                preferences.create_update_cart(this,createOrderModel);
+                preferences.create_update_cart(this, createOrderModel);
+                binding.setCartCount(createOrderModel.getProducts().size());
+                isDataAdded = true;
                 Toast.makeText(this, getString(R.string.added_suc), Toast.LENGTH_SHORT).show();
-            }else {
-                Common.CreateDialogAlert(this,getString(R.string.diff_market));
+            } else {
+                Common.CreateDialogAlert(this, getString(R.string.diff_market));
             }
-        }else {
-            Common.CreateDialogAlert(this,getString(R.string.market_not_available));
+        } else {
+            Common.CreateDialogAlert(this, getString(R.string.market_not_available));
 
         }
 
@@ -157,7 +152,7 @@ binding.flAddToCart.setOnClickListener(new View.OnClickListener() {
     @Override
     public void cart() {
         Intent intent = new Intent(this, CartActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent,100);
     }
 
     @Override
@@ -166,10 +161,36 @@ binding.flAddToCart.setOnClickListener(new View.OnClickListener() {
     }
 
 
-
     @Override
     public void back() {
+        if (isDataAdded){
+            setResult(RESULT_OK);
+        }
         finish();
     }
 
+
+    @Override
+    public void onBackPressed() {
+        back();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 100&&resultCode==RESULT_OK){
+            createOrderModel = preferences.getCartData(this);
+            if (createOrderModel==null){
+                createOrderModel = new CreateOrderModel();
+                createOrderModel.setMarkter_id(market.getId());
+                binding.setCartCount(0);
+                isDataAdded = true;
+
+            }
+            else {
+
+                binding.setCartCount(createOrderModel.getProducts().size());
+            }
+        }
+    }
 }

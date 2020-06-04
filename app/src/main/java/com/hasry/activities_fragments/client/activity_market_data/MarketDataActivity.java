@@ -1,6 +1,7 @@
 package com.hasry.activities_fragments.client.activity_market_data;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
@@ -198,6 +199,7 @@ public class MarketDataActivity extends AppCompatActivity implements Listeners.B
         getMostUsed();
 
     }
+
 
     private void getOffers() {
 
@@ -614,10 +616,11 @@ public class MarketDataActivity extends AppCompatActivity implements Listeners.B
         Intent intent = new Intent(this, ProductDetailsActivity.class);
         intent.putExtra("name",market);
         intent.putExtra("data",offerModel);
-        startActivity(intent);
+        startActivityForResult(intent,100);
     }
 
     public void addToCart(OfferModel offerModel) {
+
         if (market.getMarkter_status().equals("open")){
             if (market.getId()==createOrderModel.getMarkter_id())
             {
@@ -650,8 +653,8 @@ public class MarketDataActivity extends AppCompatActivity implements Listeners.B
 
 
                 createOrderModel.addNewProduct(model);
-                binding.setCartCount(createOrderModel.getProducts().size());
                 preferences.create_update_cart(this,createOrderModel);
+                binding.setCartCount(createOrderModel.getProducts().size());
                 Toast.makeText(this, getString(R.string.added_suc), Toast.LENGTH_SHORT).show();
             }else {
                 Common.CreateDialogAlert(this,getString(R.string.diff_market));
@@ -686,7 +689,7 @@ public class MarketDataActivity extends AppCompatActivity implements Listeners.B
     @Override
     public void cart() {
         Intent intent = new Intent(this, CartActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent,100);
     }
 
     @Override
@@ -694,12 +697,20 @@ public class MarketDataActivity extends AppCompatActivity implements Listeners.B
 
     }
 
+
     @Override
-    protected void onResume() {
-        super.onResume();
-        if(preferences.getCartData(this)!=null){
-            createOrderModel=preferences.getCartData(this);
-            binding.setCartCount(createOrderModel.getProducts().size());
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==100&&resultCode==RESULT_OK){
+            createOrderModel = preferences.getCartData(this);
+            if (createOrderModel==null){
+                createOrderModel = new CreateOrderModel();
+                createOrderModel.setMarkter_id(market.getId());
+                binding.setCartCount(0);
+            }
+            else {
+                binding.setCartCount(createOrderModel.getProducts().size());
+            }
         }
     }
 }

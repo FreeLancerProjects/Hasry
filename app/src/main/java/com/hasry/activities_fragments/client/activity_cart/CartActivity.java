@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.hasry.R;
@@ -39,6 +40,7 @@ public class CartActivity extends AppCompatActivity implements Listeners.BackLis
     private CartAdapter adapter;
     private List<ItemCartModel> itemCartModelList;
     private double total=0;
+    private boolean isDataChanged = false;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -114,6 +116,10 @@ public class CartActivity extends AppCompatActivity implements Listeners.BackLis
 
     @Override
     public void back() {
+        if (isDataChanged){
+            Log.e("gg","yyy");
+            setResult(RESULT_OK);
+        }
         finish();
     }
 
@@ -130,6 +136,7 @@ public class CartActivity extends AppCompatActivity implements Listeners.BackLis
         adapter.notifyItemRemoved(adapterPosition);
         createOrderModel.removeProduct(adapterPosition);
         preferences.create_update_cart(this,createOrderModel);
+        isDataChanged = true;
         calculateTotal();
         if (itemCartModelList.size()==0){
             binding.llEmptyCart.setVisibility(View.VISIBLE);
@@ -154,6 +161,11 @@ public class CartActivity extends AppCompatActivity implements Listeners.BackLis
         Intent intent = new Intent(this, ClientOrderDetailsActivity.class);
         intent.putExtra("data",orderModel);
         startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        back();
     }
 }
 

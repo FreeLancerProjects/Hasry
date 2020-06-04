@@ -1,5 +1,6 @@
 package com.hasry.ui_general_method;
 
+import android.graphics.Paint;
 import android.net.Uri;
 import android.view.View;
 import android.widget.EditText;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import androidx.databinding.BindingAdapter;
 
 import com.hasry.R;
+import com.hasry.models.OfferModel;
 import com.hasry.models.OrderModel;
 import com.hasry.share.Time_Ago;
 import com.hasry.tags.Tags;
@@ -218,6 +220,9 @@ public class UI_General_Method {
         else if (status.equals("driver_end")){
             textView.setText(textView.getContext().getString(R.string.completed));
 
+        } else if (status.equals("marketer_accept")){
+            textView.setText(textView.getContext().getString(R.string.marker_accept));
+
         }
 
     }
@@ -248,5 +253,39 @@ public class UI_General_Method {
 
     }
 
+
+    @BindingAdapter({"priceOffer"})
+    public static void productOfferDiscount(TextView textView, OfferModel model) {
+        if (model.getOffer()==null){
+            textView.setText(String.format(Locale.ENGLISH,"%s %s",model.getPrice(),textView.getContext().getString(R.string.sar)));
+
+        }else {
+            if (model.getOffer().getOffer_status().equals("open")){
+                if (model.getOffer().getOffer_type().equals("per")){
+                    double price_before_discount = Double.parseDouble(model.getPrice());
+                    double price = price_before_discount- (price_before_discount*(model.getOffer().getOffer_value()/100));
+                    textView.setText(String.format(Locale.ENGLISH,"%s %s",String.format(Locale.ENGLISH,"%.1f",price),textView.getContext().getString(R.string.sar)));
+
+                }else {
+                    double price_before_discount = Double.parseDouble(model.getPrice());
+                    double price =  price_before_discount-model.getOffer().getOffer_value();
+                    textView.setText(String.format(Locale.ENGLISH,"%s %s",String.format(Locale.ENGLISH,"%.1f",price),textView.getContext().getString(R.string.sar)));
+
+                }
+            }else {
+                textView.setText(String.format(Locale.ENGLISH,"%s %s",model.getPrice(),textView.getContext().getString(R.string.sar)));
+
+            }
+
+        }
+
+    }
+
+    @BindingAdapter({"priceBeforeDiscount"})
+    public static void productDiscount(TextView textView, OfferModel model) {
+       textView.setText(String.format(Locale.ENGLISH,"%s %s",model.getPrice(),textView.getContext().getString(R.string.sar)));
+       textView.setPaintFlags(textView.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
+
+    }
 
 }

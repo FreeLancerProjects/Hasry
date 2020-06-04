@@ -189,7 +189,7 @@ public interface Service {
     @FormUrlEncoded
     @POST("api/logout")
     Call<ResponseBody> logout(@Header("Authorization") String user_token,
-                              @Field("user_token") String firebase_token
+                              @Field("token") String firebase_token
 
 
     );
@@ -266,4 +266,14 @@ public interface Service {
                                    @Field("message") String message
 
     );
+
+    @FormUrlEncoded
+    @POST("api/firebase-tokens")
+    Call<ResponseBody> updatePhoneToken(@Header("Authorization") String user_token,
+                                        @Field("phone_token") String phone_token,
+                                        @Field("user_id") int user_id,
+                                        @Field("software_type") int software_type
+    );
+
+
 }

@@ -2,6 +2,7 @@ package com.hasry.activities_fragments.client.activity_notification;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +15,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.hasry.R;
+import com.hasry.activities_fragments.client.activity_home.HomeActivity;
 import com.hasry.adapters.NotificationAdapter;
 import com.hasry.databinding.ActivityNotificationBinding;
 import com.hasry.interfaces.Listeners;
@@ -46,6 +48,7 @@ public class NotificationActivity extends AppCompatActivity implements Listeners
     private UserModel userModel;
     private int current_page=1;
     private boolean isLoading=false;
+    private boolean isFromFirebase = false;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -56,10 +59,16 @@ public class NotificationActivity extends AppCompatActivity implements Listeners
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_notification);
+        getDataFromIntent();
         initView();
     }
 
-
+    private void getDataFromIntent() {
+        Intent intent = getIntent();
+        if (intent.hasExtra("not")){
+            isFromFirebase = true;
+        }
+    }
 
 
     private void initView()
@@ -307,6 +316,10 @@ public class NotificationActivity extends AppCompatActivity implements Listeners
 
     @Override
     public void back() {
+        if (isFromFirebase){
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
+        }
         finish();
     }
 

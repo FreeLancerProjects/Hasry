@@ -48,41 +48,74 @@
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:text="@{model.title}"
-                    android:textColor="@color/gray3"
+                    android:textColor="@color/gray4"
                     android:textSize="13sp" />
+                <TextView
+                    android:id="@+id/tvAfterDiscount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:textSize="12sp"
+                    android:textColor="@color/colorPrimary"
+                    android:singleLine="true"
+                    android:clickable="false"
+                    android:longClickable="false"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    priceBeforeDiscount="@{model}"
+                    android:visibility='@{model.offer==null?View.INVISIBLE:(model.offer.offer_status.equals("open")?View.VISIBLE:View.INVISIBLE)}'
 
-                <LinearLayout
-                    android:id="@+id/llAdd"
+                    />
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="5dp"
-                    android:gravity="center_vertical"
                     android:layout_marginBottom="10dp"
-                    >
-                    <ImageView
-                        android:id="@+id/imageAddToCart"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:src="@drawable/ic_plus"
-                        android:tint="@color/gray3"
 
-                        />
-                    <TextView
-                        android:layout_width="wrap_content"
+                    >
+
+                    <LinearLayout
+                        android:id="@+id/llAdd"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:textSize="13sp"
-                        android:textColor="@color/colorPrimary"
-                        android:singleLine="true"
-                        android:text='@{model.price+" "+@string/sar}'
-                        android:clickable="false"
-                        android:longClickable="false"
-                        />
-                </LinearLayout>
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        >
+                        <ImageView
+                            android:id="@+id/imageAddToCart"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_plus"
+                            android:tint="@color/gray3"
+
+                            />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:textSize="13sp"
+                            android:textColor="@color/gray6"
+                            android:singleLine="true"
+                            android:clickable="false"
+                            android:longClickable="false"
+                            priceOffer="@{model}"
+                            />
+
+                    </LinearLayout>
+
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </LinearLayout>
 

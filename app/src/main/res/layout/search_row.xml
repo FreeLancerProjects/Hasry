@@ -51,12 +51,31 @@
                     android:textColor="@color/black"
                     android:textSize="13sp" />
 
+                <TextView
+                    android:id="@+id/tvAfterDiscount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:textSize="12sp"
+                    android:textColor="@color/colorPrimary"
+                    android:singleLine="true"
+                    android:clickable="false"
+                    android:longClickable="false"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    priceBeforeDiscount="@{model}"
+                    android:visibility='@{model.offer==null?View.INVISIBLE:(model.offer.offer_status.equals("open")?View.VISIBLE:View.INVISIBLE)}'
+
+                    />
+
                 <LinearLayout
                     android:id="@+id/llAdd"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="5dp"
                     android:gravity="center_vertical"
@@ -76,11 +95,12 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
                         android:textSize="13sp"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/gray6"
                         android:singleLine="true"
-                        android:text='@{model.price+" "+@string/sar}'
                         android:clickable="false"
                         android:longClickable="false"
+                        priceOffer="@{model}"
+
                         />
                 </LinearLayout>
 

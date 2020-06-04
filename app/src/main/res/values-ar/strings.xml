@@ -190,7 +190,7 @@
     <string name="amount">الكمية : </string>
     <string name="you_have_new_order">لديك طلب جديد</string>
     <string name="collected_will_you_get_it_now">تم تجميع الطلب هل تريد توصيله ؟</string>
-<string name="end_oder"> انهاء الطلب </string>
+    <string name="end_oder">هل تريد انهاء الطلب ؟ </string>
     <string name="num">رقم  :</string>
     <string name="market_not_available">المتجر غير متاج الان</string>
     <string name="neigboorhood">الحى</string>
@@ -198,6 +198,8 @@
     <string name="accept">قبول</string>
     <string name="refuse">رفض</string>
     <string name="delivery_in_progress">جارى التوصيل</string>
+    <string name="follow_order">تتبع الطلب</string>
+    <string name="marker_accept">وافق المتجر على طلبك</string>
     <string name="copy">نسخ الرابط</string>
     <string name="link_is_copied">تم نسخ الرابط</string>
 

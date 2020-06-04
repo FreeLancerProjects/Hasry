@@ -211,7 +211,7 @@ public class SearchActivity extends AppCompatActivity implements Listeners.BackL
 
     public void setItemData(OfferModel offerModel) {
         Intent intent = new Intent(this, ProductDetailsActivity.class);
-        intent.putExtra("name",market.getName());
+        intent.putExtra("name",market);
         intent.putExtra("data",offerModel);
         startActivity(intent);
     }

@@ -26,12 +26,17 @@ import com.hasry.databinding.DialogAlertBinding;
 import com.hasry.interfaces.Listeners;
 import com.hasry.language.Language;
 import com.hasry.adapters.Notification_Adapter;
+import com.hasry.models.NotFireModel;
 import com.hasry.models.NotificationDataModel;
 import com.hasry.models.UserModel;
 import com.hasry.preferences.Preferences;
 import com.hasry.remote.Api;
 import com.hasry.share.Common;
 import com.hasry.tags.Tags;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -66,6 +71,8 @@ NotificationDriverActivity extends AppCompatActivity implements Listeners.BackLi
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_notification);
         initView();
+        EventBus.getDefault().register(this);
+
     }
 
 
@@ -421,5 +428,10 @@ NotificationDriverActivity extends AppCompatActivity implements Listeners.BackLi
                     }
                 });
     }
-
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void listenToNotifications(NotFireModel notFireModel) {
+        if (userModel != null) {
+         getNotification();
+        }
+    }
 }

@@ -8,24 +8,34 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
 import com.hasry.R;
+import com.hasry.activities_fragments.client.activity_cart.CartActivity;
 import com.hasry.databinding.ActivityAboutAppBinding;
 import com.hasry.databinding.ActivityProductDetailsBinding;
 import com.hasry.interfaces.Listeners;
 import com.hasry.language.Language;
+import com.hasry.models.CreateOrderModel;
+import com.hasry.models.ItemCartModel;
+import com.hasry.models.MarketDataModel;
 import com.hasry.models.OfferModel;
+import com.hasry.preferences.Preferences;
+import com.hasry.share.Common;
 
 import java.util.Locale;
 
 import io.paperdb.Paper;
 
-public class ProductDetailsActivity extends AppCompatActivity  implements Listeners.BackListener{
+public class ProductDetailsActivity extends AppCompatActivity  implements Listeners.BackListener,Listeners.HomeListener{
     private ActivityProductDetailsBinding binding;
     private String lang;
-    private String marketName;
+    private MarketDataModel.Data.Market market;
     private OfferModel offerModel;
-
+    private CreateOrderModel createOrderModel;
+private Preferences preferences;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -44,7 +54,7 @@ public class ProductDetailsActivity extends AppCompatActivity  implements Listen
         Intent intent = getIntent();
         if (intent!=null)
         {
-            marketName = intent.getStringExtra("name");
+            market = (MarketDataModel.Data.Market) intent.getSerializableExtra("name");
             offerModel = (OfferModel) intent.getSerializableExtra("data");
 
         }
@@ -54,16 +64,114 @@ public class ProductDetailsActivity extends AppCompatActivity  implements Listen
     private void initView()
     {
         Paper.init(this);
+        preferences=Preferences.getInstance();
         lang = Paper.book().read("lang", Locale.getDefault().getLanguage());
         binding.setBackListener(this);
         binding.setLang(lang);
+        binding.setAction(this);
 
-        binding.setMarketName(marketName);
+        binding.setMarketName(market.getName());
         binding.setModel(offerModel);
+        createOrderModel = preferences.getCartData(this);
+        if (createOrderModel==null){
+            //Log.e("lflflfl",market.getId()+"");
+            createOrderModel = new CreateOrderModel();
+            createOrderModel.setMarkter_id(market.getId());
+        }
+binding.flAddToCart.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        addToCart(offerModel);
+    }
+});
+
     }
 
+    @Override
+    public void main() {
+
+    }
+    public void addToCart(OfferModel offerModel) {
+        if (market.getMarkter_status().equals("open")){
+            if (market.getId()==createOrderModel.getMarkter_id())
+            {
+                ItemCartModel model = new ItemCartModel(offerModel.getId(),offerModel.getId(),offerModel.getImage(),offerModel.getTitle(),1);
+                model.setPrice_before_discount(Double.parseDouble(offerModel.getPrice()));
+
+                if (offerModel.getOffer()==null){
+                    model.setPrice(Double.parseDouble(offerModel.getPrice()));
+                    model.setOffer_id(0);
+                }else {
+
+                    if (offerModel.getOffer().getOffer_status().trim().equals("open"))
+                    {
+                        if (offerModel.getOffer().getOffer_type().trim().equals("per")){
+                            double price_before_discount = Double.parseDouble(offerModel.getPrice());
+                            double price_after_discount = price_before_discount-(price_before_discount*(offerModel.getOffer().getOffer_value()/100));
+                            model.setPrice(price_after_discount);
+                            model.setOffer_id(offerModel.getOffer().getId());
+                        }else {
+                            double price_before_discount = Double.parseDouble(offerModel.getPrice());
+                            double price_after_discount = price_before_discount-offerModel.getOffer().getOffer_value();
+                            model.setPrice(price_after_discount);
+                            model.setOffer_id(offerModel.getOffer().getId());
+                        }
+                    }else {
+                        model.setPrice(Double.parseDouble(offerModel.getPrice()));
+                        model.setOffer_id(0);
+                    }
+                }
 
 
+                createOrderModel.addNewProduct(model);
+                preferences.create_update_cart(this,createOrderModel);
+                Toast.makeText(this, getString(R.string.added_suc), Toast.LENGTH_SHORT).show();
+            }else {
+                Common.CreateDialogAlert(this,getString(R.string.diff_market));
+            }
+        }else {
+            Common.CreateDialogAlert(this,getString(R.string.market_not_available));
+
+        }
+
+    }
+
+    @Override
+    public void profile() {
+
+    }
+
+    @Override
+    public void myOrder() {
+
+    }
+
+    @Override
+    public void notification() {
+
+    }
+
+    @Override
+    public void cart() {
+        Intent intent = new Intent(this, CartActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void more() {
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        createOrderModel = preferences.getCartData(this);
+        if (createOrderModel==null){
+            binding.setCartCount(0);
+        }else {
+            binding.setCartCount(createOrderModel.getProducts().size());
+        }
+    }
 
     @Override
     public void back() {

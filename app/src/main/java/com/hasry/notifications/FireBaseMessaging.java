@@ -24,6 +24,7 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.hasry.R;
 import com.hasry.activities_fragments.client.activity_notification.NotificationActivity;
+import com.hasry.activities_fragments.driver.activity_notification.NotificationDriverActivity;
 import com.hasry.models.DriverLocationUpdate;
 import com.hasry.models.NotFireModel;
 import com.hasry.preferences.Preferences;
@@ -44,7 +45,7 @@ import retrofit2.Response;
 public class FireBaseMessaging extends FirebaseMessagingService {
 
     private Preferences preferences = Preferences.getInstance();
-    private Map<String,String> map;
+    private Map<String, String> map;
 
 
     @Override
@@ -52,18 +53,15 @@ public class FireBaseMessaging extends FirebaseMessagingService {
         super.onMessageReceived(remoteMessage);
         map = remoteMessage.getData();
 
-        for (String key:map.keySet())
-        {
-            Log.e("key",key+"    value "+map.get(key));
+        for (String key : map.keySet()) {
+            Log.e("key", key + "    value " + map.get(key));
         }
 
-        if (getSession().equals(Tags.session_login))
-        {
+        if (getSession().equals(Tags.session_login)) {
             String to_user_id = String.valueOf(map.get("to_user"));
             String my_id = getCurrentUser_id();
 
-            if (my_id.equals(to_user_id))
-            {
+            if (my_id.equals(to_user_id)) {
                 manageNotification(map);
             }
         }
@@ -71,11 +69,9 @@ public class FireBaseMessaging extends FirebaseMessagingService {
 
     private void manageNotification(Map<String, String> map) {
 
-        if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.O)
-        {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createNewNotificationVersion(map);
-        }else
-        {
+        } else {
             createOldNotificationVersion(map);
 
         }
@@ -86,8 +82,7 @@ public class FireBaseMessaging extends FirebaseMessagingService {
     @Override
     public void onNewToken(@NonNull String s) {
         super.onNewToken(s);
-        if (getSession().equals(Tags.session_login))
-        {
+        if (getSession().equals(Tags.session_login)) {
             updateTokenFireBase(s);
 
         }
@@ -98,12 +93,12 @@ public class FireBaseMessaging extends FirebaseMessagingService {
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void createNewNotificationVersion(Map<String, String> map) {
 
-        String not_type =map.get("notification_type");
+        String not_type = map.get("notification_type");
 
-        if (not_type.equals("action_note")){
+        if (not_type.equals("action_note")) {
             String sound_Path = "android.resource://" + getPackageName() + "/" + R.raw.not;
 
-            String title =map.get("title");
+            String title = map.get("title");
             String body = map.get("message");
 
             final NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
@@ -124,23 +119,26 @@ public class FireBaseMessaging extends FirebaseMessagingService {
             builder.setSound(Uri.parse(sound_Path), AudioManager.STREAM_NOTIFICATION);
             builder.setSmallIcon(R.mipmap.ic_launcher_round);
 
-            Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher_round);
+            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_round);
             builder.setLargeIcon(bitmap);
 
+            Intent intent = null;
 
+            if (Preferences.getInstance().getUserData(this).getData().getUser_type().equals("client")) {
+                intent = new Intent(this, NotificationActivity.class);
+            } else if (Preferences.getInstance().getUserData(this).getData().getUser_type().equals("driver")) {
+                intent = new Intent(this, NotificationDriverActivity.class);
+            }
 
-
-            Intent intent = new Intent(this, NotificationActivity.class);
-            intent.putExtra("not",true);
+            intent.putExtra("not", true);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
             TaskStackBuilder taskStackBuilder = TaskStackBuilder.create(this);
             taskStackBuilder.addNextIntent(intent);
 
-            PendingIntent pendingIntent = taskStackBuilder.getPendingIntent(0,PendingIntent.FLAG_UPDATE_CURRENT);
+            PendingIntent pendingIntent = taskStackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
 
             builder.setContentIntent(pendingIntent);
-
 
 
             builder.setContentTitle(title);
@@ -148,39 +146,36 @@ public class FireBaseMessaging extends FirebaseMessagingService {
             builder.setStyle(new NotificationCompat.BigTextStyle().bigText(body));
 
 
-
             NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
             if (manager != null) {
 
                 manager.createNotificationChannel(channel);
-                manager.notify(Tags.not_tag,Tags.not_id, builder.build());
+                manager.notify(Tags.not_tag, Tags.not_id, builder.build());
 
                 EventBus.getDefault().post(new NotFireModel(true));
 
             }
 
-        }else if (not_type.equals("location")){
-            double lat =Double.parseDouble(map.get("latitude"));
-            double lng =Double.parseDouble(map.get("longitude"));
-            Log.e("lat",lat+"_");
+        } else if (not_type.equals("location")) {
+            double lat = Double.parseDouble(map.get("latitude"));
+            double lng = Double.parseDouble(map.get("longitude"));
+            Log.e("lat", lat + "_");
 
-            DriverLocationUpdate model = new DriverLocationUpdate(lat,lng);
+            DriverLocationUpdate model = new DriverLocationUpdate(lat, lng);
             EventBus.getDefault().post(model);
         }
-
-
 
 
     }
 
     private void createOldNotificationVersion(Map<String, String> map) {
 
-        String not_type =map.get("notification_type");
+        String not_type = map.get("notification_type");
 
-        if (not_type.equals("action_note")){
+        if (not_type.equals("action_note")) {
             String sound_Path = "android.resource://" + getPackageName() + "/" + R.raw.not;
 
-            String title =map.get("title");
+            String title = map.get("title");
             String body = map.get("message");
 
 
@@ -190,17 +185,24 @@ public class FireBaseMessaging extends FirebaseMessagingService {
             builder.setSound(Uri.parse(sound_Path), AudioManager.STREAM_NOTIFICATION);
             builder.setSmallIcon(R.mipmap.ic_launcher_round);
 
-            Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher_round);
+            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_round);
             builder.setLargeIcon(bitmap);
 
-            Intent intent = new Intent(this, NotificationActivity.class);
-            intent.putExtra("not",true);
+
+            Intent intent = null;
+
+            if (Preferences.getInstance().getUserData(this).getData().getUser_type().equals("client")) {
+                intent = new Intent(this, NotificationActivity.class);
+            } else if (Preferences.getInstance().getUserData(this).getData().getUser_type().equals("driver")) {
+                intent = new Intent(this, NotificationDriverActivity.class);
+            }
+            intent.putExtra("not", true);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
             TaskStackBuilder taskStackBuilder = TaskStackBuilder.create(this);
             taskStackBuilder.addNextIntent(intent);
 
-            PendingIntent pendingIntent = taskStackBuilder.getPendingIntent(0,PendingIntent.FLAG_UPDATE_CURRENT);
+            PendingIntent pendingIntent = taskStackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
 
             builder.setContentIntent(pendingIntent);
 
@@ -211,18 +213,17 @@ public class FireBaseMessaging extends FirebaseMessagingService {
 
             NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
             if (manager != null) {
-                manager.notify(Tags.not_tag,Tags.not_id, builder.build());
+                manager.notify(Tags.not_tag, Tags.not_id, builder.build());
                 EventBus.getDefault().post(new NotFireModel(true));
 
             }
-        }else if (not_type.equals("location"))
-        {
+        } else if (not_type.equals("location")) {
 
-            double lat =Double.parseDouble(map.get("latitude"));
-            double lng =Double.parseDouble(map.get("longitude"));
-            Log.e("lat",lat+"_");
+            double lat = Double.parseDouble(map.get("latitude"));
+            double lng = Double.parseDouble(map.get("longitude"));
+            Log.e("lat", lat + "_");
 
-            DriverLocationUpdate model = new DriverLocationUpdate(lat,lng);
+            DriverLocationUpdate model = new DriverLocationUpdate(lat, lng);
             EventBus.getDefault().post(model);
 
 
@@ -232,25 +233,22 @@ public class FireBaseMessaging extends FirebaseMessagingService {
     }
 
 
-
     private void updateTokenFireBase(String token) {
 
 
         FirebaseInstanceId.getInstance()
                 .getInstanceId().addOnCompleteListener(task -> {
-            if (task.isSuccessful())
-            {
+            if (task.isSuccessful()) {
 
                 try {
 
                     Api.getService(Tags.base_url)
-                            .updatePhoneToken("Bearer "+preferences.getUserData(this).getData().getToken(),token,preferences.getUserData(this).getData().getId(),1)
+                            .updatePhoneToken("Bearer " + preferences.getUserData(this).getData().getToken(), token, preferences.getUserData(this).getData().getId(), 1)
                             .enqueue(new Callback<ResponseBody>() {
                                 @Override
                                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                                    if (response.isSuccessful() && response.body() != null )
-                                    {
-                                        Log.e("token","updated successfully");
+                                    if (response.isSuccessful() && response.body() != null) {
+                                        Log.e("token", "updated successfully");
                                     } else {
                                         try {
 
@@ -287,15 +285,13 @@ public class FireBaseMessaging extends FirebaseMessagingService {
         });
     }
 
-    private String getCurrentUser_id()
-    {
+    private String getCurrentUser_id() {
         return String.valueOf(preferences.getUserData(this).getData().getId());
 
     }
 
 
-    private String getSession()
-    {
+    private String getSession() {
         return preferences.getSession(this);
     }
 }

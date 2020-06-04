@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.hasry.R;
 import com.hasry.activities_fragments.activity_map.MapActivity;
+import com.hasry.activities_fragments.client.activity_cart.CartActivity;
 import com.hasry.activities_fragments.client.activity_home.HomeActivity;
 import com.hasry.activities_fragments.client.activity_product_details.ProductDetailsActivity;
 import com.hasry.activities_fragments.client.activity_search.SearchActivity;
@@ -49,7 +50,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MarketDataActivity extends AppCompatActivity implements Listeners.BackListener {
+public class MarketDataActivity extends AppCompatActivity implements Listeners.BackListener, Listeners.HomeListener {
     private ActivityMarketDataBinding binding;
     private String lang;
     private MarketDataModel.Data.Market market;
@@ -98,7 +99,7 @@ public class MarketDataActivity extends AppCompatActivity implements Listeners.B
             createOrderModel = new CreateOrderModel();
             createOrderModel.setMarkter_id(market.getId());
         }
-
+        binding.setAction(this);
 
         offerList = new ArrayList<>();
         mostUsedList = new ArrayList<>();
@@ -608,7 +609,7 @@ public class MarketDataActivity extends AppCompatActivity implements Listeners.B
 
     public void setItemData(OfferModel offerModel) {
         Intent intent = new Intent(this, ProductDetailsActivity.class);
-        intent.putExtra("name",market.getName());
+        intent.putExtra("name",market);
         intent.putExtra("data",offerModel);
         startActivity(intent);
     }
@@ -656,5 +657,47 @@ public class MarketDataActivity extends AppCompatActivity implements Listeners.B
 
         }
 
+    }
+
+    @Override
+    public void main() {
+
+    }
+
+    @Override
+    public void profile() {
+
+    }
+
+    @Override
+    public void myOrder() {
+
+    }
+
+    @Override
+    public void notification() {
+
+    }
+
+    @Override
+    public void cart() {
+        Intent intent = new Intent(this, CartActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void more() {
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        createOrderModel = preferences.getCartData(this);
+        if (createOrderModel==null){
+            binding.setCartCount(0);
+        }else {
+            binding.setCartCount(createOrderModel.getProducts().size());
+        }
     }
 }

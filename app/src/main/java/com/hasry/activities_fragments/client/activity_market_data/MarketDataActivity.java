@@ -694,5 +694,12 @@ public class MarketDataActivity extends AppCompatActivity implements Listeners.B
 
     }
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(preferences.getCartData(this)!=null){
+            createOrderModel=preferences.getCartData(this);
+            binding.setCartCount(createOrderModel.getProducts().size());
+        }
+    }
 }

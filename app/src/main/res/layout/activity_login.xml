@@ -187,7 +187,20 @@
                         android:onClick="@{()->listener.validate()}"
 
                         />
+                    <Button
+                        android:id="@+id/btn_skip"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:background="@drawable/small_rounded_btn_second"
+                        android:textColor="@color/white"
+                        android:textSize="17sp"
+                        android:text="@string/skip"
 
+                        />
 
                     <TextView
                         android:id="@+id/tvSignUpMarket"

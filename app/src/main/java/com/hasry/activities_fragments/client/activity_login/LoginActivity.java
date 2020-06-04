@@ -7,12 +7,14 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.hasry.R;
+import com.hasry.activities_fragments.client.activity_home.HomeActivity;
 import com.hasry.activities_fragments.client.activity_verification_code.VerificationCodeActivity;
 import com.hasry.adapters.CountriesAdapter;
 import com.hasry.databinding.ActivityLoginBinding;
@@ -62,6 +64,13 @@ public class LoginActivity extends AppCompatActivity implements Listeners.LoginL
         lang = Paper.book().read("lang","ar");
         binding.setLang(lang);
 
+        binding.btnSkip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(LoginActivity.this, HomeActivity.class);
+                startActivity(intent);
+            }
+        });
         binding.edtPhone.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {

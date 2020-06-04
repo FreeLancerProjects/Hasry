@@ -184,7 +184,7 @@
     <string name="ch_neigborhood">Choose NeighborHood</string>
     <string name="you_have_new_order">You Have New Order</string>
     <string name="collected_will_you_get_it_now">Collected, will you get it now?</string>
-    <string name="end_oder">Do you want to end the request?</string>
+    <string name="end_oder">end Order</string>
     <string name="num">Num :</string>
     <string name="neigboorhood">NeigboorHood</string>
     <string name="order_detials">Order Detials</string>

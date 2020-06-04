@@ -99,6 +99,9 @@ public class MarketDataActivity extends AppCompatActivity implements Listeners.B
             createOrderModel = new CreateOrderModel();
             createOrderModel.setMarkter_id(market.getId());
         }
+        else {
+            binding.setCartCount(createOrderModel.getProducts().size());
+        }
         binding.setAction(this);
 
         offerList = new ArrayList<>();
@@ -647,6 +650,7 @@ public class MarketDataActivity extends AppCompatActivity implements Listeners.B
 
 
                 createOrderModel.addNewProduct(model);
+                binding.setCartCount(createOrderModel.getProducts().size());
                 preferences.create_update_cart(this,createOrderModel);
                 Toast.makeText(this, getString(R.string.added_suc), Toast.LENGTH_SHORT).show();
             }else {
@@ -690,15 +694,5 @@ public class MarketDataActivity extends AppCompatActivity implements Listeners.B
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        createOrderModel = preferences.getCartData(this);
-        if (createOrderModel==null){
-            createOrderModel.setMarkter_id(market.getId());
-            binding.setCartCount(0);
-        }else {
-            binding.setCartCount(createOrderModel.getProducts().size());
-        }
-    }
+
 }

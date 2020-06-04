@@ -78,6 +78,9 @@ private Preferences preferences;
             createOrderModel = new CreateOrderModel();
             createOrderModel.setMarkter_id(market.getId());
         }
+        else {
+            binding.setCartCount(createOrderModel.getProducts().size());
+        }
 binding.flAddToCart.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
@@ -124,6 +127,7 @@ binding.flAddToCart.setOnClickListener(new View.OnClickListener() {
 
 
                 createOrderModel.addNewProduct(model);
+                binding.setCartCount(createOrderModel.getProducts().size());
                 preferences.create_update_cart(this,createOrderModel);
                 Toast.makeText(this, getString(R.string.added_suc), Toast.LENGTH_SHORT).show();
             }else {
@@ -162,17 +166,7 @@ binding.flAddToCart.setOnClickListener(new View.OnClickListener() {
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        createOrderModel = preferences.getCartData(this);
-        if (createOrderModel==null){
-            createOrderModel.setMarkter_id(market.getId());
-            binding.setCartCount(0);
-        }else {
-            binding.setCartCount(createOrderModel.getProducts().size());
-        }
-    }
+
 
     @Override
     public void back() {

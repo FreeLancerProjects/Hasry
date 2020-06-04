@@ -10,11 +10,13 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.hasry.R;
+import com.hasry.activities_fragments.client.activity_follow_order.FollowOrderActivity;
 import com.hasry.adapters.ProductDetailsAdapter;
 import com.hasry.databinding.ActivityClientOrderDetailsBinding;
 import com.hasry.interfaces.Listeners;
 import com.hasry.language.Language;
 import com.hasry.models.OrderModel;
+import com.hasry.share.Common;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +66,16 @@ public class ClientOrderDetailsActivity extends AppCompatActivity implements Lis
         adapter = new ProductDetailsAdapter(orderDetailsList,this);
         binding.recView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
         binding.recView.setAdapter(adapter);
-        Log.e("order",orderModel.getOrder_status()+"_");
+
+        binding.flFollowDriver.setOnClickListener(v -> {
+            if (!orderModel.getOrder_status().equals("new_order")){
+                Intent intent = new Intent(this, FollowOrderActivity.class);
+                intent.putExtra("data",orderModel);
+                startActivity(intent);
+            }else {
+                Common.CreateDialogAlert(this,getString(R.string.new_order));
+            }
+        });
     }
 
 

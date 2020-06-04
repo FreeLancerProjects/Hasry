@@ -14,6 +14,7 @@ import com.hasry.models.OfferDataModel;
 import com.hasry.models.OrderDataModel;
 import com.hasry.models.OrderModel;
 import com.hasry.models.OrderResponseModel;
+import com.hasry.models.PlaceDirectionModel;
 import com.hasry.models.PlaceGeocodeData;
 import com.hasry.models.PlaceMapDetailsData;
 import com.hasry.models.SearchDataModel;
@@ -273,6 +274,13 @@ public interface Service {
                                         @Field("phone_token") String phone_token,
                                         @Field("user_id") int user_id,
                                         @Field("software_type") int software_type
+    );
+
+    @GET("directions/json")
+    Call<PlaceDirectionModel> getDirection(@Query("origin") String origin,
+                                           @Query("destination") String destination,
+                                           @Query("transit_mode") String transit_mode,
+                                           @Query("key") String key
     );
 
 

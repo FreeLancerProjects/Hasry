@@ -44,6 +44,7 @@ import com.hasry.models.MainCategoryDataModel;
 import com.hasry.models.NotFireModel;
 import com.hasry.models.NotificationCount;
 import com.hasry.models.UserModel;
+import com.hasry.notifications.FireBaseMessaging;
 import com.hasry.preferences.Preferences;
 
 import com.hasry.remote.Api;
@@ -287,54 +288,63 @@ public class HomeActivity extends AppCompatActivity implements Listeners.HomeLis
 
     private void updateTokenFireBase() {
 
-        /*FirebaseInstanceId.getInstance()
+
+
+        FirebaseInstanceId.getInstance()
                 .getInstanceId().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                token = task.getResult().getToken();
+                String token = task.getResult().getToken();
 
                 try {
 
-                    Api.getService(Tags.base_url)
-                            .updateToken(userModel.getUser().getToken(), token, "android")
-                            .enqueue(new Callback<ResponseBody>() {
-                                @Override
-                                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                                    if (response.isSuccessful() && response.body() != null) {
-                                        Log.e("token", "updated successfully");
-                                    } else {
-                                        try {
+                    try {
 
-                                            Log.e("errorToken", response.code() + "_" + response.errorBody().string());
-                                        } catch (IOException e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-                                }
+                        Api.getService(Tags.base_url)
+                                .updatePhoneToken("Bearer "+userModel.getData().getToken(),token,userModel.getData().getId(),1)
+                                .enqueue(new Callback<ResponseBody>() {
+                                    @Override
+                                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                        if (response.isSuccessful() && response.body() != null )
+                                        {
+                                            Log.e("token","updated successfully");
+                                        } else {
+                                            try {
 
-                                @Override
-                                public void onFailure(Call<ResponseBody> call, Throwable t) {
-                                    try {
-
-                                        if (t.getMessage() != null) {
-                                            Log.e("errorToken2", t.getMessage());
-                                            if (t.getMessage().toLowerCase().contains("failed to connect") || t.getMessage().toLowerCase().contains("unable to resolve host")) {
-                                                Toast.makeText(HomeActivity.this, R.string.something, Toast.LENGTH_SHORT).show();
-                                            } else {
-                                                Toast.makeText(HomeActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                                                Log.e("error", response.code() + "_" + response.errorBody().string());
+                                            } catch (IOException e) {
+                                                e.printStackTrace();
                                             }
                                         }
-
-                                    } catch (Exception e) {
                                     }
-                                }
-                            });
+
+                                    @Override
+                                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                        try {
+
+                                            if (t.getMessage() != null) {
+                                                Log.e("error", t.getMessage());
+                                                if (t.getMessage().toLowerCase().contains("failed to connect") || t.getMessage().toLowerCase().contains("unable to resolve host")) {
+                                                    Toast.makeText(HomeActivity.this, R.string.something, Toast.LENGTH_SHORT).show();
+                                                } else {
+                                                    Toast.makeText(HomeActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+
+                                        } catch (Exception e) {
+                                        }
+                                    }
+                                });
+                    } catch (Exception e) {
+
+
+                    }
                 } catch (Exception e) {
 
 
                 }
 
             }
-        });*/
+        });
     }
 
 

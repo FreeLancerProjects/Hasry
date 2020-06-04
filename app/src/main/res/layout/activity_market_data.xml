@@ -198,7 +198,7 @@
                        android:layout_marginBottom="20dp"
                        android:layout_marginStart="10dp"
                        android:layout_marginEnd="10dp"
-                       android:text='@{model.is_login==null?@string/close:(model.is_login.equals("0")?@string/close:@string/open)}'
+                       android:text='@{model.markter_status==null?@string/close:(model.markter_status.equals("close")?@string/close:@string/open)}'
                        />
                </androidx.constraintlayout.widget.ConstraintLayout>
 

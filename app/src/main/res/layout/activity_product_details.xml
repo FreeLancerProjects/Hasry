@@ -16,6 +16,7 @@
         <variable
             name="marketName"
             type="String" />
+        <import type="android.view.View"/>
 
 
 
@@ -99,11 +100,46 @@
 
 
                     >
-                    <ImageView
+                    <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        image="@{model.image}"
-                        />
+                        android:layout_height="match_parent">
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            image="@{model.image}"
+                            />
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:background="@drawable/offer_bg"
+                            android:paddingLeft="8dp"
+                            android:paddingRight="8dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                            android:visibility='@{model.offer==null?View.GONE:(model.offer.offer_status.equals("open")?View.VISIBLE:View.GONE),default=gone}'
+                            >
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:textColor="@color/white"
+                                android:text="@string/discount"
+                                />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:textColor="@color/white"
+                                android:text='@{model.offer.offer_type.equals("per")?model.offer.offer_value+"%":model.offer.offer_value+@string/sar}'
+                                />
+
+                        </LinearLayout>
+
+                    </FrameLayout>
+
                 </androidx.cardview.widget.CardView>
 
 
@@ -116,96 +152,131 @@
                     app:cardElevation="3dp"
                     android:layout_margin="3dp"
                     >
-                   <LinearLayout
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:orientation="vertical"
-                       >
-                       <TextView
-                           android:layout_width="wrap_content"
-                           android:layout_height="wrap_content"
-                           android:textSize="16sp"
-                           android:textStyle="bold"
-                           android:textColor="@color/black"
-                           android:text="@{model.title}"
-                           />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        >
 
-                       <TextView
-                           android:layout_width="wrap_content"
-                           android:layout_height="wrap_content"
-                           android:textSize="14sp"
-                           android:textStyle="bold"
-                           android:textColor="@color/gray6"
-                           android:text='@{@string/seller+":"+marketName}'
-                           android:layout_marginTop="20dp"
-                           android:layout_marginBottom="10dp"
-                           />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:text="@{model.title}"
+                            />
 
-                       <TextView
-                           android:layout_width="wrap_content"
-                           android:layout_height="wrap_content"
-                           android:textSize="14sp"
-                           android:textStyle="bold"
-                           android:textColor="@color/colorPrimary"
-                           android:text='@{model.price+" "+@string/sar}'
-                           android:layout_gravity="center_horizontal"
-                           android:layout_marginTop="20dp"
-                           android:layout_marginBottom="10dp"
-                           />
-                       <View
-                           android:layout_width="match_parent"
-                           android:layout_height="1px"
-                           android:background="@color/gray4"/>
-                       <TextView
-                           android:layout_width="wrap_content"
-                           android:layout_height="wrap_content"
-                           android:layout_marginTop="10dp"
-                           android:textColor="@color/black"
-                           android:textSize="14sp"
-                           android:text="@string/description"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/gray6"
+                            android:text='@{@string/seller+":"+marketName}'
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="10dp"
+                            />
 
-                       <TextView
-                           android:layout_width="wrap_content"
-                           android:layout_height="wrap_content"
-                           android:layout_marginTop="5dp"
-                           android:textColor="@color/gray8"
-                           android:textSize="15sp"
-                           android:text="@{model.details}"
-                           android:layout_marginStart="10dp"
-                           android:layout_marginEnd="10dp"
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="8sp"
+                            android:orientation="horizontal"
+                            android:gravity="center"
+                            >
+                            <TextView
+                                android:id="@+id/tvAfterDiscount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:textSize="12sp"
+                                android:textColor="@color/colorPrimary"
+                                android:singleLine="true"
+                                android:clickable="false"
+                                android:longClickable="false"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginTop="5dp"
+                                priceBeforeDiscount="@{model}"
+                                android:visibility='@{model.offer==null?View.GONE:(model.offer.offer_status.equals("open")?View.VISIBLE:View.GONE)}'
 
-                           />
+                                />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/gray6"
+                                priceOffer="@{model}"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginBottom="10dp"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
+                                />
+
+                        </LinearLayout>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:background="@color/gray4"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:text="@string/description"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:textColor="@color/gray8"
+                            android:textSize="15sp"
+                            android:text="@{model.details}"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+
+                            />
 
 
-                       <View
-                           android:layout_width="match_parent"
-                           android:layout_height="1px"
-                           android:background="@color/gray4"
-                           android:layout_marginTop="10dp"
-                           />
-                       <TextView
-                           android:layout_width="wrap_content"
-                           android:layout_height="wrap_content"
-                           android:layout_marginTop="10dp"
-                           android:textColor="@color/black"
-                           android:textSize="14sp"
-                           android:text="@string/details"
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:background="@color/gray4"
+                            android:layout_marginTop="10dp"
+                            />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:text="@string/details"
 
-                           />
+                            />
 
-                       <TextView
-                           android:layout_width="wrap_content"
-                           android:layout_height="wrap_content"
-                           android:layout_marginTop="5dp"
-                           android:textColor="@color/gray8"
-                           android:textSize="15sp"
-                           android:text="@{model.content}"
-                           android:layout_marginStart="10dp"
-                           android:layout_marginEnd="10dp"
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:textColor="@color/gray8"
+                            android:textSize="15sp"
+                            android:text="@{model.content}"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
 
-                           />
+                            />
 
-                   </LinearLayout>
+                    </LinearLayout>
+
 
                 </androidx.cardview.widget.CardView>
 

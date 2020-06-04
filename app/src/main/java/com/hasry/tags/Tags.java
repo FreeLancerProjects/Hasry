@@ -14,4 +14,8 @@ public class Tags {
     public static String driver_end_order = "driver_end_order";
     public static String driver_accept = "driver_accept";
     public static String delivery = "driver_delivery";
+
+    public static String getBase_url() {
+        return base_url;
+    }
 }

@@ -288,9 +288,9 @@ NotificationDriverActivity extends AppCompatActivity implements Listeners.BackLi
 
                         AcceptOrder(notification_id, "accept");
                     } else if (actiontype.equals(Tags.driver_to_marketer_order_delivery)) {
-                        deliverOrder(notification_id);
+                       // deliverOrder(notification_id);
                     } else if (actiontype.equals(Tags.driver_end_order)) {
-                        EndOrder(notification_id, "end");
+                      //  EndOrder(notification_id, "end");
                     }
                     dialog.dismiss();
                 }

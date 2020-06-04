@@ -71,9 +71,9 @@ private NotificationDriverActivity notificationDriverActivity;
                 public void onClick(View v) {
                     if(context instanceof NotificationDriverActivity){
                         notificationDriverActivity=(NotificationDriverActivity)context;
-                   // if(orderlist.get(eventHolder.getLayoutPosition()).getAction_type().equals(Tags.marketer_to_driver_order)){
+                    if(orderlist.get(eventHolder.getLayoutPosition()).getAction_type().equals(Tags.marketer_to_driver_order)){
                         notificationDriverActivity.CreateAcceptRefuseDialog(orderlist.get(eventHolder.getLayoutPosition()).getId()+"",orderlist.get(eventHolder.getLayoutPosition()).getOrder_id()+"",orderlist.get(eventHolder.getLayoutPosition()).getAction_type());
-                   // }
+                   }
                 }}
             });
 

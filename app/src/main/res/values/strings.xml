@@ -194,4 +194,6 @@
     <string name="delivery_in_progress">Delivery in progress</string>
     <string name="follow_order">Follow Order</string>
     <string name="marker_accept">Market Accept</string>
+    <string name="copy">Copy Link</string>
+    <string name="link_is_copied">Link is copied</string>
 </resources>

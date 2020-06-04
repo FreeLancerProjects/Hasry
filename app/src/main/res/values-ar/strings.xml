@@ -200,5 +200,7 @@
     <string name="delivery_in_progress">جارى التوصيل</string>
     <string name="follow_order">تتبع الطلب</string>
     <string name="marker_accept">وافق المتجر على طلبك</string>
+    <string name="copy">نسخ الرابط</string>
+    <string name="link_is_copied">تم نسخ الرابط</string>
 
 </resources>

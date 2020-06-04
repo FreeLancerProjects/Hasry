@@ -97,7 +97,9 @@ public class HomeActivity extends AppCompatActivity implements Listeners.HomeLis
         fragmentManager = getSupportFragmentManager();
         preferences = Preferences.getInstance();
         userModel = preferences.getUserData(this);
-
+if(userModel!=null){
+    binding.setUsermodel(userModel);
+}
         Paper.init(this);
         lang = Paper.book().read("lang", "ar");
         binding.setLang(lang);

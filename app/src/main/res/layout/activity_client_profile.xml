@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="java.util.Locale"/>
         <variable
             name="tags"
             type="com.hasry.tags.Tags" />
         <variable
             name="random"
             type="java.util.Random" />
+
         <variable
             name="lang"
             type="String" />
@@ -28,6 +30,55 @@
         android:orientation="vertical"
         android:background="@color/white"
         >
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            app:contentInsetEnd="0dp"
+            app:contentInsetLeft="0dp"
+            app:contentInsetRight="0dp"
+            app:contentInsetStart="0dp"
+
+            >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:gravity="center_vertical"
+                android:onClick="@{()->backListener.back()}"
+                android:orientation="horizontal"
+
+                >
+
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:clickable="false"
+                    android:longClickable="false"
+                    android:padding="10dp"
+                    android:rotation='@{lang.equals("ar")?180:0}'
+                    android:src="@drawable/ic_left_arrow"
+                    android:tint="@color/white"
+
+                    />
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:clickable="false"
+                    android:longClickable="false"
+                    android:text="@string/profile"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+            </LinearLayout>
+        </androidx.appcompat.widget.Toolbar>
+
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -432,7 +483,7 @@
                     android:layout_marginBottom="10dp"
                     android:gravity="center"
                     android:lines="2"
-                    android:text='@{tags.base_url+"ref?code="+String.format("%04d", random.nextInt(10000))+model.id+String.format("%04d", random.nextInt(10000))}'
+                    android:text='@{tags.base_url+"ref?code="+String.format(Locale.ENGLISH,"%04d", random.nextInt(10000))+model.id+String.format(Locale.ENGLISH,"%04d", random.nextInt(10000))}'
                     android:textColor="@color/colorPrimary"
                     android:textIsSelectable="true"
                     android:textSize="13sp" />

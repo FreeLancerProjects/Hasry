@@ -50,6 +50,7 @@ public class ClientProfileActivity extends AppCompatActivity implements Listener
         preferences = Preferences.getInstance();
         userModel = preferences.getUserData(this);
         Random random = new Random();
+
         binding.setRandom(random);
         binding.setBackListener(this);
 

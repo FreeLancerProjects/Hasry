@@ -196,4 +196,5 @@
     <string name="marker_accept">Market Accept</string>
     <string name="copy">Copy Link</string>
     <string name="link_is_copied">Link is copied</string>
+    <string name="account_balance">Account Balance</string>
 </resources>

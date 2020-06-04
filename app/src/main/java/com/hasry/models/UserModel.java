@@ -26,6 +26,8 @@ public class UserModel implements Serializable {
         private String token;
         private String latitude;
         private String longitude;
+        private double points;
+
         public int getId() {
             return id;
         }
@@ -88,6 +90,10 @@ public class UserModel implements Serializable {
 
         public String getLongitude() {
             return longitude;
+        }
+
+        public double getPoints() {
+            return points;
         }
     }
 }

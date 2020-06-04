@@ -695,6 +695,7 @@ public class MarketDataActivity extends AppCompatActivity implements Listeners.B
         super.onResume();
         createOrderModel = preferences.getCartData(this);
         if (createOrderModel==null){
+            createOrderModel.setMarkter_id(market.getId());
             binding.setCartCount(0);
         }else {
             binding.setCartCount(createOrderModel.getProducts().size());

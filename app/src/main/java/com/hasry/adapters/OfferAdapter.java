@@ -82,7 +82,7 @@ public class OfferAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             myHolder.binding.imageAddToCart.setOnClickListener(v -> {
                 if (activity instanceof MarketDataActivity){
                     MarketDataActivity marketDataActivity = (MarketDataActivity) activity;
-                    marketDataActivity.addToCart(list.get(myHolder.getAdapterPosition()));
+                    marketDataActivity.addToCart(list.get(myHolder.getAdapterPosition()),myHolder.binding.image);
 
                 }else {
                     SearchActivity searchActivity = (SearchActivity) activity;

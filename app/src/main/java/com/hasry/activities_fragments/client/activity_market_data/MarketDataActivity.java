@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.animation.Animator;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.PorterDuff;
@@ -16,6 +17,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.hasry.Animate.CircleAnimationUtil;
 import com.hasry.R;
 import com.hasry.activities_fragments.activity_map.MapActivity;
 import com.hasry.activities_fragments.client.activity_cart.CartActivity;
@@ -40,12 +42,14 @@ import com.hasry.preferences.Preferences;
 import com.hasry.remote.Api;
 import com.hasry.share.Common;
 import com.hasry.tags.Tags;
+import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import io.paperdb.Paper;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -619,7 +623,7 @@ public class MarketDataActivity extends AppCompatActivity implements Listeners.B
         startActivityForResult(intent,100);
     }
 
-    public void addToCart(OfferModel offerModel) {
+    public void addToCart(OfferModel offerModel, RoundedImageView image) {
 
         if (market.getMarkter_status().equals("open")){
             if (market.getId()==createOrderModel.getMarkter_id())
@@ -654,7 +658,8 @@ public class MarketDataActivity extends AppCompatActivity implements Listeners.B
 
                 createOrderModel.addNewProduct(model);
                 preferences.create_update_cart(this,createOrderModel);
-                binding.setCartCount(createOrderModel.getProducts().size());
+                makeFlyAnimation(image,createOrderModel.getProducts().size());
+               // binding.setCartCount(createOrderModel.getProducts().size());
                 Toast.makeText(this, getString(R.string.added_suc), Toast.LENGTH_SHORT).show();
             }else {
                 Common.CreateDialogAlert(this,getString(R.string.diff_market));
@@ -713,4 +718,35 @@ public class MarketDataActivity extends AppCompatActivity implements Listeners.B
             }
         }
     }
+    public void makeFlyAnimation(RoundedImageView targetView, int quantity) {
+
+
+        new CircleAnimationUtil().attachActivity(this).setTargetView(targetView, lang).setMoveDuration(1000).setDestView(binding.flCart).setAnimationListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                //     addItemToCart();
+                binding.setCartCount(createOrderModel.getProducts().size());
+
+                //  Toast.makeText(homeActivity, "Continue Shopping...", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        }).startAnimation();
+
+
+    }
+
 }

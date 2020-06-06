@@ -127,7 +127,7 @@ this.current_lang=current_lang;
                 params.setMargins(src[0], src[1], 0, 0);
             }
             else {
-                params.setMargins(0, src[1], (mContextReference.get().getWindow().getWindowManager().getDefaultDisplay().getWidth()/2)-src[0], 0);
+                params.setMargins(0, src[1], (mContextReference.get().getWindow().getWindowManager().getDefaultDisplay().getWidth())-src[0], 0);
 
             }
             if (mImageView.getParent() == null)

@@ -158,6 +158,12 @@ public class Fragment_Current_Order extends Fragment implements GoogleApiClient.
 
                                 }
                             } else {
+                                try {
+
+                                    Log.e("error", response.code() + "_" + response.errorBody().string());
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
                                 if (response.code() == 500) {
                                     Toast.makeText(activity, "Server Error", Toast.LENGTH_SHORT).show();
 

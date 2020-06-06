@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 
+import android.animation.Animator;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.PorterDuff;
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.hasry.Animate.CircleAnimationUtil;
 import com.hasry.R;
 import com.hasry.activities_fragments.client.activity_cart.CartActivity;
 import com.hasry.databinding.ActivityAboutAppBinding;
@@ -25,6 +27,7 @@ import com.hasry.models.MarketDataModel;
 import com.hasry.models.OfferModel;
 import com.hasry.preferences.Preferences;
 import com.hasry.share.Common;
+import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.Locale;
 
@@ -121,9 +124,10 @@ public class ProductDetailsActivity extends AppCompatActivity implements Listene
 
                 createOrderModel.addNewProduct(model);
                 preferences.create_update_cart(this, createOrderModel);
-                binding.setCartCount(createOrderModel.getProducts().size());
+               // binding.setCartCount(createOrderModel.getProducts().size());
+                makeFlyAnimation(binding.image,createOrderModel.getProducts().size());
                 isDataAdded = true;
-                Toast.makeText(this, getString(R.string.added_suc), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, getString(R.string.added_suc), Toast.LENGTH_SHORT).show();
             } else {
                 Common.CreateDialogAlert(this, getString(R.string.diff_market));
             }
@@ -131,6 +135,36 @@ public class ProductDetailsActivity extends AppCompatActivity implements Listene
             Common.CreateDialogAlert(this, getString(R.string.market_not_available));
 
         }
+
+    }
+    public void makeFlyAnimation(RoundedImageView targetView, int quantity) {
+
+
+        new CircleAnimationUtil().attachActivity(this).setTargetView(targetView, lang).setMoveDuration(1000).setDestView(binding.flCart).setAnimationListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                //     addItemToCart();
+                binding.setCartCount(createOrderModel.getProducts().size());
+
+                //  Toast.makeText(homeActivity, "Continue Shopping...", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        }).startAnimation();
+
 
     }
 

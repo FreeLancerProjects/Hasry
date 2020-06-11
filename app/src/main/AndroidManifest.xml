@@ -23,7 +23,8 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="m">
-        <activity android:name=".activities_fragments.client.activity_follow_order.FollowOrderActivity"></activity>
+        <activity android:name=".activities_fragments.activity_market_sign_up.MarketSignUpActivity"></activity>
+        <activity android:name=".activities_fragments.client.activity_follow_order.FollowOrderActivity" />
         <activity
             android:name=".activities_fragments.client.activity_client_order_details.ClientOrderDetailsActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"

@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.hasry.R;
+import com.hasry.activities_fragments.activity_market_sign_up.MarketSignUpActivity;
+import com.hasry.activities_fragments.client.activity_markets.MarketsActivity;
 import com.hasry.activities_fragments.client.activity_signup.SignUpActivity;
 import com.hasry.activities_fragments.driver.activity_signup.SignUpDriverActivity;
 import com.hasry.databinding.ActivitySignUpUserTypeBinding;
@@ -17,33 +19,42 @@ import com.hasry.language.Language;
 import io.paperdb.Paper;
 
 public class SignUpUserTypeActivity extends AppCompatActivity {
-ActivitySignUpUserTypeBinding binding;
+    ActivitySignUpUserTypeBinding binding;
 
-    private String phone_code,phone;
-private int selected_type=1;
+    private String phone_code, phone;
+    private int selected_type = 1;
+
     @Override
     protected void attachBaseContext(Context newBase) {
         Paper.init(newBase);
-        super.attachBaseContext(Language.updateResources(newBase, Paper.book().read("lang","ar")));
+        super.attachBaseContext(Language.updateResources(newBase, Paper.book().read("lang", "ar")));
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_sign_up_user_type);
         getDataFromIntent();
-initView();
+        initView();
     }
+
     private void navigateToSignUpActivity() {
         Intent intent = new Intent(this, SignUpActivity.class);
-        intent.putExtra("phone",phone);
-        intent.putExtra("phone_code",phone_code);
+        intent.putExtra("phone", phone);
+        intent.putExtra("phone_code", phone_code);
         startActivity(intent);
         finish();
     }
+
     private void navigateToSignUpDriverActivity() {
         Intent intent = new Intent(this, SignUpDriverActivity.class);
-        intent.putExtra("phone",phone);
-        intent.putExtra("phone_code",phone_code);
+        intent.putExtra("phone", phone);
+        intent.putExtra("phone_code", phone_code);
+        startActivity(intent);
+        finish();
+    }
+    private void navigateToSignUpMarketActivity() {
+        Intent intent = new Intent(this, MarketSignUpActivity.class);
         startActivity(intent);
         finish();
     }
@@ -61,21 +72,31 @@ initView();
 
                 selected_type = 1;
 
+                binding.rbBuyer.setSelected(true);
+
+            }
+        });
+
+        binding.rbMarket.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                selected_type = 3;
+                binding.rbMarket.setSelected(true);
 
 
             }
         });
-        binding.rbBuyer.setSelected(true);
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (selected_type == 1)
-                {
-                navigateToSignUpActivity();
-                }else if(selected_type==2)
-                {
-                   navigateToSignUpDriverActivity();
+                if (selected_type == 1) {
+                    navigateToSignUpActivity();
+                } else if (selected_type == 2) {
+                    navigateToSignUpDriverActivity();
+                }else if (selected_type == 3) {
+                    navigateToSignUpMarketActivity();
                 }
 
             }

@@ -135,6 +135,7 @@ public class Fragment_Address extends Fragment  implements OnMapReadyCallback, G
         CheckPermission();
     }
 
+
     public void setModel(AddOrderModel model)
     {
         this.addOrderModel =model;
@@ -423,9 +424,10 @@ public class Fragment_Address extends Fragment  implements OnMapReadyCallback, G
     @Override
     public void onNext() {
 
-        if (addOrderModel.isStep1Valid(activity)){
+        if (addOrderModel.isStep1Valid(activity))
+        {
             activity.updateModel(addOrderModel);
-            activity.displayFragmentDate();
+            activity.createOrder();
         }
     }
 

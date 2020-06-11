@@ -212,6 +212,7 @@
                         android:textColor="@color/black"
                         android:textSize="15sp"
                         android:text="@string/sign_up_market"
+                        android:visibility="gone"
                         />
 
                 </LinearLayout>

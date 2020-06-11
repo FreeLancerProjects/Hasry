@@ -80,7 +80,7 @@
                             android:singleLine="true"
                             android:clickable="false"
                             android:longClickable="false"
-                            price="@{model}"
+                            android:text='@{model.price+" "+@string/sar}'
 
                             />
                     </LinearLayout>

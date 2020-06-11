@@ -18,8 +18,8 @@ public class AddOrderModel extends BaseObservable implements Serializable {
     private String address;
     private double lat;
     private double lng;
-    private String date;
-    private String time;
+  //  private String date;
+   // private String time;
     public ObservableField<String> error_address = new ObservableField<>();
 
 
@@ -28,8 +28,8 @@ public class AddOrderModel extends BaseObservable implements Serializable {
         setAddress("");
         setLat(0.0);
         setLat(0.0);
-        setDate("");
-        setTime("");
+      //  setDate("");
+     //   setTime("");
 
     }
 
@@ -44,7 +44,7 @@ public class AddOrderModel extends BaseObservable implements Serializable {
             return false;
         }
     }
-
+/*
     public boolean isStep2Valid(Context context)
     {
         if (!date.isEmpty()&&!time.isEmpty())
@@ -64,7 +64,7 @@ public class AddOrderModel extends BaseObservable implements Serializable {
             }
             return false;
         }
-    }
+    }*/
 
 
     @Bindable
@@ -96,7 +96,7 @@ public class AddOrderModel extends BaseObservable implements Serializable {
 
 
 
-    public String  getDate() {
+   /* public String  getDate() {
         return date;
     }
 
@@ -110,7 +110,7 @@ public class AddOrderModel extends BaseObservable implements Serializable {
 
     public void setTime(String time) {
         this.time = time;
-    }
+    }*/
 
 
 }

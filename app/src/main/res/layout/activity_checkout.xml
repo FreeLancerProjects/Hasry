@@ -77,7 +77,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
             android:background="@drawable/small_rounded_stroke_primarydark"
-            android:weightSum="2"
+            android:weightSum="1"
             >
 
             <TextView
@@ -93,7 +93,7 @@
 
                 />
 
-            <View
+          <!--  <View
                 android:layout_width="1px"
                 android:layout_height="match_parent"
                 android:background="@color/colorPrimaryDark"
@@ -113,7 +113,7 @@
 
                 />
 
-
+-->
 
           <!--  <FrameLayout
                 android:layout_width="25dp"

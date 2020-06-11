@@ -118,9 +118,11 @@ public class CheckoutActivity extends AppCompatActivity implements Listeners.Bac
             binding.tvAddress.setTextColor(ContextCompat.getColor(this,R.color.white));
             binding.tvAddress.setBackgroundColor(ContextCompat.getColor(this,R.color.colorPrimaryDark));
 
+/*
 
             binding.tvDate.setTextColor(ContextCompat.getColor(this,R.color.colorPrimaryDark));
             binding.tvDate.setBackgroundColor(ContextCompat.getColor(this,R.color.transparent));
+*/
 
 
 
@@ -150,9 +152,9 @@ public class CheckoutActivity extends AppCompatActivity implements Listeners.Bac
 
             }
 
-            binding.tvDate.setTextColor(ContextCompat.getColor(this,R.color.white));
+      /*      binding.tvDate.setTextColor(ContextCompat.getColor(this,R.color.white));
             binding.tvDate.setBackgroundColor(ContextCompat.getColor(this,R.color.colorPrimaryDark));
-
+*/
 
             binding.tvAddress.setTextColor(ContextCompat.getColor(this,R.color.colorPrimaryDark));
             binding.tvAddress.setBackgroundColor(ContextCompat.getColor(this,R.color.transparent));
@@ -184,8 +186,8 @@ public class CheckoutActivity extends AppCompatActivity implements Listeners.Bac
             createOrderModel.setAddress(addOrderModel.getAddress());
             createOrderModel.setLatitude(String.valueOf(addOrderModel.getLat()));
             createOrderModel.setLongitude(String.valueOf(addOrderModel.getLng()));
-            createOrderModel.setOrder_date(addOrderModel.getDate());
-            createOrderModel.setOrder_time(addOrderModel.getTime());
+     /*       createOrderModel.setOrder_date(addOrderModel.getDate());
+            createOrderModel.setOrder_time(addOrderModel.getTime());*/
 
             Api.getService(Tags.base_url)
                     .createOrder("Bearer "+userModel.getData().getToken(),createOrderModel)

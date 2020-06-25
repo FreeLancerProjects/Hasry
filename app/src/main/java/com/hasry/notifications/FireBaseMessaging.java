@@ -8,10 +8,13 @@ import android.app.TaskStackBuilder;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -30,12 +33,15 @@ import com.hasry.models.NotFireModel;
 import com.hasry.preferences.Preferences;
 import com.hasry.remote.Api;
 import com.hasry.tags.Tags;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.Random;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -100,7 +106,7 @@ public class FireBaseMessaging extends FirebaseMessagingService {
 
             String title = map.get("title");
             String body = map.get("message");
-
+            String image=map.get("image");
             final NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
             String CHANNEL_ID = "my_channel_02";
             CharSequence CHANNEL_NAME = "my_channel_name";
@@ -146,15 +152,57 @@ public class FireBaseMessaging extends FirebaseMessagingService {
             builder.setStyle(new NotificationCompat.BigTextStyle().bigText(body));
 
 
-            NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-            if (manager != null) {
+//            NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+//            if (manager != null) {
+//
+//                manager.createNotificationChannel(channel);
+//                manager.notify(Tags.not_tag, Tags.not_id, builder.build());
+//
+//
+//
+//
+//            }
+            final Target target = new Target() {
+                @Override
+                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
 
-                manager.createNotificationChannel(channel);
-                manager.notify(Tags.not_tag, Tags.not_id, builder.build());
 
-                EventBus.getDefault().post(new NotFireModel(true));
+                    NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                    if (manager != null) {
+                        builder.setLargeIcon(bitmap);
+                        EventBus.getDefault().post(new NotFireModel(true));
+                        manager.createNotificationChannel(channel);
+                        manager.notify(new Random().nextInt(200), builder.build());
+                    }
 
-            }
+                }
+
+                @Override
+                public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+
+                }
+
+
+
+                @Override
+                public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                }
+            };
+
+
+            new Handler(Looper.getMainLooper())
+                    .postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+
+
+                            Picasso.get().load(Uri.parse(Tags.IMAGE_URL+image)).resize(250, 250).into(target);
+
+
+                        }
+                    }, 1);
+
 
         } else if (not_type.equals("location")) {
             double lat = Double.parseDouble(map.get("latitude"));
@@ -164,9 +212,9 @@ public class FireBaseMessaging extends FirebaseMessagingService {
             DriverLocationUpdate model = new DriverLocationUpdate(lat, lng);
             EventBus.getDefault().post(model);
         }
-
-
     }
+
+
 
     private void createOldNotificationVersion(Map<String, String> map) {
 
@@ -178,6 +226,7 @@ public class FireBaseMessaging extends FirebaseMessagingService {
             String title = map.get("title");
             String body = map.get("message");
 
+            String image = map.get("image");
 
             final NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
 
@@ -211,12 +260,52 @@ public class FireBaseMessaging extends FirebaseMessagingService {
             builder.setStyle(new NotificationCompat.BigTextStyle().bigText(body));
 
 
-            NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-            if (manager != null) {
-                manager.notify(Tags.not_tag, Tags.not_id, builder.build());
-                EventBus.getDefault().post(new NotFireModel(true));
+//            NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+//            if (manager != null) {
+//                manager.notify(Tags.not_tag, Tags.not_id, builder.build());
+//                EventBus.getDefault().post(new NotFireModel(true));
+//
+//            }
+            final Target target = new Target() {
+                @Override
+                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
 
-            }
+
+                    NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                    if (manager != null) {
+                        EventBus.getDefault().post(new NotFireModel(true));
+                        builder.setLargeIcon(bitmap);
+                        manager.notify(new Random().nextInt(200), builder.build());
+                    }
+
+                }
+
+                @Override
+                public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+
+                }
+
+
+
+                @Override
+                public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                }
+            };
+
+
+            new Handler(Looper.getMainLooper())
+                    .postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+
+
+                                Picasso.get().load(Uri.parse(Tags.IMAGE_URL + image)).resize(250,250).into(target);
+
+
+
+                        }
+                    }, 1);
         } else if (not_type.equals("location")) {
 
             double lat = Double.parseDouble(map.get("latitude"));

@@ -315,7 +315,6 @@
                        app:layout_constraintBottom_toBottomOf="parent"
                        app:layout_constraintStart_toEndOf="@id/llLocation"
                        app:layout_constraintEnd_toStartOf="@id/llCity"
-                       app:layout_constraintHorizontal_bias="1"
                       android:padding="3dp"
                        android:tint="@color/gray3"
                        tools:ignore="RtlCompat" />

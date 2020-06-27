@@ -511,7 +511,8 @@ neigborhoodlist.add(getResources().getString(R.string.ch_neigborhood));
             }
 
 
-        } else if (requestCode == IMG_REQ2 && resultCode == Activity.RESULT_OK && data != null) {
+        }
+        else if (requestCode == IMG_REQ2 && resultCode == Activity.RESULT_OK && data != null) {
 
             if (selectedType == 1) {
                 imgUri2 = data.getData();

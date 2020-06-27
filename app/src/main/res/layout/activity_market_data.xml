@@ -307,6 +307,7 @@
 
 
                    <ImageView
+                       android:id="@id/im22"
                        android:layout_width="wrap_content"
                        android:layout_height="20dp"
                        android:src="@drawable/ic_left_arrow"
@@ -314,16 +315,18 @@
                        app:layout_constraintBottom_toBottomOf="parent"
                        app:layout_constraintStart_toEndOf="@id/llLocation"
                        app:layout_constraintEnd_toStartOf="@id/llCity"
-                       android:padding="3dp"
+                       app:layout_constraintHorizontal_bias="1"
+                      android:padding="3dp"
                        android:tint="@color/gray3"
-                       />
+                       tools:ignore="RtlCompat" />
 
                    <LinearLayout
                        android:id="@+id/llCity"
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        app:layout_constraintTop_toTopOf="parent"
-                       app:layout_constraintEnd_toEndOf="parent"
+                       app:layout_constraintStart_toEndOf="@+id/im22"
+                       app:layout_constraintEnd_toStartOf="@+id/image2"
                        android:orientation="vertical"
                        android:gravity="center"
                        >
@@ -349,7 +352,51 @@
                            />
                    </LinearLayout>
 
+                   <ImageView
+                       android:id="@+id/image2"
+                       android:layout_width="wrap_content"
+                       android:layout_height="20dp"
+                       android:src="@drawable/ic_left_arrow"
+                       app:layout_constraintTop_toTopOf="parent"
+                       app:layout_constraintBottom_toBottomOf="parent"
+                       app:layout_constraintStart_toEndOf="@id/llCity"
+                       app:layout_constraintEnd_toStartOf="@id/llDepartment"
+                       app:layout_constraintHorizontal_bias=".6"
+                       android:padding="3dp"
+                       android:tint="@color/gray3"
+                       />
 
+                   <LinearLayout
+                       android:id="@+id/llDepartment"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       app:layout_constraintTop_toTopOf="parent"
+                       app:layout_constraintEnd_toEndOf="parent"
+                       android:orientation="vertical"
+                       android:gravity="center"
+
+                       >
+                       <ImageView
+                           android:layout_width="30dp"
+                           android:layout_height="30dp"
+                           android:src="@drawable/ic_earth"
+                           android:tint="@color/colorPrimary"
+                           android:clickable="false"
+                           android:longClickable="false"
+                           android:padding="5dp"
+                           />
+                       <TextView
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:layout_marginStart="30dp"
+                           android:layout_marginEnd="30dp"
+                           android:textSize="14sp"
+                           android:textColor="@color/colorPrimary"
+                           android:text="@string/department"
+                           android:clickable="false"
+                           android:longClickable="false"
+                           />
+                   </LinearLayout>
 
 
 

@@ -24,6 +24,7 @@ import com.hasry.activities_fragments.client.activity_cart.CartActivity;
 import com.hasry.activities_fragments.client.activity_home.HomeActivity;
 import com.hasry.activities_fragments.client.activity_product_details.ProductDetailsActivity;
 import com.hasry.activities_fragments.client.activity_search.SearchActivity;
+import com.hasry.activities_fragments.client.department_activity.DepartmentProductActivity;
 import com.hasry.adapters.OfferAdapter;
 import com.hasry.databinding.ActivityAboutAppBinding;
 import com.hasry.databinding.ActivityMarketDataBinding;
@@ -197,7 +198,11 @@ public class MarketDataActivity extends AppCompatActivity implements Listeners.B
             intent.putExtra("data",market);
             startActivity(intent);
         });
-
+        binding.llDepartment.setOnClickListener(v -> {
+            Intent intent = new Intent(this, DepartmentProductActivity.class);
+            intent.putExtra("data",market);
+            startActivity(intent);
+        });
         getOffers();
         getMostSeller();
         getMostUsed();

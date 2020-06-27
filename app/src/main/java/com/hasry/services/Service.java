@@ -1,8 +1,10 @@
 package com.hasry.services;
 
 
+import com.hasry.models.CategoryDataModel;
 import com.hasry.models.CityDataModel;
 import com.hasry.models.CreateOrderModel;
+import com.hasry.models.DepartmentPRoductDataModel;
 import com.hasry.models.MainCategoryDataModel;
 import com.hasry.models.MarketDataModel;
 import com.hasry.models.MostSellerDataModel;
@@ -283,5 +285,13 @@ public interface Service {
                                            @Query("key") String key
     );
 
+    @GET("api/market-dep")
+    Call<CategoryDataModel> getAllCategories(
+            @Query("pagination_status") String pagination_status,
+            @Query("markter_id") String market_id);
+    @GET("api/prouducts-by-market-dep")
+    Call<DepartmentPRoductDataModel> getAds(
+            @Query("pagination_status") String pagination_status,
+            @Query("dep_id") String  dep_id);
 
 }

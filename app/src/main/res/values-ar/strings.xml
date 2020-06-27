@@ -203,5 +203,6 @@
     <string name="copy">نسخ الرابط</string>
     <string name="link_is_copied">تم نسخ الرابط</string>
     <string name="account_balance">رصيد النقاط</string>
+    <string name="department">الاقسام </string>
 
 </resources>

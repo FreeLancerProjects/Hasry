@@ -29,7 +29,10 @@
             android:name=".activities_fragments.client.activity_client_order_details.ClientOrderDetailsActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:windowSoftInputMode="stateAlwaysHidden" />
-
+        <activity
+            android:name=".activities_fragments.client.department_activity.DepartmentProductActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/map_key" />

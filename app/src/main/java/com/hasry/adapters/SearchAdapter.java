@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.hasry.R;
 import com.hasry.activities_fragments.client.activity_market_data.MarketDataActivity;
 import com.hasry.activities_fragments.client.activity_search.SearchActivity;
+import com.hasry.activities_fragments.client.department_activity.DepartmentProductActivity;
 import com.hasry.databinding.LoadmoreRow1Binding;
 import com.hasry.databinding.OfferRowBinding;
 import com.hasry.databinding.SearchRowBinding;
@@ -69,12 +70,22 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     SearchActivity searchActivity = (SearchActivity) activity;
                     searchActivity.setItemData(list.get(myHolder.getAdapterPosition()));
                 }
+                else   if (activity instanceof DepartmentProductActivity){
+                    DepartmentProductActivity departmentProductActivity = (DepartmentProductActivity) activity;
+                    departmentProductActivity.setItemData(list.get(myHolder.getAdapterPosition()));
+
+                }
             });
 
             myHolder.binding.imageAddToCart.setOnClickListener(v -> {
                 if (activity instanceof SearchActivity){
                     SearchActivity searchActivity = (SearchActivity) activity;
                     searchActivity.addToCart(list.get(myHolder.getAdapterPosition()));
+
+                }
+                else   if (activity instanceof DepartmentProductActivity){
+                    DepartmentProductActivity departmentProductActivity = (DepartmentProductActivity) activity;
+                    departmentProductActivity.addToCart(list.get(myHolder.getAdapterPosition()));
 
                 }
             });

@@ -4,19 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-<import type="java.util.Locale"/>
+
+        <import type="java.util.Locale" />
+
         <variable
             name="lang"
             type="String" />
-<variable
-    name="random"
-    type="java.util.Random" />
+
+        <import type="android.view.View" />
+
+        <variable
+            name="random"
+            type="java.util.Random" />
+
         <variable
             name="model"
             type="com.hasry.models.UserModel" />
+
         <variable
             name="tags"
             type="com.hasry.tags.Tags" />
+
         <variable
             name="backListener"
             type="com.hasry.interfaces.Listeners.BackListener" />
@@ -27,6 +35,7 @@
         android:layout_height="match_parent"
         android:background="@color/white"
         android:orientation="vertical">
+
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -120,6 +129,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
 
                         />
+
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/consStatus"
                         android:layout_width="wrap_content"
@@ -128,6 +138,7 @@
                         android:layout_marginEnd="20dp"
                         android:layout_marginBottom="20dp"
                         android:background="@drawable/rounded_white"
+                        android:onClick="UpdateNotificationStaus2"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
@@ -137,8 +148,8 @@
                             android:layout_width="25dp"
                             android:layout_height="25dp"
                             android:background="@drawable/circle_yellow"
-<!--                            android:visibility='@{model.markter_status.equals("close")?View.INVISIBLE:View.VISIBLE,default = invisible}'-->
-                            app:layout_conistraintBottom_toBottomOf="parent"
+                            android:visibility='@{model.data.notification_status.equals("disable")?View.INVISIBLE:View.VISIBLE,default = invisible}'
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -155,7 +166,7 @@
                             android:layout_width="25dp"
                             android:layout_height="25dp"
                             android:background="@drawable/circle_gray"
-<!--                            android:visibility='@{model.markter_status.equals("open")?View.INVISIBLE:View.VISIBLE,default = invisible}'-->
+                            android:visibility='@{model.data.notification_status.equals("enable")?View.INVISIBLE:View.VISIBLE,default = invisible}'
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toEndOf="@id/sp"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -168,10 +179,12 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
                         android:layout_marginBottom="20dp"
+                        android:text='@{model.data.notification_status==null?@string/close1:(model.data.notification_status.equals("disable")?@string/close1:@string/open1)+"  "+@string/notifications}'
                         android:textColor="@color/white"
                         android:textSize="15sp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/consStatus" />
+                        app:layout_constraintStart_toEndOf="@id/consStatus"
+                        app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -522,13 +535,12 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="50dp"
                     android:layout_marginBottom="10dp"
+                    android:background="@drawable/btn_skip"
                     android:gravity="center"
                     android:text="@string/copy"
                     android:textColor="@color/colorPrimary"
                     android:textIsSelectable="true"
-                    android:textSize="13sp"
-                    android:background="@drawable/btn_skip"
-                    />
+                    android:textSize="13sp" />
 
             </LinearLayout>
 

@@ -38,6 +38,8 @@ import com.squareup.picasso.Target;
 
 
 import org.greenrobot.eventbus.EventBus;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.Map;
@@ -69,7 +71,31 @@ public class FireBaseMessaging extends FirebaseMessagingService {
 
             if (my_id.equals(to_user_id)) {
                 manageNotification(map);
+            } else {
+                try {
+
+                    JSONObject obj = null;
+
+                    try {
+                        String re = String.valueOf(map.get("data"));
+                        obj = new JSONObject(re);
+                        // Log.e("data",obj.stri);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Log.e("data", e.getMessage());
+                    }
+                    to_user_id = obj.get("to_user").toString();
+                    if (my_id.equals(to_user_id)) {
+                        manageNotification(map);
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    //    Log.e("data",e.getMessage());
+                }
             }
+
         }
     }
 
@@ -106,7 +132,7 @@ public class FireBaseMessaging extends FirebaseMessagingService {
 
             String title = map.get("title");
             String body = map.get("message");
-            String image=map.get("image");
+            String image = map.get("image");
             final NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
             String CHANNEL_ID = "my_channel_02";
             CharSequence CHANNEL_NAME = "my_channel_name";
@@ -183,7 +209,6 @@ public class FireBaseMessaging extends FirebaseMessagingService {
                 }
 
 
-
                 @Override
                 public void onPrepareLoad(Drawable placeHolderDrawable) {
 
@@ -196,9 +221,13 @@ public class FireBaseMessaging extends FirebaseMessagingService {
                         @Override
                         public void run() {
 
+                            if (!image.equals("0")) {
+                                Picasso.get().load(Uri.parse(Tags.IMAGE_URL + image)).resize(250, 250).into(target);
+                            } else {
+                                Log.e("ldlfllf",image);
+                                Picasso.get().load(R.drawable.logo).resize(250, 250).into(target);
 
-                            Picasso.get().load(Uri.parse(Tags.IMAGE_URL+image)).resize(250, 250).into(target);
-
+                            }
 
                         }
                     }, 1);
@@ -213,7 +242,6 @@ public class FireBaseMessaging extends FirebaseMessagingService {
             EventBus.getDefault().post(model);
         }
     }
-
 
 
     private void createOldNotificationVersion(Map<String, String> map) {
@@ -286,7 +314,6 @@ public class FireBaseMessaging extends FirebaseMessagingService {
                 }
 
 
-
                 @Override
                 public void onPrepareLoad(Drawable placeHolderDrawable) {
 
@@ -300,8 +327,14 @@ public class FireBaseMessaging extends FirebaseMessagingService {
                         public void run() {
 
 
-                                Picasso.get().load(Uri.parse(Tags.IMAGE_URL + image)).resize(250,250).into(target);
+                            if (!image.equals("0")) {
+                                Picasso.get().load(Uri.parse(Tags.IMAGE_URL + image)).resize(250, 250).into(target);
+                            } else {
+                                Log.e("ldlfllf",image);
 
+                                Picasso.get().load(R.drawable.logo).resize(250, 250).into(target);
+
+                            }
 
 
                         }

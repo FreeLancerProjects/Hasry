@@ -289,9 +289,17 @@ public interface Service {
     Call<CategoryDataModel> getAllCategories(
             @Query("pagination_status") String pagination_status,
             @Query("markter_id") String market_id);
+
     @GET("api/prouducts-by-market-dep")
     Call<DepartmentPRoductDataModel> getAds(
             @Query("pagination_status") String pagination_status,
-            @Query("dep_id") String  dep_id);
+            @Query("dep_id") String dep_id);
+
+    @FormUrlEncoded
+    @POST("api/update-notification-status")
+    Call<UserModel> UpdatereadNotificationStaus(
+            @Field("notification_status") String notification_status,
+            @Field("user_id") int user_id
+    );
 
 }

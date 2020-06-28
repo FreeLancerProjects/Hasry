@@ -79,6 +79,7 @@ public class CheckoutActivity extends AppCompatActivity implements Listeners.Bac
 
     private void initView()
     {
+
         preferences = Preferences.getInstance();
         userModel = preferences.getUserData(this);
         createOrderModel = preferences.getCartData(this);

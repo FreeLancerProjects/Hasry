@@ -9,7 +9,7 @@ public class UserModel implements Serializable {
         return data;
     }
 
-    public static class User implements Serializable{
+    public static class User implements Serializable {
         private int id;
         private String name;
         private String email;
@@ -27,6 +27,7 @@ public class UserModel implements Serializable {
         private String latitude;
         private String longitude;
         private double points;
+        private String notification_status;
 
         public int getId() {
             return id;
@@ -94,6 +95,14 @@ public class UserModel implements Serializable {
 
         public double getPoints() {
             return points;
+        }
+
+        public String getNotification_status() {
+            return notification_status;
+        }
+
+        public void setToken(String token) {
+            this.token = token;
         }
     }
 }

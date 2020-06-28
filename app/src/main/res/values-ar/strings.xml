@@ -5,6 +5,8 @@
     <string name="map_key">AIzaSyC4l5QxL27z4w0uuD_5X3g0IRhaUdvb0Q4</string>
     <string name="open">مفتوح</string>
     <string name="close">مغلق</string>
+    <string name="open1">فتح </string>
+    <string name="close1">غلق </string>
     <string name="home">الرئيسية</string>
     <string name="notifications">إشعارات</string>
     <string name="more">المزيد</string>

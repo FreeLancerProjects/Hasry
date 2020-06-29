@@ -166,7 +166,7 @@
                             android:layout_width="25dp"
                             android:layout_height="25dp"
                             android:background="@drawable/circle_gray"
-                            android:visibility='@{model.data.notification_status.equals("enable")?View.INVISIBLE:View.VISIBLE,default = invisible}'
+                            android:visibility='@{model.data.notification_status.equals("enable")?View.INVISIBLE:View.VISIBLE,default = gone}'
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toEndOf="@id/sp"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -179,7 +179,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
                         android:layout_marginBottom="20dp"
-                        android:text='@{model.data.notification_status==null?@string/close1:(model.data.notification_status.equals("disable")?@string/close1:@string/open1)+"  "+@string/notifications}'
+                        android:text='@{model.data.notification_status==null?@string/open1:(model.data.notification_status.equals("disable")?@string/close1:@string/open1)+"  "+@string/notifications}'
                         android:textColor="@color/white"
                         android:textSize="15sp"
                         app:layout_constraintBottom_toBottomOf="parent"

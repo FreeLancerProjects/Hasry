@@ -91,6 +91,7 @@ public class HomeDriverActivity extends AppCompatActivity  {
         userModel = preferences.getUserData(this);
         if(userModel!=null){
             binding.setUsermodel(userModel);
+            Log.e("ldldldll",userModel.getData().getToken());
         }
         Paper.init(this);
         lang = Paper.book().read("lang", "ar");

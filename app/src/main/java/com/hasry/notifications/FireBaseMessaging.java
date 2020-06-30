@@ -62,7 +62,7 @@ public class FireBaseMessaging extends FirebaseMessagingService {
         map = remoteMessage.getData();
 
         for (String key : map.keySet()) {
-            Log.e("key", key + "    value " + map.get(key));
+            Log.e("keyssssss", key + "    value " + map.get(key));
         }
 
         if (getSession().equals(Tags.session_login)) {
@@ -196,6 +196,9 @@ public class FireBaseMessaging extends FirebaseMessagingService {
                     NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                     if (manager != null) {
                         builder.setLargeIcon(bitmap);
+                        builder.setStyle(new NotificationCompat.BigPictureStyle().bigPicture(bitmap).bigLargeIcon(null));
+
+
                         EventBus.getDefault().post(new NotFireModel(true));
                         manager.createNotificationChannel(channel);
                         manager.notify(new Random().nextInt(200), builder.build());
@@ -303,6 +306,8 @@ public class FireBaseMessaging extends FirebaseMessagingService {
                     if (manager != null) {
                         EventBus.getDefault().post(new NotFireModel(true));
                         builder.setLargeIcon(bitmap);
+                        builder.setStyle(new NotificationCompat.BigPictureStyle().bigPicture(bitmap).bigLargeIcon(null));
+
                         manager.notify(new Random().nextInt(200), builder.build());
                     }
 

@@ -3,6 +3,7 @@ package com.hasry.ui_general_method;
 import android.graphics.Paint;
 import android.net.Uri;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;

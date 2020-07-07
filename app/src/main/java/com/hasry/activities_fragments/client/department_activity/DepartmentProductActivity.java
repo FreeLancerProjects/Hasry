@@ -48,7 +48,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DepartmentProductActivity extends AppCompatActivity implements Listeners.BackListener{
+public class DepartmentProductActivity extends AppCompatActivity implements Listeners.BackListener {
     private ActivityDepartmentProductBinding binding;
     private String lang;
     private List<OfferModel> productList;
@@ -59,11 +59,13 @@ public class DepartmentProductActivity extends AppCompatActivity implements List
     private MarketDataModel.Data.Market market;
     private CreateOrderModel createOrderModel;
     private List<CategoryDataModel.CategoryModel> categoryModelList;
+
     @Override
     protected void attachBaseContext(Context newBase) {
         Paper.init(newBase);
-        super.attachBaseContext(Language.updateResources(newBase, Paper.book().read("lang","ar")));
+        super.attachBaseContext(Language.updateResources(newBase, Paper.book().read("lang", "ar")));
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,9 +76,7 @@ public class DepartmentProductActivity extends AppCompatActivity implements List
     }
 
 
-
-    private void initView()
-    {
+    private void initView() {
         preferences = Preferences.getInstance();
         userModel = preferences.getUserData(this);
 
@@ -87,49 +87,18 @@ public class DepartmentProductActivity extends AppCompatActivity implements List
         binding.progBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(this, R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
 
         createOrderModel = preferences.getCartData(this);
-        if (createOrderModel==null){
+        if (createOrderModel == null) {
             createOrderModel = new CreateOrderModel();
             createOrderModel.setMarkter_id(market.getId());
         }
 
 
         productList = new ArrayList<>();
-        categoryModelList=new ArrayList<>();
-        manager = new GridLayoutManager(this,2);
+        categoryModelList = new ArrayList<>();
+        manager = new GridLayoutManager(this, 2);
         binding.recView.setLayoutManager(manager);
-        adapter = new SearchAdapter(productList,this);
+        adapter = new SearchAdapter(productList, this);
         binding.recView.setAdapter(adapter);
-
-
-
-
-        binding.tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                int pos = tab.getPosition();
-//                if (pos==0)
-//                {
-//                    getAds("all");
-//
-//                }else
-//                {
-                    CategoryDataModel.CategoryModel categoryModel = categoryModelList.get(pos);
-
-                    getAds(String.valueOf(categoryModel.getId()));
-
-//                }
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
 
 
     }
@@ -142,14 +111,13 @@ public class DepartmentProductActivity extends AppCompatActivity implements List
         }
     }
 
-    private void getAds(String department)
-    {
+    private void getAds(String department) {
         binding.progBar.setVisibility(View.VISIBLE);
         productList.clear();
         adapter.notifyDataSetChanged();
 
         Api.getService(Tags.base_url)
-                .getAds("off",department)
+                .getAds("off", department)
                 .enqueue(new Callback<DepartmentPRoductDataModel>() {
                     @Override
                     public void onResponse(Call<DepartmentPRoductDataModel> call, Response<DepartmentPRoductDataModel> response) {
@@ -207,7 +175,7 @@ public class DepartmentProductActivity extends AppCompatActivity implements List
     private void getAllCategories() {
 
         Api.getService(Tags.base_url)
-                .getAllCategories("off",market.getId()+"")
+                .getAllCategories("off", market.getId() + "")
                 .enqueue(new Callback<CategoryDataModel>() {
                     @Override
                     public void onResponse(Call<CategoryDataModel> call, Response<CategoryDataModel> response) {
@@ -236,17 +204,16 @@ public class DepartmentProductActivity extends AppCompatActivity implements List
                 });
 
 
-
     }
+
     private void updateTabUI(List<CategoryDataModel.CategoryModel> data) {
 //        CategoryDataModel.CategoryModel categoryModel = new CategoryDataModel.CategoryModel(0,getString(R.string.show_all));
 //       data.add(0,categoryModel);
         categoryModelList.clear();
         categoryModelList.addAll(data);
-        for (CategoryDataModel.CategoryModel categoryModel1:data)
-        {
+        for (CategoryDataModel.CategoryModel categoryModel1 : data) {
 
-                binding.tab.addTab(binding.tab.newTab().setText(categoryModel1.getTitle()));
+            binding.tab.addTab(binding.tab.newTab().setText(categoryModel1.getTitle()));
 
 
         }
@@ -259,36 +226,34 @@ public class DepartmentProductActivity extends AppCompatActivity implements List
 
     public void setItemData(OfferModel offerModel) {
         Intent intent = new Intent(this, ProductDetailsActivity.class);
-        intent.putExtra("name",market);
-        intent.putExtra("data",offerModel);
+        intent.putExtra("name", market);
+        intent.putExtra("data", offerModel);
         startActivity(intent);
     }
 
     public void addToCart(OfferModel offerModel) {
-        if (market.getId()==createOrderModel.getMarkter_id())
-        {
-            ItemCartModel model = new ItemCartModel(offerModel.getId(),offerModel.getId(),offerModel.getImage(),offerModel.getTitle(),1);
+        if (market.getId() == createOrderModel.getMarkter_id()) {
+            ItemCartModel model = new ItemCartModel(offerModel.getId(), offerModel.getId(), offerModel.getImage(), offerModel.getTitle(), 1);
             model.setPrice_before_discount(Double.parseDouble(offerModel.getPrice()));
 
-            if (offerModel.getOffer()==null){
+            if (offerModel.getOffer() == null) {
                 model.setPrice(Double.parseDouble(offerModel.getPrice()));
                 model.setOffer_id(0);
-            }else {
+            } else {
 
-                if (offerModel.getOffer().getOffer_status().trim().equals("open"))
-                {
-                    if (offerModel.getOffer().getOffer_type().trim().equals("per")){
+                if (offerModel.getOffer().getOffer_status().trim().equals("open")) {
+                    if (offerModel.getOffer().getOffer_type().trim().equals("per")) {
                         double price_before_discount = Double.parseDouble(offerModel.getPrice());
-                        double price_after_discount = price_before_discount-(price_before_discount*(offerModel.getOffer().getOffer_value()/100));
+                        double price_after_discount = price_before_discount - (price_before_discount * (offerModel.getOffer().getOffer_value() / 100));
                         model.setPrice(price_after_discount);
                         model.setOffer_id(offerModel.getOffer().getId());
-                    }else {
+                    } else {
                         double price_before_discount = Double.parseDouble(offerModel.getPrice());
-                        double price_after_discount = price_before_discount-offerModel.getOffer().getOffer_value();
+                        double price_after_discount = price_before_discount - offerModel.getOffer().getOffer_value();
                         model.setPrice(price_after_discount);
                         model.setOffer_id(offerModel.getOffer().getId());
                     }
-                }else {
+                } else {
                     model.setPrice(Double.parseDouble(offerModel.getPrice()));
                     model.setOffer_id(0);
                 }
@@ -296,10 +261,10 @@ public class DepartmentProductActivity extends AppCompatActivity implements List
 
 
             createOrderModel.addNewProduct(model);
-            preferences.create_update_cart(this,createOrderModel);
+            preferences.create_update_cart(this, createOrderModel);
             Toast.makeText(this, getString(R.string.added_suc), Toast.LENGTH_SHORT).show();
-        }else {
-            Common.CreateDialogAlert(this,getString(R.string.diff_market));
+        } else {
+            Common.CreateDialogAlert(this, getString(R.string.diff_market));
         }
     }
 
@@ -308,8 +273,6 @@ public class DepartmentProductActivity extends AppCompatActivity implements List
 
         finish();
     }
-
-
 
 
     @Override

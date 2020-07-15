@@ -10,7 +10,7 @@ public class SettingModel implements Serializable {
         return data;
     }
 
-    public static class Data implements Serializable{
+    public static class Data implements Serializable {
         private String term_conditions;
         private String about_app;
         private String whatsapp;
@@ -18,6 +18,7 @@ public class SettingModel implements Serializable {
         private String facebook;
         private String twitter;
         private String offer_muted;
+        private String email1;
 
         public String getTerm_conditions() {
             return term_conditions;
@@ -46,6 +47,10 @@ public class SettingModel implements Serializable {
 
         public String getOffer_muted() {
             return offer_muted;
+        }
+
+        public String getEmail1() {
+            return email1;
         }
     }
 }

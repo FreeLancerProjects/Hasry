@@ -2,8 +2,11 @@ package com.hasry.activities_fragments.activity_contact_us;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +18,7 @@ import com.hasry.databinding.ActivityContactUsBinding;
 import com.hasry.interfaces.Listeners;
 import com.hasry.language.Language;
 import com.hasry.models.ContactUsModel;
+import com.hasry.models.SettingModel;
 import com.hasry.remote.Api;
 import com.hasry.share.Common;
 import com.hasry.tags.Tags;
@@ -32,6 +36,7 @@ public class ContactUsActivity extends AppCompatActivity implements Listeners.Ba
     private ActivityContactUsBinding binding;
     private String lang;
     private ContactUsModel contactUsModel;
+    private SettingModel settingmodel;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -58,10 +63,29 @@ public class ContactUsActivity extends AppCompatActivity implements Listeners.Ba
         binding.btnSend.setOnClickListener(v -> {
             sendContact();
         });
-
+binding.imagewhats.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        if(settingmodel!=null&&settingmodel.getData().getWhatsapp()!=null){
+            ViewSocial("https://api.whatsapp.com/send?phone=" +settingmodel.getData().getWhatsapp());
+        }
+    }
+});
+binding.imagegmail.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        if(settingmodel!=null&&settingmodel.getData().getEmail1()!=null){
+            ViewSocial(settingmodel.getData().getEmail1());
+        }
+    }
+});
 
     }
+    private void ViewSocial(String path) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(path));
+        startActivity(intent);
 
+    }
 
     @Override
     public void back() {
@@ -125,6 +149,54 @@ public class ContactUsActivity extends AppCompatActivity implements Listeners.Ba
             } catch (Exception e) {
             }
         }
+
+    }
+
+
+
+    private void getAppData()
+    {
+
+        Api.getService(Tags.base_url)
+                .getSetting()
+                .enqueue(new Callback<SettingModel>() {
+                    @Override
+                    public void onResponse(Call<SettingModel> call, Response<SettingModel> response) {
+                        if (response.isSuccessful() && response.body() != null) {
+
+                            settingmodel=response.body();
+
+                        } else {
+                            try {
+
+                                Log.e("error", response.code() + "_" + response.errorBody().string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            if (response.code() == 500) {
+
+                            } else {
+
+
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<SettingModel> call, Throwable t) {
+                        try {
+
+                            if (t.getMessage() != null) {
+                                Log.e("error", t.getMessage());
+                                if (t.getMessage().toLowerCase().contains("failed to connect") || t.getMessage().toLowerCase().contains("unable to resolve host")) {
+                                } else {
+                                }
+                            }
+
+                        } catch (Exception e) {
+                        }
+                    }
+                });
 
     }
 }

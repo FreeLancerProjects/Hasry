@@ -49,7 +49,7 @@ public class ContactUsActivity extends AppCompatActivity implements Listeners.Ba
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_contact_us);
         initView();
-
+getAppData();
     }
 
 
@@ -75,7 +75,14 @@ binding.imagegmail.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
         if(settingmodel!=null&&settingmodel.getData().getEmail1()!=null){
-            ViewSocial(settingmodel.getData().getEmail1());
+            Intent i = new Intent(Intent.ACTION_SEND);
+            i.setType("message/rfc822");
+            i.putExtra(Intent.EXTRA_EMAIL  , new String[]{settingmodel.getData().getEmail1()});
+            try {
+                startActivity(Intent.createChooser(i, "Send mail..."));
+            } catch (android.content.ActivityNotFoundException ex) {
+               // Toast.makeText(getContext(), "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 });

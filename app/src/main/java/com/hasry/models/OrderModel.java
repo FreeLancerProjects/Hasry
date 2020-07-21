@@ -19,8 +19,9 @@ public class OrderModel implements Serializable {
     private UserModel.User markter;
     private UserModel.User client;
     private UserModel.User driver;
+    private String delevery_price;
     private List<OrderDetails> order_details;
-private Distances distances;
+    private Distances distances;
 
     public int getId() {
         return id;
@@ -86,11 +87,15 @@ private Distances distances;
         return order_details;
     }
 
+    public String getDelevery_price() {
+        return delevery_price;
+    }
+
     public Distances getDistances() {
         return distances;
     }
 
-    public static class OrderDetails implements Serializable{
+    public static class OrderDetails implements Serializable {
         private int id;
         private int product_id;
         private int offer_id;
@@ -133,7 +138,7 @@ private Distances distances;
             return product_info;
         }
 
-        public static class Offer implements Serializable{
+        public static class Offer implements Serializable {
             private int id;
             private int product_id;
             private int markter_id;
@@ -182,7 +187,8 @@ private Distances distances;
 
 
         }
-        public static class ProductInfo implements Serializable{
+
+        public static class ProductInfo implements Serializable {
             private int id;
             private String title;
             private String image;
@@ -205,16 +211,17 @@ private Distances distances;
             }
         }
     }
- public class  Distances implements Serializable {
+
+    public class Distances implements Serializable {
         private String distance_between_client_and_driver;
-     private String distance_between_marketer_and_driver;
+        private String distance_between_marketer_and_driver;
 
-     public String getDistance_between_client_and_driver() {
-         return distance_between_client_and_driver;
-     }
+        public String getDistance_between_client_and_driver() {
+            return distance_between_client_and_driver;
+        }
 
-     public String getDistance_between_marketer_and_driver() {
-         return distance_between_marketer_and_driver;
-     }
- }
+        public String getDistance_between_marketer_and_driver() {
+            return distance_between_marketer_and_driver;
+        }
+    }
 }

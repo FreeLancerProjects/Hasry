@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -43,7 +45,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CheckoutActivity extends AppCompatActivity implements Listeners.BackListener{
+public class CheckoutActivity extends AppCompatActivity implements Listeners.BackListener {
     private ActivityCheckoutBinding binding;
     private String lang;
     private FragmentManager fragmentManager;
@@ -54,7 +56,6 @@ public class CheckoutActivity extends AppCompatActivity implements Listeners.Bac
     private UserModel userModel;
     private Preferences preferences;
     private OrderModel orderModel;
-
 
 
     @Override
@@ -75,10 +76,7 @@ public class CheckoutActivity extends AppCompatActivity implements Listeners.Bac
     }
 
 
-
-
-    private void initView()
-    {
+    private void initView() {
 
         preferences = Preferences.getInstance();
         userModel = preferences.getUserData(this);
@@ -88,18 +86,34 @@ public class CheckoutActivity extends AppCompatActivity implements Listeners.Bac
         lang = Paper.book().read("lang", Locale.getDefault().getLanguage());
         binding.setBackListener(this);
         binding.setLang(lang);
+        createOrderModel.setOrder_type("delivery ");
+        binding.rbChoose1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    createOrderModel.setOrder_type("from_market ");
 
+                }
+            }
+        });
+        binding.rbChoose2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    createOrderModel.setOrder_type("delivery");
 
+                }
+            }
+        });
 
     }
 
 
-    public void displayFragmentAddress()
-    {
+    public void displayFragmentAddress() {
         try {
             if (fragment_address == null) {
                 fragment_address = Fragment_Address.newInstance(addOrderModel);
-            }else {
+            } else {
                 fragment_address.setModel(addOrderModel);
             }
 
@@ -116,8 +130,8 @@ public class CheckoutActivity extends AppCompatActivity implements Listeners.Bac
 
             }
 
-            binding.tvAddress.setTextColor(ContextCompat.getColor(this,R.color.white));
-            binding.tvAddress.setBackgroundColor(ContextCompat.getColor(this,R.color.colorPrimaryDark));
+            binding.tvAddress.setTextColor(ContextCompat.getColor(this, R.color.white));
+            binding.tvAddress.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimaryDark));
 
 /*
 
@@ -126,17 +140,16 @@ public class CheckoutActivity extends AppCompatActivity implements Listeners.Bac
 */
 
 
-
         } catch (Exception e) {
         }
 
     }
-    public void displayFragmentDate()
-    {
+
+    public void displayFragmentDate() {
         try {
             if (fragment_date == null) {
                 fragment_date = Fragment_Date.newInstance(addOrderModel);
-            }else {
+            } else {
                 fragment_date.setModel(addOrderModel);
             }
 
@@ -157,11 +170,8 @@ public class CheckoutActivity extends AppCompatActivity implements Listeners.Bac
             binding.tvDate.setBackgroundColor(ContextCompat.getColor(this,R.color.colorPrimaryDark));
 */
 
-            binding.tvAddress.setTextColor(ContextCompat.getColor(this,R.color.colorPrimaryDark));
-            binding.tvAddress.setBackgroundColor(ContextCompat.getColor(this,R.color.transparent));
-
-
-
+            binding.tvAddress.setTextColor(ContextCompat.getColor(this, R.color.colorPrimaryDark));
+            binding.tvAddress.setBackgroundColor(ContextCompat.getColor(this, R.color.transparent));
 
 
         } catch (Exception e) {
@@ -170,16 +180,14 @@ public class CheckoutActivity extends AppCompatActivity implements Listeners.Bac
     }
 
 
-
-    public void updateModel(AddOrderModel addOrderModel)
-    {
+    public void updateModel(AddOrderModel addOrderModel) {
         this.addOrderModel = addOrderModel;
     }
 
 
     public void createOrder() {
         try {
-            ProgressDialog dialog = Common.createProgressDialog(this,getString(R.string.wait));
+            ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
             dialog.setCancelable(false);
             dialog.setCanceledOnTouchOutside(false);
             dialog.show();
@@ -191,12 +199,12 @@ public class CheckoutActivity extends AppCompatActivity implements Listeners.Bac
             createOrderModel.setOrder_time(addOrderModel.getTime());*/
 
             Api.getService(Tags.base_url)
-                    .createOrder("Bearer "+userModel.getData().getToken(),createOrderModel)
+                    .createOrder("Bearer " + userModel.getData().getToken(), createOrderModel)
                     .enqueue(new Callback<OrderResponseModel>() {
                         @Override
                         public void onResponse(Call<OrderResponseModel> call, Response<OrderResponseModel> response) {
                             dialog.dismiss();
-                            if (response.isSuccessful() ) {
+                            if (response.isSuccessful()) {
 
 
                                 if (response.body() != null && response.body().getData() != null) {
@@ -204,14 +212,14 @@ public class CheckoutActivity extends AppCompatActivity implements Listeners.Bac
                                     orderModel = response.body().getData();
                                     Intent intent = getIntent();
                                     intent.putExtra("data", orderModel);
-                                    setResult(RESULT_OK,intent);
+                                    setResult(RESULT_OK, intent);
                                     finish();
                                 }
 
                             } else {
                                 dialog.dismiss();
                                 try {
-                                    Log.e("error_code",response.errorBody().string());
+                                    Log.e("error_code", response.errorBody().string());
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
@@ -270,8 +278,7 @@ public class CheckoutActivity extends AppCompatActivity implements Listeners.Bac
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         List<Fragment> fragmentList = fragmentManager.getFragments();
-        for (Fragment fragment :fragmentList)
-        {
+        for (Fragment fragment : fragmentList) {
             fragment.onActivityResult(requestCode, resultCode, data);
         }
 
@@ -281,8 +288,7 @@ public class CheckoutActivity extends AppCompatActivity implements Listeners.Bac
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         List<Fragment> fragmentList = fragmentManager.getFragments();
-        for (Fragment fragment :fragmentList)
-        {
+        for (Fragment fragment : fragmentList) {
             fragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }

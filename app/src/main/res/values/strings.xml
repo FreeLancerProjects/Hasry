@@ -200,4 +200,6 @@
     <string name="account_balance">Account Balance</string>
     <string name="department">Department</string>
     <string name="delivery_price">Delivery price</string>
+    <string name="delivery">delivery</string>
+    <string name="from_market">from market</string>
 </resources>

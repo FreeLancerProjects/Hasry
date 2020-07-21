@@ -1,15 +1,26 @@
 package com.hasry.activities_fragments.driver.activity_profile;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 
 import com.hasry.R;
@@ -23,7 +34,10 @@ import com.hasry.preferences.Preferences;
 import com.hasry.remote.Api;
 import com.hasry.share.Common;
 import com.hasry.tags.Tags;
+import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.util.Locale;
 import java.util.Random;
@@ -33,13 +47,17 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ProfileActivity extends AppCompatActivity implements Listeners.BackListener {
+public class ProfileActivity extends AppCompatActivity implements Listeners.BackListener, Listeners.SignUpListener {
     private ActivityProfileBinding binding;
     private String lang;
     private UserModel userModel;
     private Preferences preferences;
     String notification_status = "";
-
+    private final String READ_PERM = Manifest.permission.READ_EXTERNAL_STORAGE;
+    private final String write_permission = Manifest.permission.WRITE_EXTERNAL_STORAGE;
+    private final String camera_permission = Manifest.permission.CAMERA;
+    private final int READ_REQ = 1, CAMERA_REQ = 2;
+    private Uri uri = null;
     @Override
     protected void attachBaseContext(Context newBase) {
         Paper.init(newBase);
@@ -59,6 +77,7 @@ public class ProfileActivity extends AppCompatActivity implements Listeners.Back
         lang = Paper.book().read("lang", Locale.getDefault().getLanguage());
         binding.setLang(lang);
         binding.setBackListener(this);
+        binding.setListener(this);
         preferences = Preferences.getInstance();
         userModel = preferences.getUserData(this);
         Random random = new Random();
@@ -169,7 +188,149 @@ Log.e(";lflfll",notification_status);
         } else {
             notification_status = "enable";
         }
+
         Log.e("sssssssss", notification_status);        binding.setModel(body);
     }
 
+    @Override
+    public void openSheet()
+    {
+    //    binding.expandLayout.setExpanded(true, true);
+    }
+
+    @Override
+    public void closeSheet() {
+      //  binding.expandLayout.collapse(true);
+
+    }
+
+
+    @Override
+    public void checkDataValid() {
+
+
+
+
+    }
+
+    @Override
+    public void checkReadPermission() {
+        closeSheet();
+        if (ActivityCompat.checkSelfPermission(this, READ_PERM) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{READ_PERM}, READ_REQ);
+        } else {
+            SelectImage(READ_REQ);
+        }
+    }
+
+    @Override
+    public void checkCameraPermission() {
+
+        closeSheet();
+
+        if (ContextCompat.checkSelfPermission(this, write_permission) == PackageManager.PERMISSION_GRANTED
+                && ContextCompat.checkSelfPermission(this, camera_permission) == PackageManager.PERMISSION_GRANTED
+        ) {
+            SelectImage(CAMERA_REQ);
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{camera_permission, write_permission}, CAMERA_REQ);
+        }
+    }
+
+    private void SelectImage(int req) {
+
+        Intent intent = new Intent();
+
+        if (req == READ_REQ) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
+                intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+            } else {
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+
+            }
+
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.setType("image/*");
+            startActivityForResult(intent, req);
+
+        } else if (req == CAMERA_REQ) {
+            try {
+                intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent, req);
+            } catch (SecurityException e) {
+                Toast.makeText(this, R.string.perm_image_denied, Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+                Toast.makeText(this, R.string.perm_image_denied, Toast.LENGTH_SHORT).show();
+
+            }
+
+
+        }
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == READ_REQ) {
+
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                SelectImage(requestCode);
+            } else {
+                Toast.makeText(this, getString(R.string.perm_image_denied), Toast.LENGTH_SHORT).show();
+            }
+
+        } else if (requestCode == CAMERA_REQ) {
+            if (grantResults.length > 0 &&
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED &&
+                    grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+
+                SelectImage(requestCode);
+            } else {
+                Toast.makeText(this, getString(R.string.perm_image_denied), Toast.LENGTH_SHORT).show();
+            }
+        }
+        }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == READ_REQ && resultCode == Activity.RESULT_OK && data != null) {
+
+            uri = data.getData();
+            File file = new File(Common.getImagePath(this, uri));
+            Picasso.get().load(file).fit().into(binding.image);
+
+
+        } else if (requestCode == CAMERA_REQ && resultCode == Activity.RESULT_OK && data != null) {
+
+            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+            uri = getUriFromBitmap(bitmap);
+            if (uri != null) {
+                String path = Common.getImagePath(this, uri);
+
+                if (path != null) {
+                    Picasso.get().load(new File(path)).fit().into(binding.image);
+
+                } else {
+                    Picasso.get().load(uri).fit().into(binding.image);
+
+                }
+            }
+
+
+
+
+
+        }
+    }
+
+
+    private Uri getUriFromBitmap(Bitmap bitmap) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        return Uri.parse(MediaStore.Images.Media.insertImage(this.getContentResolver(), bitmap, "", ""));
+    }
 }

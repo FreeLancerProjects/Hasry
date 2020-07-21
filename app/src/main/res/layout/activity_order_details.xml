@@ -95,10 +95,10 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="60dp"
-                android:paddingRight="10dp"
+                android:background="@color/gray7"
                 android:paddingLeft="10dp"
 
-                android:background="@color/gray7"
+                android:paddingRight="10dp"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
 
                 >
@@ -350,9 +350,9 @@
                                     android:layout_margin="5dp"
                                     android:layout_weight="1.3"
                                     android:gravity="center"
+                                    android:text="@{model.markter.name}"
                                     android:textColor="@color/gray6"
                                     android:textSize="14sp"
-android:text="@{model.markter.name}"
 
                                     />
 
@@ -382,9 +382,9 @@ android:text="@{model.markter.name}"
                                     android:layout_margin="5dp"
                                     android:layout_weight="1.3"
                                     android:gravity="center"
+                                    android:text='@{model.id+""}'
                                     android:textColor="@color/gray6"
                                     android:textSize="14sp"
-                                    android:text='@{model.id+""}'
 
 
                                     />
@@ -415,15 +415,45 @@ android:text="@{model.markter.name}"
                                     android:layout_margin="5dp"
                                     android:layout_weight="1.3"
                                     android:gravity="center"
+                                    android:text='@{model.total_price+""}'
                                     android:textColor="@color/gray6"
                                     android:textSize="14sp"
-                                    android:text='@{model.total_price+""}'
 
 
                                     />
 
                             </LinearLayout>
 
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+
+                                >
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="5dp"
+                                    android:layout_marginStart="8dp"
+                                    android:layout_marginEnd="8dp"
+                                    android:layout_weight=".7"
+                                    android:gravity="center"
+                                    android:text="@string/delivery_price"
+                                    android:textColor="@color/colorPrimary" />
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="5dp"
+                                    android:layout_weight="1.3"
+                                    android:gravity="center"
+                                    android:text="@{model.delevery_price}"
+                                    android:textColor="@color/gray6"
+                                    android:textSize="14sp"
+
+                                    />
+                            </LinearLayout>
 
                             <Button
                                 android:id="@+id/bt_locationmarket"
@@ -447,34 +477,35 @@ android:text="@{model.markter.name}"
                 </LinearLayout>
 
             </androidx.core.widget.NestedScrollView>
+
             <FrameLayout
                 android:id="@+id/fl_update_order_state"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:background="@color/colorPrimary"
-                >
+                android:background="@color/colorPrimary">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:layout_gravity="center"
-                    android:orientation="horizontal"
                     android:clickable="false"
                     android:longClickable="false"
+                    android:orientation="horizontal"
 
                     >
+
                     <ImageView
                         android:id="@+id/image_arrow2"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        android:src="@drawable/ic_left_arrow"
-                        android:padding="7dp"
+                        android:layout_gravity="center_vertical"
                         android:clickable="false"
                         android:longClickable="false"
-                        android:tint="@color/white"
-                        android:layout_gravity="center_vertical"
+                        android:padding="7dp"
                         android:rotation='@{lang.equals("ar")?180:0}'
+                        android:src="@drawable/ic_left_arrow"
+                        android:tint="@color/white"
 
                         />
 
@@ -484,13 +515,13 @@ android:text="@{model.markter.name}"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:clickable="false"
+                        android:gravity="center_vertical"
                         android:longClickable="false"
+                        android:maxLines="2"
                         android:paddingStart="5dp"
                         android:paddingEnd="5dp"
                         android:textColor="@color/white"
                         android:textSize="15sp"
-                        android:maxLines="2"
-                        android:gravity="center_vertical"
                         tools:ignore="RtlCompat"
 
                         />

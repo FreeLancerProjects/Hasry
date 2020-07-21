@@ -207,5 +207,7 @@
     <string name="account_balance">رصيد النقاط</string>
     <string name="department">الاقسام </string>
     <string name="delivery_price">Delivery price</string>
+    <string name="delivery">مندوب التطبيق</string>
+    <string name="from_market">من المتجر</string>
 
 </resources>

@@ -192,6 +192,44 @@
             </FrameLayout>-->
 
         </LinearLayout>
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="5dp"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <RadioButton
+                android:id="@+id/rb_choose1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:button="@drawable/rb_bg"
+                android:padding="5dp"
+                android:checked="true"
+                android:text="@string/delivery"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+
+            <RadioButton
+                android:id="@+id/rb_choose2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:button="@drawable/rb_bg"
+                android:padding="5dp"
+                android:text="@string/from_market"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+
+        </RadioGroup>
+
         <FrameLayout
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"

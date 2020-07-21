@@ -302,4 +302,12 @@ public interface Service {
             @Field("user_id") int user_id
     );
 
+    @Multipart
+    @POST("api/update-profile")
+    Call<UserModel> editClientProfileWithImage(
+            @Part("user_id") RequestBody user_id,
+            @Header("Authorization") String Authorization,
+            @Part MultipartBody.Part logo
+
+    );
 }

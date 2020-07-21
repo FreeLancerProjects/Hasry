@@ -135,6 +135,10 @@ if(userModel!=null){
         }else {
             binding.setCartCount(createOrderModel.getProducts().size());
         }
+        if(preferences!=null){
+            userModel=preferences.getUserData(this);
+            binding.setUsermodel(userModel);
+        }
     }
 
     private void getMainCategory() {
@@ -532,6 +536,7 @@ if(userModel!=null){
         if (userModel!=null){
 
             Intent intent = new Intent(this, ClientProfileActivity.class);
+
             startActivity(intent);
 
         }else {

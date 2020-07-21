@@ -71,9 +71,10 @@ public class SignUpDriverActivity extends AppCompatActivity implements Listeners
     private final int IMG_REQ1 = 3, IMG_REQ2 = 4, IMG_REQ3 = 5;
     private Uri imgUri1 = null, imgUri2 = null, imgUri3 = null;
     private int selectedType;
-    private List<String> cityList,neigborhoodlist;
+    private List<String> cityList, neigborhoodlist;
     private CityAdapter cityAdapter;
     private NeigborHoodAdapter neigborHoodAdapter;
+
     @Override
     protected void attachBaseContext(Context newBase) {
         Paper.init(newBase);
@@ -90,10 +91,10 @@ public class SignUpDriverActivity extends AppCompatActivity implements Listeners
     }
 
     private void initView() {
-        cityList=new ArrayList<>();
-        neigborhoodlist=new ArrayList<>();
+        cityList = new ArrayList<>();
+        neigborhoodlist = new ArrayList<>();
         cityList.add(getString(R.string.choose));
-neigborhoodlist.add(getResources().getString(R.string.ch_neigborhood));
+        neigborhoodlist.add(getResources().getString(R.string.ch_neigborhood));
         preferences = Preferences.getInstance();
         signUpModel = new SignUpDriverModel();
         binding.setListener(this);
@@ -102,11 +103,10 @@ neigborhoodlist.add(getResources().getString(R.string.ch_neigborhood));
         binding.setModel(signUpModel);
 
         binding.checkbox.setOnClickListener(v -> {
-            if (binding.checkbox.isChecked())
-            {
+            if (binding.checkbox.isChecked()) {
                 signUpModel.setTermsAccepted(true);
                 navigateToAboutAppActivity();
-            }else {
+            } else {
                 signUpModel.setTermsAccepted(false);
             }
 
@@ -114,8 +114,8 @@ neigborhoodlist.add(getResources().getString(R.string.ch_neigborhood));
 
         });
 
-        cityAdapter = new CityAdapter(cityList,this);
-        neigborHoodAdapter=new NeigborHoodAdapter(neigborhoodlist,this);
+        cityAdapter = new CityAdapter(cityList, this);
+        neigborHoodAdapter = new NeigborHoodAdapter(neigborhoodlist, this);
         binding.spinnerCity.setAdapter(cityAdapter);
         binding.spinnerneibhourhod.setAdapter(neigborHoodAdapter);
         binding.flDocImage.setOnClickListener(new View.OnClickListener() {
@@ -139,9 +139,9 @@ neigborhoodlist.add(getResources().getString(R.string.ch_neigborhood));
         binding.spinnerCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position==0){
+                if (position == 0) {
                     signUpModel.setCity("");
-                }else {
+                } else {
                     signUpModel.setCity(cityList.get(position));
 
                 }
@@ -157,9 +157,9 @@ neigborhoodlist.add(getResources().getString(R.string.ch_neigborhood));
         binding.spinnerneibhourhod.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position==0){
+                if (position == 0) {
                     signUpModel.setNeigborhood("");
-                }else {
+                } else {
                     signUpModel.setNeigborhood(cityList.get(position));
 
                 }
@@ -178,7 +178,7 @@ neigborhoodlist.add(getResources().getString(R.string.ch_neigborhood));
     }
 
     private void getCities() {
-        ProgressDialog dialog = Common.createProgressDialog(this,getString(R.string.wait));
+        ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
         dialog.show();
 
         Api.getService(Tags.base_url)
@@ -230,8 +230,9 @@ neigborhoodlist.add(getResources().getString(R.string.ch_neigborhood));
                     }
                 });
     }
+
     private void getNeigborhood() {
-        ProgressDialog dialog = Common.createProgressDialog(this,getString(R.string.wait));
+        ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
         dialog.show();
 
         Api.getService(Tags.base_url)
@@ -287,7 +288,7 @@ neigborhoodlist.add(getResources().getString(R.string.ch_neigborhood));
     private void navigateToAboutAppActivity() {
 
         Intent intent = new Intent(this, AboutAppActivity.class);
-        intent.putExtra("type",1);
+        intent.putExtra("type", 1);
         startActivity(intent);
     }
 
@@ -314,7 +315,6 @@ neigborhoodlist.add(getResources().getString(R.string.ch_neigborhood));
 
     @Override
     public void checkDataValid() {
-
 
 
         if (signUpModel.isDataValid(this)) {
@@ -401,8 +401,7 @@ neigborhoodlist.add(getResources().getString(R.string.ch_neigborhood));
             } else {
                 Toast.makeText(this, getString(R.string.perm_image_denied), Toast.LENGTH_SHORT).show();
             }
-        }
-        else  if (requestCode == IMG_REQ1) {
+        } else if (requestCode == IMG_REQ1) {
 
             if (selectedType == 1) {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -449,7 +448,7 @@ neigborhoodlist.add(getResources().getString(R.string.ch_neigborhood));
             }
 
 
-        } 
+        }
     }
 
     @Override
@@ -463,10 +462,7 @@ neigborhoodlist.add(getResources().getString(R.string.ch_neigborhood));
             binding.icon.setVisibility(View.GONE);
 
 
-
-
-        }
-        else if (requestCode == CAMERA_REQ && resultCode == Activity.RESULT_OK && data != null) {
+        } else if (requestCode == CAMERA_REQ && resultCode == Activity.RESULT_OK && data != null) {
 
             binding.icon.setVisibility(View.GONE);
             Bitmap bitmap = (Bitmap) data.getExtras().get("data");
@@ -484,8 +480,7 @@ neigborhoodlist.add(getResources().getString(R.string.ch_neigborhood));
             }
 
 
-        }
-        else if (requestCode == IMG_REQ1 && resultCode == Activity.RESULT_OK && data != null) {
+        } else if (requestCode == IMG_REQ1 && resultCode == Activity.RESULT_OK && data != null) {
             if (selectedType == 1) {
                 imgUri1 = data.getData();
                 binding.l.setVisibility(View.GONE);
@@ -511,8 +506,7 @@ neigborhoodlist.add(getResources().getString(R.string.ch_neigborhood));
             }
 
 
-        }
-        else if (requestCode == IMG_REQ2 && resultCode == Activity.RESULT_OK && data != null) {
+        } else if (requestCode == IMG_REQ2 && resultCode == Activity.RESULT_OK && data != null) {
 
             if (selectedType == 1) {
                 imgUri2 = data.getData();
@@ -572,9 +566,8 @@ neigborhoodlist.add(getResources().getString(R.string.ch_neigborhood));
             }
 
 
-        } 
+        }
     }
-
 
 
     private Uri getUriFromBitmap(Bitmap bitmap) {
@@ -586,16 +579,15 @@ neigborhoodlist.add(getResources().getString(R.string.ch_neigborhood));
     private void signUp() {
 
 
-        if (uri==null)
-        {
+        if (uri == null) {
             if (
                     imgUri1 != null &&
-                    imgUri2 != null &&
-                    imgUri3 != null
+                            imgUri2 != null &&
+                            imgUri3 != null
 
-            ){
-            signUpWithoutImage();}
-            else {
+            ) {
+                signUpWithoutImage();
+            } else {
                 if (imgUri2 == null) {
                     Toast.makeText(this, R.string.choose_identity_card_image, Toast.LENGTH_SHORT).show();
                 }
@@ -610,35 +602,34 @@ neigborhoodlist.add(getResources().getString(R.string.ch_neigborhood));
 
 
             }
-        }else
-            {
-                if (
-                        imgUri1 != null &&
-                                imgUri2 != null &&
-                                imgUri3 != null
+        } else {
+            if (
+                    imgUri1 != null &&
+                            imgUri2 != null &&
+                            imgUri3 != null
 
-                ){
-                signUpWithImage();}
-                else {
-                    if (imgUri2 == null) {
-                        Toast.makeText(this, R.string.choose_identity_card_image, Toast.LENGTH_SHORT).show();
-                    }
-
-                    if (imgUri3 == null) {
-                        Toast.makeText(this, R.string.choose_license_image, Toast.LENGTH_SHORT).show();
-                    }
-
-                    if (imgUri1 == null) {
-                         Toast.makeText(this, R.string.ch_img_car_form, Toast.LENGTH_SHORT).show();
-                    }
-
-
+            ) {
+                signUpWithImage();
+            } else {
+                if (imgUri2 == null) {
+                    Toast.makeText(this, R.string.choose_identity_card_image, Toast.LENGTH_SHORT).show();
                 }
+
+                if (imgUri3 == null) {
+                    Toast.makeText(this, R.string.choose_license_image, Toast.LENGTH_SHORT).show();
+                }
+
+                if (imgUri1 == null) {
+                    Toast.makeText(this, R.string.ch_img_car_form, Toast.LENGTH_SHORT).show();
+                }
+
+
             }
+        }
     }
 
     private void signUpWithoutImage() {
-        ProgressDialog dialog = Common.createProgressDialog(this,getString(R.string.wait));
+        ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
         dialog.setCancelable(false);
         dialog.show();
         RequestBody name_part = Common.getRequestBodyText(signUpModel.getName());
@@ -658,32 +649,27 @@ neigborhoodlist.add(getResources().getString(R.string.ch_neigborhood));
 
 
         Api.getService(Tags.base_url)
-                .registerDelegatewithoutimage(name_part,email_part,phone_code_part,phone_part,city_part,neig_part,type_part,software_part,image_form_part,image_national_id_part,image_license_part)
+                .registerDelegatewithoutimage(name_part, email_part, phone_code_part, phone_part, city_part, neig_part, type_part, software_part, image_form_part, image_national_id_part, image_license_part)
                 .enqueue(new Callback<UserModel>() {
                     @Override
                     public void onResponse(Call<UserModel> call, Response<UserModel> response) {
                         dialog.dismiss();
-                        if (response.isSuccessful()&&response.body()!=null)
-                        {
-                            preferences.create_update_userdata(SignUpDriverActivity.this,response.body());
+                        if (response.isSuccessful() && response.body() != null) {
+                            preferences.create_update_userdata(SignUpDriverActivity.this, response.body());
                             navigateToHomeActivity();
-                        }else
-                        {
-                            if (response.code()==500)
-                            {
+                        } else {
+                            if (response.code() == 500) {
                                 Toast.makeText(SignUpDriverActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
-                            }else if (response.code()==422)
-                            {
+                            } else if (response.code() == 422) {
                                 Toast.makeText(SignUpDriverActivity.this, R.string.user_found, Toast.LENGTH_SHORT).show();
 
-                            }else
-                            {
+                            } else {
                                 try {
-                                    Log.e("jdjjdjjd",response.errorBody().string());
+                                    Log.e("jdjjdjjd", response.errorBody().string());
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
-                                Toast.makeText(SignUpDriverActivity.this,getString(R.string.failed), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SignUpDriverActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
@@ -701,9 +687,8 @@ neigborhoodlist.add(getResources().getString(R.string.ch_neigborhood));
                                     Toast.makeText(SignUpDriverActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
                                 }
                             }
-                        }catch (Exception e)
-                        {
-                            Log.e("Error",e.getMessage()+"__");
+                        } catch (Exception e) {
+                            Log.e("Error", e.getMessage() + "__");
                         }
                     }
                 });
@@ -711,7 +696,7 @@ neigborhoodlist.add(getResources().getString(R.string.ch_neigborhood));
 
     private void signUpWithImage() {
 
-        ProgressDialog dialog = Common.createProgressDialog(this,getString(R.string.wait));
+        ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
         dialog.setCancelable(false);
         dialog.show();
         RequestBody name_part = Common.getRequestBodyText(signUpModel.getName());
@@ -728,31 +713,26 @@ neigborhoodlist.add(getResources().getString(R.string.ch_neigborhood));
         MultipartBody.Part image_license_part = Common.getMultiPart(this, imgUri3, "drive_documentation_image");
 
         MultipartBody.Part image_form_part = Common.getMultiPart(this, imgUri1, "car_image");
-        MultipartBody.Part image = Common.getMultiPart(this,uri,"logo");
+        MultipartBody.Part image = Common.getMultiPart(this, uri, "logo");
 
 
         Api.getService(Tags.base_url)
-                .registerDelegatewithimage(name_part,email_part,phone_code_part,phone_part,city_part,neig_part,type_part,software_part,image,image_form_part,image_national_id_part,image_license_part)
+                .registerDelegatewithimage(name_part, email_part, phone_code_part, phone_part, city_part, neig_part, type_part, software_part, image, image_form_part, image_national_id_part, image_license_part)
                 .enqueue(new Callback<UserModel>() {
                     @Override
                     public void onResponse(Call<UserModel> call, Response<UserModel> response) {
                         dialog.dismiss();
-                        if (response.isSuccessful()&&response.body()!=null)
-                        {
-                            preferences.create_update_userdata(SignUpDriverActivity.this,response.body());
+                        if (response.isSuccessful() && response.body() != null) {
+                            preferences.create_update_userdata(SignUpDriverActivity.this, response.body());
                             navigateToHomeActivity();
-                        }else
-                        {
-                            if (response.code()==500)
-                            {
+                        } else {
+                            if (response.code() == 500) {
                                 Toast.makeText(SignUpDriverActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
-                            }else if (response.code()==422)
-                            {
+                            } else if (response.code() == 422) {
                                 Toast.makeText(SignUpDriverActivity.this, R.string.user_found, Toast.LENGTH_SHORT).show();
 
-                            }else
-                            {
-                                Toast.makeText(SignUpDriverActivity.this,getString(R.string.failed), Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(SignUpDriverActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
@@ -770,14 +750,14 @@ neigborhoodlist.add(getResources().getString(R.string.ch_neigborhood));
                                     Toast.makeText(SignUpDriverActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
                                 }
                             }
-                        }catch (Exception e)
-                        {
-                            Log.e("Error",e.getMessage()+"__");
+                        } catch (Exception e) {
+                            Log.e("Error", e.getMessage() + "__");
                         }
                     }
                 });
 
     }
+
     private void CreateImageAlertDialog(final int img_req) {
 
         final AlertDialog dialog = new AlertDialog.Builder(this)
@@ -874,6 +854,7 @@ neigborhoodlist.add(getResources().getString(R.string.ch_neigborhood));
 
         }
     }
+
     private void navigateToHomeActivity() {
         Intent intent = new Intent(this, HomeDriverActivity.class);
         startActivity(intent);

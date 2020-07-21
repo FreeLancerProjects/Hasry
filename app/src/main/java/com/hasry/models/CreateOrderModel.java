@@ -1,4 +1,5 @@
 package com.hasry.models;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,7 @@ public class CreateOrderModel implements Serializable {
     private String order_date;
     private String details;
     private List<ItemCartModel> products;
+    private String order_type;
 
     public CreateOrderModel() {
         products = new ArrayList<>();
@@ -99,28 +101,34 @@ public class CreateOrderModel implements Serializable {
         this.products = products;
     }
 
+    public String getOrder_type() {
+        return order_type;
+    }
 
+    public void setOrder_type(String order_type) {
+        this.order_type = order_type;
+    }
 
-    public void addNewProduct(ItemCartModel itemCartModel){
+    public void addNewProduct(ItemCartModel itemCartModel) {
         int pos = isItemExist(itemCartModel);
-        if (pos==-1){
+        if (pos == -1) {
             products.add(itemCartModel);
-        }else {
-            products.set(pos,itemCartModel);
+        } else {
+            products.set(pos, itemCartModel);
         }
 
     }
 
 
-    public void removeProduct(int pos){
+    public void removeProduct(int pos) {
         products.remove(pos);
     }
 
-    private int isItemExist(ItemCartModel itemCartModel){
+    private int isItemExist(ItemCartModel itemCartModel) {
         int pos = -1;
-        for (int i =0;i<products.size();i++){
+        for (int i = 0; i < products.size(); i++) {
 
-            if (itemCartModel.getProduct_id()==products.get(i).getProduct_id()){
+            if (itemCartModel.getProduct_id() == products.get(i).getProduct_id()) {
                 pos = i;
                 break;
             }

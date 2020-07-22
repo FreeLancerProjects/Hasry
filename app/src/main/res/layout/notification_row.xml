@@ -37,11 +37,12 @@
                 android:id="@+id/im"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/logo"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:civ_border_color="@color/colorAccent"
                 app:civ_border_width="1dp"
+                image="@{notificationModel.image}"
+
                 />
 
 

@@ -24,6 +24,7 @@ public class NotificationDataModel implements Serializable {
         private String type;
         private int is_read;
         private String action_type;
+        private String image;
 
         public int getId() {
             return id;
@@ -67,6 +68,10 @@ public class NotificationDataModel implements Serializable {
 
         public String getAction_type() {
             return action_type;
+        }
+
+        public String getImage() {
+            return image;
         }
     }
 }

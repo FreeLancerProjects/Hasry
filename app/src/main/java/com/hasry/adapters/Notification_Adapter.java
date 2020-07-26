@@ -77,6 +77,8 @@ private NotificationDriverActivity notificationDriverActivity;
                 }}
             });
             eventHolder.binding.im.setOnClickListener(v -> {
+                notificationDriverActivity=(NotificationDriverActivity)context;
+
                 notificationDriverActivity.CreateDialogimage(context,eventHolder.getLayoutPosition());
             });
 

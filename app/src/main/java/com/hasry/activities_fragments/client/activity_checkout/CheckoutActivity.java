@@ -87,7 +87,7 @@ public class CheckoutActivity extends AppCompatActivity implements Listeners.Bac
         binding.setBackListener(this);
         binding.setLang(lang);
         createOrderModel.setOrder_type("delivery ");
-        binding.rbChoose1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        binding.rbChoose2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
@@ -96,7 +96,7 @@ public class CheckoutActivity extends AppCompatActivity implements Listeners.Bac
                 }
             }
         });
-        binding.rbChoose2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        binding.rbChoose1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {

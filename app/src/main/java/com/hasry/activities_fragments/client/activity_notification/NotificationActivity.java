@@ -1,11 +1,13 @@
 package com.hasry.activities_fragments.client.activity_notification;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
@@ -18,6 +20,8 @@ import com.hasry.R;
 import com.hasry.activities_fragments.client.activity_home.HomeActivity;
 import com.hasry.adapters.NotificationAdapter;
 import com.hasry.databinding.ActivityNotificationBinding;
+import com.hasry.databinding.DialogAlertBinding;
+import com.hasry.databinding.DialogImageBinding;
 import com.hasry.interfaces.Listeners;
 import com.hasry.language.Language;
 import com.hasry.models.NotificationDataModel;
@@ -324,5 +328,20 @@ public class NotificationActivity extends AppCompatActivity implements Listeners
     }
 
 
+    public void CreateDialogimage(Context context, int pos) {
+        final AlertDialog dialog = new AlertDialog.Builder(context)
+                .create();
+
+        DialogImageBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_image, null, false);
+
+
+
+       binding.setModel(notificationModelList.get(pos));
+        dialog.getWindow().getAttributes().windowAnimations = R.style.dialog_congratulation_animation;
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.dialog_window_bg);
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.setView(binding.getRoot());
+        dialog.show();
+    }
 
 }

@@ -76,6 +76,11 @@ private NotificationDriverActivity notificationDriverActivity;
                    }
                 }}
             });
+            eventHolder.binding.im.setOnClickListener(v -> {
+                notificationDriverActivity.CreateDialogimage(context,eventHolder.getLayoutPosition());
+            });
+
+
 
         }else
             {

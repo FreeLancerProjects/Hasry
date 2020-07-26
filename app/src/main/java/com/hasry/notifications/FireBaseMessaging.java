@@ -344,7 +344,8 @@ public class FireBaseMessaging extends FirebaseMessagingService {
 
                         }
                     }, 1);
-        } else if (not_type.equals("location")) {
+        }
+        else if (not_type.equals("location")) {
 
             double lat = Double.parseDouble(map.get("latitude"));
             double lng = Double.parseDouble(map.get("longitude"));

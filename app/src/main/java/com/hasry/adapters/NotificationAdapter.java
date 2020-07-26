@@ -69,6 +69,9 @@ public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 NotificationDataModel.NotificationModel notificationModel = list.get(myHolder.getAdapterPosition());
                 activity.setItemData(notificationModel,myHolder.getAdapterPosition());
             });
+            myHolder.itemView.setOnClickListener(v -> {
+                activity.CreateDialogimage(context,myHolder.getLayoutPosition());
+            });
 
 
 

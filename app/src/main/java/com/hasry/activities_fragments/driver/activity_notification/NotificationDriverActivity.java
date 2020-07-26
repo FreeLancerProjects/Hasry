@@ -23,6 +23,7 @@ import com.hasry.activities_fragments.driver.activity_order_details.OrderDetails
 import com.hasry.databinding.ActivityNotificationBinding;
 import com.hasry.databinding.DialogAcceptRefuseBinding;
 import com.hasry.databinding.DialogAlertBinding;
+import com.hasry.databinding.DialogImageBinding;
 import com.hasry.interfaces.Listeners;
 import com.hasry.language.Language;
 import com.hasry.adapters.Notification_Adapter;
@@ -434,4 +435,20 @@ NotificationDriverActivity extends AppCompatActivity implements Listeners.BackLi
          getNotification();
         }
     }
+    public void CreateDialogimage(Context context, int pos) {
+        final android.app.AlertDialog dialog = new android.app.AlertDialog.Builder(context)
+                .create();
+
+        DialogImageBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_image, null, false);
+
+
+
+        binding.setModel(notificationModelList.get(pos));
+        dialog.getWindow().getAttributes().windowAnimations = R.style.dialog_congratulation_animation;
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.dialog_window_bg);
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.setView(binding.getRoot());
+        dialog.show();
+    }
+
 }

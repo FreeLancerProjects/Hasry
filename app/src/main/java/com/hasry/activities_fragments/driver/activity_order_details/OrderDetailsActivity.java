@@ -228,6 +228,9 @@ public class OrderDetailsActivity extends AppCompatActivity implements Listeners
             Log.e("ldkfk", body.getOrder_details().getClient().getPhone());
             intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", body.getOrder_details().getClient().getPhone_code() + body.getOrder_details().getClient().getPhone(), null));
         }
+
+        String total = String.valueOf(Double.parseDouble(orderModel.getDelevery_price())+Double.parseDouble(orderModel.getTotal_price()));
+        binding.tvTotal.setText(total);
     }
 
     @Override

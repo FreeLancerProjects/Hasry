@@ -14,22 +14,22 @@
         <import type="android.view.View" />
         <variable
             name="listener"
-            type="com.hasry.interfaces.Listeners.SignUpListener" />
+            type="com.hasryApp.interfaces.Listeners.SignUpListener" />
         <variable
             name="random"
             type="java.util.Random" />
 
         <variable
             name="model"
-            type="com.hasry.models.UserModel" />
+            type="com.hasryApp.models.UserModel" />
 
         <variable
             name="tags"
-            type="com.hasry.tags.Tags" />
+            type="com.hasryApp.tags.Tags" />
 
         <variable
             name="backListener"
-            type="com.hasry.interfaces.Listeners.BackListener" />
+            type="com.hasryApp.interfaces.Listeners.BackListener" />
     </data>
 
     <LinearLayout

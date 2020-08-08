@@ -7,7 +7,7 @@
 
         <variable
             name="action"
-            type="com.hasry.interfaces.Listeners.NextPreviousAction" />
+            type="com.hasryApp.interfaces.Listeners.NextPreviousAction" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

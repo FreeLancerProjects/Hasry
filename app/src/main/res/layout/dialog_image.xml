@@ -5,7 +5,7 @@
 <data>
 <variable
     name="model"
-    type="com.hasry.models.NotificationDataModel.NotificationModel" />
+    type="com.hasryApp.models.NotificationDataModel.NotificationModel" />
 </data>
 
     <LinearLayout

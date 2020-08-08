@@ -7,7 +7,7 @@
 
         <variable
             name="backListener"
-            type="com.hasry.interfaces.Listeners.BackListener" />
+            type="com.hasryApp.interfaces.Listeners.BackListener" />
 
         <variable
             name="lang"
@@ -15,7 +15,7 @@
 
         <variable
             name="model"
-            type="com.hasry.models.OrderModel" />
+            type="com.hasryApp.models.OrderModel" />
 
     </data>
 

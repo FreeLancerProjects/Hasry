@@ -7,10 +7,10 @@
 
         <variable
             name="backListener"
-            type="com.hasry.interfaces.Listeners.BackListener" />
+            type="com.hasryApp.interfaces.Listeners.BackListener" />
         <variable
             name="action"
-            type="com.hasry.interfaces.Listeners.HomeListener" />
+            type="com.hasryApp.interfaces.Listeners.HomeListener" />
         <variable
             name="cartCount"
             type="Integer" />
@@ -20,7 +20,7 @@
 
         <variable
             name="model"
-            type="com.hasry.models.OfferModel" />
+            type="com.hasryApp.models.OfferModel" />
 
         <variable
             name="marketName"

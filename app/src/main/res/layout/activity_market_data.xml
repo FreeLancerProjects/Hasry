@@ -7,11 +7,11 @@
 
         <variable
             name="backListener"
-            type="com.hasry.interfaces.Listeners.BackListener" />
+            type="com.hasryApp.interfaces.Listeners.BackListener" />
 
         <variable
             name="action"
-            type="com.hasry.interfaces.Listeners.HomeListener" />
+            type="com.hasryApp.interfaces.Listeners.HomeListener" />
 
         <variable
             name="cartCount"
@@ -23,7 +23,7 @@
 
         <variable
             name="model"
-            type="com.hasry.models.MarketDataModel.Data.Market" />
+            type="com.hasryApp.models.MarketDataModel.Data.Market" />
 
         <import type="android.view.View" />
 

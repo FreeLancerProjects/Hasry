@@ -209,5 +209,6 @@
     <string name="delivery_price">سعر التوصيل</string>
     <string name="delivery">مندوب التطبيق</string>
     <string name="from_market">من المتجر</string>
+    <string name="not_av">غير متاح حاليا</string>
 
 </resources>

@@ -10,7 +10,7 @@
 
         <variable
             name="notificationModel"
-            type="com.hasry.models.NotificationDataModel.NotificationModel" />
+            type="com.hasryApp.models.NotificationDataModel.NotificationModel" />
 
         <variable
             name="lang"

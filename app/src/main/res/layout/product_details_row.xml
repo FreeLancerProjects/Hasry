@@ -5,7 +5,7 @@
     <data>
         <variable
             name="model"
-            type="com.hasry.models.OrderModel.OrderDetails" />
+            type="com.hasryApp.models.OrderModel.OrderDetails" />
         <import type="android.view.View"/>
     </data>
     <androidx.cardview.widget.CardView

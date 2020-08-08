@@ -7,7 +7,7 @@
     <data>
         <variable
             name="action"
-            type="com.hasry.interfaces.Listeners.SettingActions" />
+            type="com.hasryApp.interfaces.Listeners.SettingActions" />
         <variable
             name="lang"
             type="String" />

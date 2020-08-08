@@ -7,7 +7,7 @@
 
         <variable
             name="backListener"
-            type="com.hasry.interfaces.Listeners.BackListener" />
+            type="com.hasryApp.interfaces.Listeners.BackListener" />
 
         <variable
             name="lang"

@@ -5,7 +5,7 @@
     <data>
         <variable
             name="model"
-            type="com.hasry.models.OrderModel.OrderDetails" />
+            type="com.hasryApp.models.OrderModel.OrderDetails" />
     </data>
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"

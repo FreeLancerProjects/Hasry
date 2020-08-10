@@ -5,7 +5,7 @@
     <data>
         <variable
             name="model"
-            type="com.hasry.models.MainCategoryDataModel.Data.MainDepartments" />
+            type="com.hasryApp.models.MainCategoryDataModel.Data.MainDepartments" />
 
         <variable
             name="lang"

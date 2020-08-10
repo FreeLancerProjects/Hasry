@@ -4,7 +4,7 @@
     <data>
         <variable
             name="model"
-            type="com.hasry.models.ItemCartModel" />
+            type="com.hasryApp.models.ItemCartModel" />
         <import type="android.view.View"/>
     </data>
     <androidx.cardview.widget.CardView

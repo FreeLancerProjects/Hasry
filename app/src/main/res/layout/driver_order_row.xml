@@ -10,7 +10,7 @@
             type="String" />
         <variable
             name="model"
-            type="com.hasry.models.OrderModel" />
+            type="com.hasryApp.models.OrderModel" />
 
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout

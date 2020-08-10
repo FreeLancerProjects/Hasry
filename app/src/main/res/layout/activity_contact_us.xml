@@ -9,7 +9,7 @@
     <data>
         <variable
             name="backListener"
-            type="com.hasry.interfaces.Listeners.BackListener" />
+            type="com.hasryApp.interfaces.Listeners.BackListener" />
         <variable
             name="lang"
             type="String" />
@@ -17,7 +17,7 @@
 
         <variable
             name="contactUs"
-            type="com.hasry.models.ContactUsModel" />
+            type="com.hasryApp.models.ContactUsModel" />
 
 <!--        <variable-->
 <!--            name="contactListener"-->
@@ -294,6 +294,22 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:src="@drawable/ic_gmail"
+                        android:layout_gravity="center"
+                        android:layout_margin="8dp"
+                        />
+                    <ImageView
+                        android:id="@+id/imageinstagram"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/ic_instagram"
+                        android:layout_gravity="center"
+                        android:layout_margin="8dp"
+                        />
+                    <ImageView
+                        android:id="@+id/imagesnap"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/ic_snapchat"
                         android:layout_gravity="center"
                         android:layout_margin="8dp"
                         />

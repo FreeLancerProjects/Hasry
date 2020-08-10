@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "805103076693-k3032ua0kkgf5t6r52apf8p2sngs2o7k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.endoint.Hasry",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
           "client_id": "805103076693-vsuaudnl34rptft28pl9eq1n7uog2aut.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -48,6 +56,75 @@
         "mobilesdk_app_id": "1:805103076693:android:1bb037f01a147062005bdc",
         "android_client_info": {
           "package_name": "com.hasry"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "805103076693-kqqbrdok62g1a7n372l1oopu9dvl5aqv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hasry",
+            "certificate_hash": "307ae9a68d2eec407c16fda7887f0bcd02f4671e"
+          }
+        },
+        {
+          "client_id": "805103076693-htbeh43h46fdkbjrig9dm0i293dtnue8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hasry",
+            "certificate_hash": "636ec7f8e9ebc097d9417189972ef8f1feb676f4"
+          }
+        },
+        {
+          "client_id": "805103076693-f72tvldjq8a3teg8lrc5301p6vdic71j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hasry",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "805103076693-n28pgvsjtrqnu5dftvv6gaio4ji5mubg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hasry",
+            "certificate_hash": "e6a73e70c3fc31d4b07d77141e133d0dd6e6939e"
+          }
+        },
+        {
+          "client_id": "805103076693-a5v3kmp1out4k2n4qja1t72au19t0vle.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hasry",
+            "certificate_hash": "0b354f3a0c02eaba29510595124a7d68aea8edf3"
+          }
+        },
+        {
+          "client_id": "805103076693-l3kgq3gl3fpu1ekj5btpv72437b7797l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgjok_awnDCb03hN8HxdoLEgiCD0oZga4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "805103076693-l3kgq3gl3fpu1ekj5btpv72437b7797l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:805103076693:android:04fafe7efc51285f005bdc",
+        "android_client_info": {
+          "package_name": "com.hasryApp"
         }
       },
       "oauth_client": [

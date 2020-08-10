@@ -9,10 +9,10 @@
             type="String" />
         <variable
             name="listener"
-            type="com.hasry.interfaces.Listeners.LoginListener" />
+            type="com.hasryApp.interfaces.Listeners.LoginListener" />
         <variable
             name="loginModel"
-            type="com.hasry.models.LoginModel" />
+            type="com.hasryApp.models.LoginModel" />
     </data>
     <FrameLayout
         android:layout_width="match_parent"

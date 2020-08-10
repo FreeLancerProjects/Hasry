@@ -202,4 +202,5 @@
     <string name="delivery_price">Delivery price</string>
     <string name="delivery">delivery</string>
     <string name="from_market">from market</string>
+    <string name="not_av">not available </string>
 </resources>

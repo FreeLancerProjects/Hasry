@@ -7,10 +7,10 @@
     <data>
         <variable
             name="listener"
-            type="com.hasry.interfaces.Listeners.SignUpListener" />
+            type="com.hasryApp.interfaces.Listeners.SignUpListener" />
         <variable
             name="model"
-            type="com.hasry.models.SignUpDriverModel" />
+            type="com.hasryApp.models.SignUpDriverModel" />
     </data>
     <FrameLayout
         android:layout_width="match_parent"

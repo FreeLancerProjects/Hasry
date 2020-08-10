@@ -28,6 +28,7 @@ public class UserModel implements Serializable {
         private String longitude;
         private double points;
         private String notification_status;
+        private String user_link;
 
         public int getId() {
             return id;
@@ -51,6 +52,10 @@ public class UserModel implements Serializable {
 
         public String getUser_type() {
             return user_type;
+        }
+
+        public String getUser_link() {
+            return user_link;
         }
 
         public String getPhone_code() {

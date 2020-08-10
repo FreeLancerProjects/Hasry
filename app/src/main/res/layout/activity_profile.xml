@@ -525,7 +525,7 @@
                 android:layout_marginBottom="10dp"
                 android:gravity="center"
                 android:lines="2"
-                android:text='@{model.data.user_link}'
+                android:text="@{model.data.user_link}"
                 android:textColor="@color/colorPrimary"
                 android:textIsSelectable="true"
                 android:textSize="13sp" />

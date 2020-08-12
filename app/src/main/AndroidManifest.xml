@@ -23,7 +23,9 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="m">
-        <activity android:name=".activities_fragments.activity_market_sign_up.MarketSignUpActivity"></activity>
+        <activity android:name=".activities_fragments.activity_market_sign_up.MarketSignUpActivity">
+
+        </activity>
         <activity android:name=".activities_fragments.client.activity_follow_order.FollowOrderActivity" />
         <activity
             android:name=".activities_fragments.client.activity_client_order_details.ClientOrderDetailsActivity"
@@ -33,6 +35,7 @@
             android:name=".activities_fragments.client.department_activity.DepartmentProductActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:windowSoftInputMode="stateAlwaysHidden" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/map_key" />

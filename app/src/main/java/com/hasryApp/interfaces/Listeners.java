@@ -48,7 +48,11 @@ public interface Listeners {
         void onPrevious();
     }
 
+    interface EditprofileListener
+    {
+        void Editprofile();
 
+    }
 
 
 }

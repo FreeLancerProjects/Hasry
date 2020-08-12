@@ -228,7 +228,7 @@ public class FireBaseMessaging extends FirebaseMessagingService {
                             if (!image.equals("0")) {
                                 Picasso.get().load(Uri.parse(Tags.IMAGE_URL + image)).resize(250, 250).into(target);
                             } else {
-                                Log.e("ldlfllf",image);
+                                Log.e("ldlfllf", image);
                                 Picasso.get().load(R.drawable.logo).resize(250, 250).into(target);
 
                             }
@@ -336,7 +336,7 @@ public class FireBaseMessaging extends FirebaseMessagingService {
                             if (!image.equals("0")) {
                                 Picasso.get().load(Uri.parse(Tags.IMAGE_URL + image)).resize(250, 250).into(target);
                             } else {
-                                Log.e("ldlfllf",image);
+                                Log.e("ldlfllf", image);
 
                                 Picasso.get().load(R.drawable.logo).resize(250, 250).into(target);
 
@@ -345,8 +345,7 @@ public class FireBaseMessaging extends FirebaseMessagingService {
 
                         }
                     }, 1);
-        }
-        else if (not_type.equals("location")) {
+        } else if (not_type.equals("location")) {
 
             double lat = Double.parseDouble(map.get("latitude"));
             double lng = Double.parseDouble(map.get("longitude"));

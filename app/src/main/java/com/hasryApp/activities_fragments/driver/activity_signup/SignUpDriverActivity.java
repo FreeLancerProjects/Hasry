@@ -146,6 +146,9 @@ public class SignUpDriverActivity extends AppCompatActivity implements Listeners
                 }
 
                 binding.setModel(signUpModel);
+                Log.e("cccccc",cityList.get(position));
+                getNeigborhood();
+
             }
 
             @Override
@@ -173,7 +176,6 @@ public class SignUpDriverActivity extends AppCompatActivity implements Listeners
         });
 
         getCities();
-        getNeigborhood();
     }
 
     private void getCities() {
@@ -234,8 +236,9 @@ public class SignUpDriverActivity extends AppCompatActivity implements Listeners
         ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
         dialog.show();
 
+        Log.e("mmmmmmm",signUpModel.getCity());
         Api.getService(Tags.base_url)
-                .getNeigborhood()
+                .getNeigborhood(signUpModel.getCity())
                 .enqueue(new Callback<NeighborHoodModel>() {
                     @Override
                     public void onResponse(Call<NeighborHoodModel> call, Response<NeighborHoodModel> response) {

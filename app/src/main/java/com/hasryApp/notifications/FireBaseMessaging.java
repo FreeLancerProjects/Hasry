@@ -133,6 +133,7 @@ public class FireBaseMessaging extends FirebaseMessagingService {
             String title = map.get("title");
             String body = map.get("message");
             String image = map.get("image");
+
             final NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
             String CHANNEL_ID = "my_channel_02";
             CharSequence CHANNEL_NAME = "my_channel_name";

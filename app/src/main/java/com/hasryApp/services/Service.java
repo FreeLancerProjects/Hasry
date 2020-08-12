@@ -184,7 +184,7 @@ public interface Service {
     Call<CityDataModel> getCity();
 
     @GET("api/neighborhoods")
-    Call<NeighborHoodModel> getNeigborhood();
+    Call<NeighborHoodModel> getNeigborhood(@Query("city_name") String city_name);
 
 
     @FormUrlEncoded

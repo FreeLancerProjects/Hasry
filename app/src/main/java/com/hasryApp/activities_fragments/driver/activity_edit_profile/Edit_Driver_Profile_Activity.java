@@ -275,7 +275,6 @@ public class Edit_Driver_Profile_Activity extends AppCompatActivity implements L
     @Override
     public void Editprofile() {
 
-        editprofileModel = new EditDriverprofileModel();
         binding.setViewModel(editprofileModel);
         if (editprofileModel.isDataValid(this)) {
             editprofile(editprofileModel);
@@ -288,7 +287,7 @@ public class Edit_Driver_Profile_Activity extends AppCompatActivity implements L
             dialog.setCancelable(false);
             dialog.show();
             Api.getService(Tags.base_url)
-                    .editprofile("Bearer "+userModel.getData().getToken(),editprofileModel.getName(), editprofileModel.getEmail(), editprofileModel.getCity_id(), editprofileModel.getNeigbourhood_id(), userModel.getData().getId()+"")
+                    .editprofile("Bearer " + userModel.getData().getToken(), editprofileModel.getName(), editprofileModel.getEmail(), editprofileModel.getCity_id(), editprofileModel.getNeigbourhood_id(), userModel.getData().getId() + "")
                     .enqueue(new Callback<UserModel>() {
                         @Override
                         public void onResponse(Call<UserModel> call, Response<UserModel> response) {

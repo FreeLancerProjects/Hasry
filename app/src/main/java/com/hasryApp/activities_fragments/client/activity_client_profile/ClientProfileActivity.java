@@ -24,6 +24,7 @@ import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 
 import com.hasryApp.R;
+import com.hasryApp.activities_fragments.client.activity_edit_profile.Edit_Profile_Activity;
 import com.hasryApp.activities_fragments.driver.activity_edit_profile.Edit_Driver_Profile_Activity;
 import com.hasryApp.activities_fragments.driver.activity_profile.ProfileActivity;
 import com.hasryApp.databinding.ActivityClientProfileBinding;
@@ -49,7 +50,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ClientProfileActivity extends AppCompatActivity implements Listeners.BackListener, Listeners.SignUpListener  {
+public class ClientProfileActivity extends AppCompatActivity implements Listeners.BackListener, Listeners.SignUpListener {
     private ActivityClientProfileBinding binding;
     private String lang;
     private Preferences preferences;
@@ -60,6 +61,7 @@ public class ClientProfileActivity extends AppCompatActivity implements Listener
     private final String camera_permission = Manifest.permission.CAMERA;
     private final int READ_REQ = 1, CAMERA_REQ = 2;
     private Uri uri = null;
+
     @Override
     protected void attachBaseContext(Context newBase) {
         Paper.init(newBase);
@@ -114,7 +116,7 @@ public class ClientProfileActivity extends AppCompatActivity implements Listener
         binding.editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ClientProfileActivity.this, Edit_Driver_Profile_Activity.class);
+                Intent intent = new Intent(ClientProfileActivity.this, Edit_Profile_Activity.class);
                 startActivity(intent);
             }
         });
@@ -206,23 +208,21 @@ public class ClientProfileActivity extends AppCompatActivity implements Listener
 
 
     }
+
     @Override
-    public void openSheet()
-    {
-            binding.expandLayout.setExpanded(true, true);
+    public void openSheet() {
+        binding.expandLayout.setExpanded(true, true);
     }
 
     @Override
     public void closeSheet() {
-         binding.expandLayout.collapse(true);
+        binding.expandLayout.collapse(true);
 
     }
 
 
     @Override
     public void checkDataValid() {
-
-
 
 
     }
@@ -315,9 +315,9 @@ public class ClientProfileActivity extends AppCompatActivity implements Listener
 
             uri = data.getData();
             File file = new File(Common.getImagePath(this, uri));
-          //  Picasso.get().load(file).fit().into(binding.image);
+            //  Picasso.get().load(file).fit().into(binding.image);
 
-            editImageProfile( uri.toString());
+            editImageProfile(uri.toString());
 
         } else if (requestCode == CAMERA_REQ && resultCode == Activity.RESULT_OK && data != null) {
 
@@ -327,20 +327,17 @@ public class ClientProfileActivity extends AppCompatActivity implements Listener
                 String path = Common.getImagePath(this, uri);
 
                 if (path != null) {
-                    editImageProfile( uri.toString());
+                    editImageProfile(uri.toString());
 
                     //  Picasso.get().load(new File(path)).fit().into(binding.image);
 
                 } else {
-                    editImageProfile( uri.toString());
+                    editImageProfile(uri.toString());
 
                     //  Picasso.get().load(uri).fit().into(binding.image);
 
                 }
             }
-
-
-
 
 
         }
@@ -351,12 +348,12 @@ public class ClientProfileActivity extends AppCompatActivity implements Listener
         dialog.setCancelable(false);
         dialog.show();
 
-        RequestBody id_part = Common.getRequestBodyText(String.valueOf(userModel.getData().getId()+""));
+        RequestBody id_part = Common.getRequestBodyText(String.valueOf(userModel.getData().getId() + ""));
 
         MultipartBody.Part image_part = Common.getMultiPart(this, Uri.parse(image), "logo");
 
         Api.getService(Tags.base_url)
-                .editClientProfileWithImage(id_part,"Bearer "+userModel.getData().getToken(), image_part)
+                .editClientProfileWithImage(id_part, "Bearer " + userModel.getData().getToken(), image_part)
                 .enqueue(new Callback<UserModel>() {
                     @Override
                     public void onResponse(Call<UserModel> call, Response<UserModel> response) {
@@ -397,6 +394,7 @@ public class ClientProfileActivity extends AppCompatActivity implements Listener
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
         return Uri.parse(MediaStore.Images.Media.insertImage(this.getContentResolver(), bitmap, "", ""));
     }
+
     @Override
     protected void onResume() {
         super.onResume();

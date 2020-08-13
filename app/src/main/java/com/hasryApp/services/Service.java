@@ -310,22 +310,23 @@ public interface Service {
     );
 
     @FormUrlEncoded
-    @POST("api/user_profile_update")
+    @POST("api/update-profile")
     Call<UserModel> editprofile(
             @Header("Authorization") String Authorization,
             @Field("name") String name,
             @Field("email") String email,
-            @Part("city") String city,
-            @Part("district") String district,
+            @Field("city") String city,
+            @Field("district") String district,
             @Field("user_id") String user_id
     );
+
     @FormUrlEncoded
-    @POST("api/user_profile_update")
+    @POST("api/update-profile")
     Call<UserModel> editprofile(
             @Header("Authorization") String Authorization,
             @Field("name") String name,
             @Field("email") String email,
-            @Part("city") String city,
+            @Field("city") String city,
             @Field("user_id") String user_id
     );
 }

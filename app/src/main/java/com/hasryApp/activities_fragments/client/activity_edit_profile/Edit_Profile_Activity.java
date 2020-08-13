@@ -196,7 +196,6 @@ public class Edit_Profile_Activity extends AppCompatActivity implements Listener
     @Override
     public void Editprofile() {
 
-        editprofileModel = new EditprofileModel();
         binding.setViewModel(editprofileModel);
         if (editprofileModel.isDataValid(this)) {
             editprofile(editprofileModel);
@@ -223,7 +222,7 @@ public class Edit_Profile_Activity extends AppCompatActivity implements Listener
                             } else {
                                 try {
 
-                                    Log.e("error", response.code() + "_" + response.errorBody().string());
+                                    Log.e("errorssss", response.code() + "_" + response.errorBody().string());
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
@@ -252,6 +251,7 @@ public class Edit_Profile_Activity extends AppCompatActivity implements Listener
                         }
                     });
         } catch (Exception e) {
+
         }
     }
 

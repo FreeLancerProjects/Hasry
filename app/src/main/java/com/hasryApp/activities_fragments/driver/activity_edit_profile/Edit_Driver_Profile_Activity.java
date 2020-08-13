@@ -290,7 +290,7 @@ public class Edit_Driver_Profile_Activity extends AppCompatActivity implements L
             for (int i = 1; i < neigborhoodlist.size(); i++) {
                 Log.e("ldldldll",neigborhoodlist.get(i));
 
-                if (neigborhoodlist.get(i).equals(userModel.getData().getDistrict())&&city_id.equals(userModel.getData().getCity())) {
+                if (neigborhoodlist.get(i).equals(userModel.getData().getDistrict())&&editprofileModel.getCity_id().equals(userModel.getData().getCity())) {
                     binding.spinnerneigbourhood.setSelection(i);
 
                 }

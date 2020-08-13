@@ -80,6 +80,7 @@ public class Edit_Driver_Profile_Activity extends AppCompatActivity implements L
         this.userModel = userModel;
         preferences.create_update_userdata(this, userModel);
         editprofileModel.setCity_id(this.userModel.getData().getCity() + "");
+        editprofileModel.setNeigbourhood_id(userModel.getData().getDistrict());
         editprofileModel.setName(this.userModel.getData().getName());
         editprofileModel.setEmail(this.userModel.getData().getEmail());
         binding.setUserModel(userModel);
@@ -219,6 +220,7 @@ public class Edit_Driver_Profile_Activity extends AppCompatActivity implements L
                             neigborhoodlist.add(getString(R.string.ch_neigborhood));
                             neigborhoodlist.addAll(response.body().getData().getNeighborhoods());
                             runOnUiThread(() -> neigborHoodAdapter.notifyDataSetChanged());
+                            updateNeibourhoodAdapter();
 
                         } else {
                             try {
@@ -257,6 +259,18 @@ public class Edit_Driver_Profile_Activity extends AppCompatActivity implements L
                 });
     }
 
+    private void updateNeibourhoodAdapter() {
+        if (userModel != null) {
+            for (int i = 1; i < neigborhoodlist.size(); i++) {
+                if (neigborhoodlist.get(i).equals(userModel.getData().getDistrict())) {
+                    binding.spinnerneigbourhood.setSelection(i);
+
+                }
+            }
+        }
+
+    }
+
 
     @Override
     public void Editprofile() {
@@ -274,7 +288,7 @@ public class Edit_Driver_Profile_Activity extends AppCompatActivity implements L
             dialog.setCancelable(false);
             dialog.show();
             Api.getService(Tags.base_url)
-                    .editprofile(editprofileModel.getName(), editprofileModel.getEmail(), editprofileModel.getCity_id(),editprofileModel.getNeigbourhood_id(), userModel.getData().getId())
+                    .editprofile("Bearer "+userModel.getData().getToken(),editprofileModel.getName(), editprofileModel.getEmail(), editprofileModel.getCity_id(), editprofileModel.getNeigbourhood_id(), userModel.getData().getId()+"")
                     .enqueue(new Callback<UserModel>() {
                         @Override
                         public void onResponse(Call<UserModel> call, Response<UserModel> response) {

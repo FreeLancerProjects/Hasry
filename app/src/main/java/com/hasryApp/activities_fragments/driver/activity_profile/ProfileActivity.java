@@ -24,6 +24,7 @@ import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 
 import com.hasryApp.R;
+import com.hasryApp.activities_fragments.driver.activity_edit_profile.Edit_Driver_Profile_Activity;
 import com.hasryApp.databinding.ActivityOrderDetailsBinding;
 import com.hasryApp.databinding.ActivityProfileBinding;
 import com.hasryApp.interfaces.Listeners;
@@ -57,6 +58,7 @@ public class ProfileActivity extends AppCompatActivity implements Listeners.Back
     private final String camera_permission = Manifest.permission.CAMERA;
     private final int READ_REQ = 1, CAMERA_REQ = 2;
     private Uri uri = null;
+
     @Override
     protected void attachBaseContext(Context newBase) {
         Paper.init(newBase);
@@ -105,6 +107,13 @@ public class ProfileActivity extends AppCompatActivity implements Listeners.Back
         } else {
             notification_status = "enable";
         }
+        binding.editProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ProfileActivity.this, Edit_Driver_Profile_Activity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 
@@ -122,19 +131,19 @@ public class ProfileActivity extends AppCompatActivity implements Listeners.Back
     }
 
     public void UpdateNotificationStaus2(View view) {
-Log.e(";lflfll",notification_status);
+        Log.e(";lflfll", notification_status);
 
         ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
         dialog.setCancelable(false);
         dialog.show();
         Api.getService(Tags.base_url)
-                .UpdatereadNotificationStaus( notification_status, userModel.getData().getId())
+                .UpdatereadNotificationStaus(notification_status, userModel.getData().getId())
                 .enqueue(new Callback<UserModel>() {
                     @Override
                     public void onResponse(Call<UserModel> call, Response<UserModel> response) {
                         dialog.dismiss();
                         if (response.isSuccessful() && response.body() != null) {
-                          update(response.body());
+                            update(response.body());
 
                         } else {
 
@@ -176,7 +185,7 @@ Log.e(";lflfll",notification_status);
     private void update(UserModel body) {
         preferences.create_update_userdata(ProfileActivity.this, body);
         body.getData().setToken(userModel.getData().getToken());
-        userModel=body;
+        userModel = body;
 
         if (userModel.getData().getNotification_status() != null) {
             if (userModel.getData().getNotification_status().equals("enable")) {
@@ -188,26 +197,24 @@ Log.e(";lflfll",notification_status);
             notification_status = "enable";
         }
 
-        Log.e("sssssssss", notification_status);        binding.setModel(body);
+        Log.e("sssssssss", notification_status);
+        binding.setModel(body);
     }
 
     @Override
-    public void openSheet()
-    {
-    //    binding.expandLayout.setExpanded(true, true);
+    public void openSheet() {
+        //    binding.expandLayout.setExpanded(true, true);
     }
 
     @Override
     public void closeSheet() {
-      //  binding.expandLayout.collapse(true);
+        //  binding.expandLayout.collapse(true);
 
     }
 
 
     @Override
     public void checkDataValid() {
-
-
 
 
     }
@@ -290,7 +297,7 @@ Log.e(";lflfll",notification_status);
                 Toast.makeText(this, getString(R.string.perm_image_denied), Toast.LENGTH_SHORT).show();
             }
         }
-        }
+    }
 
 
     @Override
@@ -320,9 +327,6 @@ Log.e(";lflfll",notification_status);
             }
 
 
-
-
-
         }
     }
 
@@ -331,5 +335,14 @@ Log.e(";lflfll",notification_status);
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
         return Uri.parse(MediaStore.Images.Media.insertImage(this.getContentResolver(), bitmap, "", ""));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (preferences != null) {
+            userModel = preferences.getUserData(this);
+            binding.setModel(userModel);
+        }
     }
 }

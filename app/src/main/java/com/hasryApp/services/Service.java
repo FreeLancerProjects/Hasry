@@ -308,4 +308,24 @@ public interface Service {
             @Part MultipartBody.Part logo
 
     );
+
+    @FormUrlEncoded
+    @POST("api/user_profile_update")
+    Call<UserModel> editprofile(
+            @Header("Authorization") String Authorization,
+            @Field("name") String name,
+            @Field("email") String email,
+            @Part("city") String city,
+            @Part("district") String district,
+            @Field("user_id") String user_id
+    );
+    @FormUrlEncoded
+    @POST("api/user_profile_update")
+    Call<UserModel> editprofile(
+            @Header("Authorization") String Authorization,
+            @Field("name") String name,
+            @Field("email") String email,
+            @Part("city") String city,
+            @Field("user_id") String user_id
+    );
 }

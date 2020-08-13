@@ -122,6 +122,12 @@
         <activity
             android:name=".activities_fragments.driver.activity_notification.NotificationDriverActivity"
             android:configChanges="keyboardHidden|screenSize|orientation" />
+        <activity
+            android:name=".activities_fragments.driver.activity_edit_profile.Edit_Driver_Profile_Activity"
+            android:configChanges="keyboardHidden|screenSize|orientation" />
+        <activity
+            android:name=".activities_fragments.client.activity_edit_profile.Edit_Profile_Activity"
+            android:configChanges="keyboardHidden|screenSize|orientation" />
         <activity android:name=".activities_fragments.activity_splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -123,8 +123,9 @@ public class Edit_Profile_Activity extends AppCompatActivity implements Listener
         });
 
     }
+
     private void getCities() {
-        ProgressDialog dialog = Common.createProgressDialog(this,getString(R.string.wait));
+        ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
         dialog.show();
 
         Api.getService(Tags.base_url)
@@ -181,17 +182,15 @@ public class Edit_Profile_Activity extends AppCompatActivity implements Listener
     private void updateCityAdapter() {
 
 
-
-            if (userModel != null) {
-                for (int i = 1; i < cityList.size(); i++) {
-                    if (cityList.get(i).equals( userModel.getData().getCity())) {
-                        binding.spinnerCity.setSelection(i);
-                    }
+        if (userModel != null) {
+            for (int i = 1; i < cityList.size(); i++) {
+                if (cityList.get(i).equals(userModel.getData().getCity())) {
+                    binding.spinnerCity.setSelection(i);
                 }
             }
+        }
 
     }
-
 
 
     @Override
@@ -210,7 +209,7 @@ public class Edit_Profile_Activity extends AppCompatActivity implements Listener
             dialog.setCancelable(false);
             dialog.show();
             Api.getService(Tags.base_url)
-                    .editprofile(editprofileModel.getName(), editprofileModel.getEmail(), editprofileModel.getCity_id(), userModel.getData().getId())
+                    .editprofile("Bearer " + userModel.getData().getToken(), editprofileModel.getName(), editprofileModel.getEmail(), editprofileModel.getCity_id(), userModel.getData().getId() + "")
                     .enqueue(new Callback<UserModel>() {
                         @Override
                         public void onResponse(Call<UserModel> call, Response<UserModel> response) {
@@ -260,10 +259,6 @@ public class Edit_Profile_Activity extends AppCompatActivity implements Listener
     public void back() {
         finish();
     }
-
-
-
-
 
 
 }

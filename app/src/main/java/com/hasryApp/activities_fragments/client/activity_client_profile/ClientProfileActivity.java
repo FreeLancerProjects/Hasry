@@ -24,6 +24,8 @@ import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 
 import com.hasryApp.R;
+import com.hasryApp.activities_fragments.driver.activity_edit_profile.Edit_Driver_Profile_Activity;
+import com.hasryApp.activities_fragments.driver.activity_profile.ProfileActivity;
 import com.hasryApp.databinding.ActivityClientProfileBinding;
 import com.hasryApp.databinding.ActivityProfileBinding;
 import com.hasryApp.interfaces.Listeners;
@@ -109,6 +111,13 @@ public class ClientProfileActivity extends AppCompatActivity implements Listener
         } else {
             notification_status = "enable";
         }
+        binding.editProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ClientProfileActivity.this, Edit_Driver_Profile_Activity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 
@@ -387,6 +396,14 @@ public class ClientProfileActivity extends AppCompatActivity implements Listener
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
         return Uri.parse(MediaStore.Images.Media.insertImage(this.getContentResolver(), bitmap, "", ""));
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (preferences != null) {
+            userModel = preferences.getUserData(this);
+            binding.setModel(userModel.getData());
+        }
     }
 }
 

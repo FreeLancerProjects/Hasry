@@ -233,6 +233,8 @@ public class SignUpDriverActivity extends AppCompatActivity implements Listeners
     }
 
     private void getNeigborhood() {
+        neigborhoodlist.clear();
+        neigborHoodAdapter.notifyDataSetChanged();
         ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
         dialog.show();
 

@@ -219,7 +219,7 @@ public class Edit_Driver_Profile_Activity extends AppCompatActivity implements L
                 if (cityList.get(i).equals(userModel.getData().getCity())) {
                     binding.spinnerCity.setSelection(i);
                     getNeigborhood();
-                    updateNeibourhoodAdapter();
+                   // updateNeibourhoodAdapter();
                 }
             }
         }
@@ -227,6 +227,8 @@ public class Edit_Driver_Profile_Activity extends AppCompatActivity implements L
     }
 
     private void getNeigborhood() {
+        neigborhoodlist.clear();
+        neigborHoodAdapter.notifyDataSetChanged();
         ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
         dialog.show();
 
@@ -242,7 +244,7 @@ public class Edit_Driver_Profile_Activity extends AppCompatActivity implements L
                             neigborhoodlist.add(getString(R.string.ch_neigborhood));
                             neigborhoodlist.addAll(response.body().getData().getNeighborhoods());
                             runOnUiThread(() -> neigborHoodAdapter.notifyDataSetChanged());
-                         //   updateNeibourhoodAdapter();
+                           updateNeibourhoodAdapter();
 
                         } else {
                             try {
@@ -284,13 +286,17 @@ public class Edit_Driver_Profile_Activity extends AppCompatActivity implements L
     private void updateNeibourhoodAdapter() {
         binding.spinnerneigbourhood.setSelection(0);
         if (userModel != null) {
+
             for (int i = 1; i < neigborhoodlist.size(); i++) {
-                if (neigborhoodlist.get(i).equals(userModel.getData().getDistrict())) {
+                Log.e("ldldldll",neigborhoodlist.get(i));
+
+                if (neigborhoodlist.get(i).equals(userModel.getData().getDistrict())&&city_id.equals(userModel.getData().getCity())) {
                     binding.spinnerneigbourhood.setSelection(i);
 
                 }
             }
         }
+      //  neigborHoodAdapter.notifyDataSetChanged();
 
 
     }

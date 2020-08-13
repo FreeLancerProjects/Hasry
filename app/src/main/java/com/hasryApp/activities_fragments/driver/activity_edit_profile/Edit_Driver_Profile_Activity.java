@@ -57,6 +57,7 @@ public class Edit_Driver_Profile_Activity extends AppCompatActivity implements L
     private final String READ_PERM = Manifest.permission.READ_EXTERNAL_STORAGE;
     private final String write_permission = Manifest.permission.WRITE_EXTERNAL_STORAGE;
     private final String camera_permission = Manifest.permission.CAMERA;
+    private String city_id = "";
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -78,16 +79,17 @@ public class Edit_Driver_Profile_Activity extends AppCompatActivity implements L
 
     private void updatedata(UserModel userModel) {
         this.userModel = userModel;
+
         preferences.create_update_userdata(this, userModel);
         editprofileModel.setCity_id(this.userModel.getData().getCity() + "");
         editprofileModel.setNeigbourhood_id(userModel.getData().getDistrict());
+        Log.e("lflflfll", userModel.getData().getDistrict());
         editprofileModel.setName(this.userModel.getData().getName());
         editprofileModel.setEmail(this.userModel.getData().getEmail());
         binding.setUserModel(userModel);
         binding.setViewModel(editprofileModel);
     }
 
-    private String city_id = "";
 
     private void initView() {
         cityList = new ArrayList<>();
@@ -123,6 +125,25 @@ public class Edit_Driver_Profile_Activity extends AppCompatActivity implements L
                     editprofileModel.setCity_id(city_id);
                     binding.setViewModel(editprofileModel);
                     getNeigborhood();
+
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        binding.spinnerneigbourhood.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (i == 0) {
+                    editprofileModel.setNeigbourhood_id("");
+                    binding.setViewModel(editprofileModel);
+                } else {
+                    editprofileModel.setNeigbourhood_id(String.valueOf(neigborhoodlist.get(i)));
+                    binding.setViewModel(editprofileModel);
+                 //   getNeigborhood();
 
                 }
             }
@@ -197,7 +218,8 @@ public class Edit_Driver_Profile_Activity extends AppCompatActivity implements L
             for (int i = 1; i < cityList.size(); i++) {
                 if (cityList.get(i).equals(userModel.getData().getCity())) {
                     binding.spinnerCity.setSelection(i);
-
+                    getNeigborhood();
+                    updateNeibourhoodAdapter();
                 }
             }
         }
@@ -220,7 +242,7 @@ public class Edit_Driver_Profile_Activity extends AppCompatActivity implements L
                             neigborhoodlist.add(getString(R.string.ch_neigborhood));
                             neigborhoodlist.addAll(response.body().getData().getNeighborhoods());
                             runOnUiThread(() -> neigborHoodAdapter.notifyDataSetChanged());
-                            updateNeibourhoodAdapter();
+                         //   updateNeibourhoodAdapter();
 
                         } else {
                             try {
@@ -260,6 +282,7 @@ public class Edit_Driver_Profile_Activity extends AppCompatActivity implements L
     }
 
     private void updateNeibourhoodAdapter() {
+        binding.spinnerneigbourhood.setSelection(0);
         if (userModel != null) {
             for (int i = 1; i < neigborhoodlist.size(); i++) {
                 if (neigborhoodlist.get(i).equals(userModel.getData().getDistrict())) {
@@ -268,6 +291,7 @@ public class Edit_Driver_Profile_Activity extends AppCompatActivity implements L
                 }
             }
         }
+
 
     }
 

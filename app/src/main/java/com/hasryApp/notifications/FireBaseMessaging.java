@@ -237,7 +237,8 @@ public class FireBaseMessaging extends FirebaseMessagingService {
                     }, 1);
 
 
-        } else if (not_type.equals("location")) {
+        }
+        else if (not_type.equals("location")) {
             double lat = Double.parseDouble(map.get("latitude"));
             double lng = Double.parseDouble(map.get("longitude"));
             Log.e("lat", lat + "_");
@@ -245,6 +246,109 @@ public class FireBaseMessaging extends FirebaseMessagingService {
             DriverLocationUpdate model = new DriverLocationUpdate(lat, lng);
             EventBus.getDefault().post(model);
         }
+        else  if (not_type.equals("driver_note")) {
+            String sound_Path = "android.resource://" + getPackageName() + "/" + R.raw.not;
+
+            String title = map.get("title");
+            String body = map.get("message");
+            String image = map.get("image");
+
+            final NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+            String CHANNEL_ID = "my_channel_02";
+            CharSequence CHANNEL_NAME = "my_channel_name";
+            int IMPORTANCE = NotificationManager.IMPORTANCE_HIGH;
+
+            final NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, IMPORTANCE);
+
+            channel.setShowBadge(true);
+            channel.setSound(Uri.parse(sound_Path), new AudioAttributes.Builder()
+                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                    .setUsage(AudioAttributes.USAGE_NOTIFICATION_EVENT)
+                    .setLegacyStreamType(AudioManager.STREAM_NOTIFICATION)
+                    .build()
+            );
+            builder.setChannelId(CHANNEL_ID);
+            builder.setSound(Uri.parse(sound_Path), AudioManager.STREAM_NOTIFICATION);
+            builder.setSmallIcon(R.mipmap.ic_launcher_round);
+
+            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_round);
+            builder.setLargeIcon(bitmap);
+
+
+
+
+            TaskStackBuilder taskStackBuilder = TaskStackBuilder.create(this);
+
+            PendingIntent pendingIntent = taskStackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            builder.setContentIntent(pendingIntent);
+
+
+            builder.setContentTitle(title);
+            builder.setContentText(body);
+            builder.setStyle(new NotificationCompat.BigTextStyle().bigText(body));
+
+
+//            NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+//            if (manager != null) {
+//
+//                manager.createNotificationChannel(channel);
+//                manager.notify(Tags.not_tag, Tags.not_id, builder.build());
+//
+//
+//
+//
+//            }
+            final Target target = new Target() {
+                @Override
+                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+
+
+                    NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                    if (manager != null) {
+                        builder.setLargeIcon(bitmap);
+                        builder.setStyle(new NotificationCompat.BigPictureStyle().bigPicture(bitmap).bigLargeIcon(null));
+
+
+                        EventBus.getDefault().post(new NotFireModel(true));
+                        manager.createNotificationChannel(channel);
+                        manager.notify(new Random().nextInt(200), builder.build());
+                    }
+
+                }
+
+                @Override
+                public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+
+                }
+
+
+                @Override
+                public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                }
+            };
+
+
+            new Handler(Looper.getMainLooper())
+                    .postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            if (!image.equals("0")) {
+                                Picasso.get().load(Uri.parse(Tags.IMAGE_URL + image)).resize(250, 250).into(target);
+                            } else {
+                                Log.e("ldlfllf", image);
+                                Picasso.get().load(R.drawable.logo).resize(250, 250).into(target);
+
+                            }
+
+                        }
+                    }, 1);
+
+
+        }
+
     }
 
 

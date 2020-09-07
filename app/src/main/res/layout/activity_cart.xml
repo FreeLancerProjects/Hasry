@@ -85,7 +85,6 @@
                 android:layout_height="56dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:background="@color/colorPrimary"
-                android:visibility="gone"
                 >
                 <TextView
                     android:id="@+id/tvTotal"

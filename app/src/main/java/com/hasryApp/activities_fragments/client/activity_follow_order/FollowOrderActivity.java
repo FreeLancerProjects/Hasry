@@ -18,6 +18,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
@@ -65,6 +66,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
@@ -225,6 +227,7 @@ public class FollowOrderActivity extends AppCompatActivity implements OnMapReady
 
                         } else {
                             dialog.dismiss();
+
                             Toast.makeText(FollowOrderActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -322,8 +325,9 @@ public class FollowOrderActivity extends AppCompatActivity implements OnMapReady
     public void onLocationChanged(Location location) {
         lat = location.getLatitude();
         lng = location.getLongitude();
-        getDirection(String.valueOf(lat),String.valueOf(lng),String.valueOf(orderModel.getDriver().getLatitude()),String.valueOf(orderModel.getDriver().getLongitude()));
-        if (googleApiClient!=null)
+        if(orderModel.getDriver()!=null&&orderModel.getDriver().getLatitude()!=null) {
+            getDirection(String.valueOf(lat), String.valueOf(lng), String.valueOf(orderModel.getDriver().getLatitude()), String.valueOf(orderModel.getDriver().getLongitude()));
+        }if (googleApiClient!=null)
         {
             LocationServices.getFusedLocationProviderClient(this).removeLocationUpdates(locationCallback);
             googleApiClient.disconnect();

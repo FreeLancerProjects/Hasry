@@ -71,7 +71,9 @@ public class FireBaseMessaging extends FirebaseMessagingService {
 
             if (my_id.equals(to_user_id)) {
                 manageNotification(map);
-            } else {
+            }
+
+            else if(map.get("data")!=null) {
                 try {
 
                     JSONObject obj = null;
@@ -94,6 +96,9 @@ public class FireBaseMessaging extends FirebaseMessagingService {
                     e.printStackTrace();
                     //    Log.e("data",e.getMessage());
                 }
+            }
+            else {
+                manageNotification(map);
             }
 
         }
@@ -246,7 +251,7 @@ public class FireBaseMessaging extends FirebaseMessagingService {
             DriverLocationUpdate model = new DriverLocationUpdate(lat, lng);
             EventBus.getDefault().post(model);
         }
-        else  if (not_type.equals("driver_note")) {
+        else  if (not_type.equals("driver_action")) {
             String sound_Path = "android.resource://" + getPackageName() + "/" + R.raw.not;
 
             String title = map.get("title");
@@ -279,9 +284,7 @@ public class FireBaseMessaging extends FirebaseMessagingService {
 
             TaskStackBuilder taskStackBuilder = TaskStackBuilder.create(this);
 
-            PendingIntent pendingIntent = taskStackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
 
-            builder.setContentIntent(pendingIntent);
 
 
             builder.setContentTitle(title);
@@ -449,7 +452,8 @@ public class FireBaseMessaging extends FirebaseMessagingService {
 
                         }
                     }, 1);
-        } else if (not_type.equals("location")) {
+        }
+        else if (not_type.equals("location")) {
 
             double lat = Double.parseDouble(map.get("latitude"));
             double lng = Double.parseDouble(map.get("longitude"));
@@ -460,6 +464,89 @@ public class FireBaseMessaging extends FirebaseMessagingService {
 
 
         }
+        else if (not_type.equals("driver_action")) {
+            String sound_Path = "android.resource://" + getPackageName() + "/" + R.raw.not;
+
+            String title = map.get("title");
+            String body = map.get("message");
+
+            String image = map.get("image");
+
+            final NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+
+
+            builder.setSound(Uri.parse(sound_Path), AudioManager.STREAM_NOTIFICATION);
+            builder.setSmallIcon(R.mipmap.ic_launcher_round);
+
+            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_round);
+            builder.setLargeIcon(bitmap);
+
+
+
+
+            TaskStackBuilder taskStackBuilder = TaskStackBuilder.create(this);
+
+
+            builder.setContentTitle(title);
+            builder.setContentText(body);
+            builder.setStyle(new NotificationCompat.BigTextStyle().bigText(body));
+
+
+//            NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+//            if (manager != null) {
+//                manager.notify(Tags.not_tag, Tags.not_id, builder.build());
+//                EventBus.getDefault().post(new NotFireModel(true));
+//
+//            }
+            final Target target = new Target() {
+                @Override
+                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+
+
+                    NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                    if (manager != null) {
+                        EventBus.getDefault().post(new NotFireModel(true));
+                        builder.setLargeIcon(bitmap);
+                        builder.setStyle(new NotificationCompat.BigPictureStyle().bigPicture(bitmap).bigLargeIcon(null));
+
+                        manager.notify(new Random().nextInt(200), builder.build());
+                    }
+
+                }
+
+                @Override
+                public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+
+                }
+
+
+                @Override
+                public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                }
+            };
+
+
+            new Handler(Looper.getMainLooper())
+                    .postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+
+
+                            if (!image.equals("0")) {
+                                Picasso.get().load(Uri.parse(Tags.IMAGE_URL + image)).resize(250, 250).into(target);
+                            } else {
+                                Log.e("ldlfllf", image);
+
+                                Picasso.get().load(R.drawable.logo).resize(250, 250).into(target);
+
+                            }
+
+
+                        }
+                    }, 1);
+        }
+
 
 
     }

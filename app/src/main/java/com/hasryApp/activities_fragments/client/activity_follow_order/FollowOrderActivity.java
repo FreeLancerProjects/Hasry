@@ -215,6 +215,7 @@ public class FollowOrderActivity extends AppCompatActivity implements OnMapReady
         String origin = "", dest = "";
         origin = client_lat + "," + client_lng;
         dest = driver_lat + "," + driver_lng;
+        Log.e("ldlldl", origin + " " + dest);
 
         Api.getService(Tags.googleDirectionBase_url)
                 .getDirection(origin, dest, "rail", getString(R.string.map_api_key))
@@ -227,7 +228,7 @@ public class FollowOrderActivity extends AppCompatActivity implements OnMapReady
 
                         } else {
                             dialog.dismiss();
-
+Log.e("lllll",response.code()+"");
                             Toast.makeText(FollowOrderActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
                         }
                     }

@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">Hasry</string>
-    <string name="map_api_key">AIzaSyAeyMUJgKAhnNXbILHONb1um72CNzELFRY</string>
-    <string name="map_key">AIzaSyAeyMUJgKAhnNXbILHONb1um72CNzELFRY</string>
+<!--    AIzaSyAeyMUJgKAhnNXbILHONb1um72CNzELFRY-->
+    <string name="map_api_key">AIzaSyDa7vtwUx4fiAqhKntADNhywJyfbx118OI</string>
+    <string name="map_key">AIzaSyDa7vtwUx4fiAqhKntADNhywJyfbx118OI</string>
     <string name="open">open</string>
     <string name="close">close</string>
     <string name="open1">open</string>

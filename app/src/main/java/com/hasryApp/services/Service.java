@@ -191,8 +191,6 @@ public interface Service {
     @POST("api/logout")
     Call<ResponseBody> logout(@Header("Authorization") String user_token,
                               @Field("token") String firebase_token
-
-
     );
 
     @POST("api/send-order")

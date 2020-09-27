@@ -15,6 +15,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.google.android.material.tabs.TabLayout;
 import com.hasryApp.R;
 import com.hasryApp.activities_fragments.client.activity_product_details.ProductDetailsActivity;
 import com.hasryApp.adapters.SearchAdapter;
@@ -95,7 +96,22 @@ public class DepartmentProductActivity extends AppCompatActivity implements List
         binding.recView.setLayoutManager(manager);
         adapter = new SearchAdapter(productList, this);
         binding.recView.setAdapter(adapter);
+        binding.tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                getAds(categoryModelList.get(binding.tab.getSelectedTabPosition()).getId()+"");
+            }
 
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
 
     }
 
@@ -107,7 +123,7 @@ public class DepartmentProductActivity extends AppCompatActivity implements List
         }
     }
 
-    private void getAds(String department) {
+    public void getAds(String department) {
         binding.progBar.setVisibility(View.VISIBLE);
         productList.clear();
         adapter.notifyDataSetChanged();
@@ -175,7 +191,7 @@ public class DepartmentProductActivity extends AppCompatActivity implements List
                 .enqueue(new Callback<CategoryDataModel>() {
                     @Override
                     public void onResponse(Call<CategoryDataModel> call, Response<CategoryDataModel> response) {
-                        if (response.isSuccessful() && response.body() != null && response.body().getData() != null) {
+                        if (response.isSuccessful() && response.body() != null && response.body().getData() != null && response.body().getData().size() > 0) {
 
                             updateTabUI(response.body().getData());
                         }
@@ -213,9 +229,12 @@ public class DepartmentProductActivity extends AppCompatActivity implements List
 
 
         }
+        getAds(categoryModelList.get(0).getId()+"");
 
         new Handler().postDelayed(
-                () -> binding.tab.getTabAt(0).select(), 100);
+                () -> {
+                    binding.tab.getTabAt(0).select();
+                }, 100);
 
 
     }

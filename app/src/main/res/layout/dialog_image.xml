@@ -13,12 +13,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
     >
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="250dp"
             image="@{model.image}"
             />
-
+    <ImageView
+        android:id="@+id/imdownload"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+      android:src="@drawable/ic_download"
+        android:layout_gravity="bottom|center"
+        />
+</FrameLayout>
     </LinearLayout>
 </layout>

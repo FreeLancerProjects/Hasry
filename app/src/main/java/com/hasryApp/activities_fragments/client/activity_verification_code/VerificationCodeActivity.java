@@ -29,6 +29,7 @@ import com.google.firebase.auth.PhoneAuthProvider;
 import com.hasryApp.tags.Tags;
 
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -216,7 +217,11 @@ public class VerificationCodeActivity extends AppCompatActivity {
                         }else
                         {
 
-                            Log.e("code",response.code()+"__");
+                            try {
+                                Log.e("code",response.code()+"__"+response.errorBody().string());
+                            } catch (Exception e) {
+                              //  e.printStackTrace();
+                            }
                             if (response.code()==500)
                             {
                                 Toast.makeText(VerificationCodeActivity.this, "Server Error", Toast.LENGTH_SHORT).show();

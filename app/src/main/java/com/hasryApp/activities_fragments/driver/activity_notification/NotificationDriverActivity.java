@@ -4,7 +4,9 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.PorterDuff;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +27,7 @@ import com.hasryApp.databinding.DialogImageBinding;
 import com.hasryApp.interfaces.Listeners;
 import com.hasryApp.language.Language;
 import com.hasryApp.adapters.Notification_Adapter;
+import com.hasryApp.models.FileDownloader;
 import com.hasryApp.models.NotFireModel;
 import com.hasryApp.models.NotificationDataModel;
 import com.hasryApp.models.UserModel;
@@ -37,6 +40,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -442,11 +446,48 @@ NotificationDriverActivity extends AppCompatActivity implements Listeners.BackLi
 
 
         binding.setModel(notificationModelList.get(pos));
+        binding.imdownload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DownloadFile().execute(Tags.base_url+notificationModelList.get(pos).getImage());
+
+            }
+        });
         dialog.getWindow().getAttributes().windowAnimations = R.style.dialog_congratulation_animation;
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.dialog_window_bg);
         dialog.setCanceledOnTouchOutside(true);
         dialog.setView(binding.getRoot());
         dialog.show();
+    }
+    private class DownloadFile extends AsyncTask<String, Void, Void> {
+
+        @Override
+        protected Void doInBackground(String... strings) {
+
+            String fileUrl = strings[0];   // -> http://maven.apache.org/maven-1.x/maven.pdf
+            String fileName = strings[1];  // -> maven.pdf
+            String extStorageDirectory = Environment.getExternalStorageDirectory().toString()+"/foldr";
+            File folder = new File(extStorageDirectory);
+            folder.mkdirs();
+
+            File pdfFile = new File(folder, fileName);
+
+            try{
+                pdfFile.createNewFile();
+            }catch (IOException e){
+                Log.e("lll",e.toString());
+            }
+            FileDownloader.downloadFile(fileUrl, pdfFile);
+
+            return null;
+        }
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            Toast.makeText(NotificationDriverActivity.this, "Download PDf successfully", Toast.LENGTH_SHORT).show();
+
+            Log.e("Download complete", "----------");
+        }
     }
 
 }

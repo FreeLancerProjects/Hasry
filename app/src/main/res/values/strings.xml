@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Hasry</string>
-    <string name="map_api_key">AIzaSyDa7vtwUx4fiAqhKntADNhywJyfbx118OI</string>
-    <string name="map_key">AIzaSyDa7vtwUx4fiAqhKntADNhywJyfbx118OI</string>
+    <string name="map_api_key">AIzaSyAeyMUJgKAhnNXbILHONb1um72CNzELFRY</string>
+    <string name="map_key">AIzaSyAeyMUJgKAhnNXbILHONb1um72CNzELFRY</string>
     <string name="open">open</string>
     <string name="close">close</string>
     <string name="open1">open</string>
@@ -203,4 +203,5 @@
     <string name="delivery">delivery</string>
     <string name="from_market">from market</string>
     <string name="not_av">not available </string>
+    <string name="you_are_blocked">لقد تم حظرك</string>
 </resources>

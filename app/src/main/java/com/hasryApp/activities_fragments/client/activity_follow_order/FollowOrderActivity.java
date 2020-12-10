@@ -190,6 +190,7 @@ public class FollowOrderActivity extends AppCompatActivity implements OnMapReady
         marker = mMap.addMarker(new MarkerOptions().position(new LatLng(lat, lng)).title(client_name).icon(BitmapDescriptorFactory.fromBitmap(iconGenerator.makeIcon())).anchor(iconGenerator.getAnchorU(), iconGenerator.getAnchorV()));
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
         builder.include(new LatLng(lat, lng));
+        Log.e("mmmmmmm",orderModel.getDriver().getLatitude()+"  "+orderModel.getDriver().getLongitude());
         builder.include(new LatLng(Double.parseDouble(orderModel.getDriver().getLatitude()),Double.parseDouble(orderModel.getDriver().getLongitude())));
 
 

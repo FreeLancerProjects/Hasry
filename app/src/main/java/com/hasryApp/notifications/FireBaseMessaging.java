@@ -107,7 +107,12 @@ public class FireBaseMessaging extends FirebaseMessagingService {
     private void manageNotification(Map<String, String> map) {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            createNewNotificationVersion(map);
+            try{
+                createNewNotificationVersion(map);
+
+            }catch (Exception e){
+                createNotificationGeneral(map);
+            }
         } else {
             createOldNotificationVersion(map);
 
@@ -345,6 +350,119 @@ public class FireBaseMessaging extends FirebaseMessagingService {
                                 Picasso.get().load(R.drawable.logo).resize(250, 250).into(target);
 
                             }
+
+                        }
+                    }, 1);
+
+
+        }
+
+    }
+
+    @SuppressLint("NewApi")
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void createNotificationGeneral(Map<String, String> map) {
+
+        String not_type = map.get("action_type");
+
+        if (not_type.equals("notification")) {
+            String sound_Path = "android.resource://" + getPackageName() + "/" + R.raw.not;
+
+            String title = map.get("title");
+            String body = map.get("message");
+            String image = map.get("image");
+
+            final NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+            String CHANNEL_ID = "my_channel_02";
+            CharSequence CHANNEL_NAME = "my_channel_name";
+            int IMPORTANCE = NotificationManager.IMPORTANCE_HIGH;
+
+            final NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, IMPORTANCE);
+
+            channel.setShowBadge(true);
+            channel.setSound(Uri.parse(sound_Path), new AudioAttributes.Builder()
+                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                    .setUsage(AudioAttributes.USAGE_NOTIFICATION_EVENT)
+                    .setLegacyStreamType(AudioManager.STREAM_NOTIFICATION)
+                    .build()
+            );
+            builder.setChannelId(CHANNEL_ID);
+            builder.setSound(Uri.parse(sound_Path), AudioManager.STREAM_NOTIFICATION);
+            builder.setSmallIcon(R.mipmap.ic_launcher_round);
+
+            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_round);
+            builder.setLargeIcon(bitmap);
+
+            Intent intent = null;
+
+            intent = new Intent(this, NotificationActivity.class);
+
+
+            intent.putExtra("not", true);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+            TaskStackBuilder taskStackBuilder = TaskStackBuilder.create(this);
+            taskStackBuilder.addNextIntent(intent);
+
+            PendingIntent pendingIntent = taskStackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            builder.setContentIntent(pendingIntent);
+
+
+            builder.setContentTitle(title);
+            builder.setContentText(body);
+            builder.setStyle(new NotificationCompat.BigTextStyle().bigText(body));
+
+
+//            NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+//            if (manager != null) {
+//
+//                manager.createNotificationChannel(channel);
+//                manager.notify(Tags.not_tag, Tags.not_id, builder.build());
+//
+//
+//
+//
+//            }
+            final Target target = new Target() {
+                @Override
+                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+
+
+                    NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                    if (manager != null) {
+                        builder.setLargeIcon(bitmap);
+                        builder.setStyle(new NotificationCompat.BigPictureStyle().bigPicture(bitmap).bigLargeIcon(null));
+
+
+                        EventBus.getDefault().post(new NotFireModel(true));
+                        manager.createNotificationChannel(channel);
+                        manager.notify(new Random().nextInt(200), builder.build());
+                    }
+
+                }
+
+                @Override
+                public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+
+                }
+
+
+                @Override
+                public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                }
+            };
+
+
+            new Handler(Looper.getMainLooper())
+                    .postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            // Log.e("ldlfllf", image);
+                            Picasso.get().load(R.drawable.logo).resize(250, 250).into(target);
+
 
                         }
                     }, 1);

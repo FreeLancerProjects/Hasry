@@ -327,4 +327,18 @@ public interface Service {
             @Field("city") String city,
             @Field("user_id") String user_id
     );
+
+    @POST("api/me")
+    Call<UserModel> getprofile(@Header("Authorization") String Authorization);
+
+    @FormUrlEncoded
+    @POST("api/update-location")
+    Call<ResponseBody> updateLocation(
+            @Header("Authorization") String user_token,
+            @Field("user_id") int user_id,
+            @Field("latitude") double latitude,
+            @Field("longitude") double longitude
+
+
+    );
 }

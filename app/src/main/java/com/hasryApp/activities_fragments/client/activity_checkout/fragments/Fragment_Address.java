@@ -3,6 +3,7 @@ package com.hasryApp.activities_fragments.client.activity_checkout.fragments;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
@@ -48,13 +49,17 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.hasryApp.R;
 import com.hasryApp.activities_fragments.client.activity_checkout.CheckoutActivity;
+import com.hasryApp.activities_fragments.client.activity_edit_profile.Edit_Profile_Activity;
 import com.hasryApp.databinding.FragmentAddressBinding;
 import com.hasryApp.interfaces.Listeners;
 import com.hasryApp.models.AddOrderModel;
+import com.hasryApp.models.EditprofileModel;
 import com.hasryApp.models.PlaceGeocodeData;
 import com.hasryApp.models.PlaceMapDetailsData;
+import com.hasryApp.models.UserModel;
 import com.hasryApp.remote.Api;
 import com.hasryApp.share.Common;
+import com.hasryApp.tags.Tags;
 
 
 import java.io.IOException;

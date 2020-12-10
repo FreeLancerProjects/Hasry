@@ -361,7 +361,7 @@ public class NotificationActivity extends AppCompatActivity implements Listeners
         protected Void doInBackground(String... strings) {
 
             String fileUrl = strings[0];   // -> http://maven.apache.org/maven-1.x/maven.pdf
-            String fileName = strings[1];  // -> maven.pdf
+            String fileName = strings[0];  // -> maven.pdf
             String extStorageDirectory = Environment.getExternalStorageDirectory().toString()+"/foldr";
             File folder = new File(extStorageDirectory);
             folder.mkdirs();

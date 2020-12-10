@@ -5,31 +5,41 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.hasryApp.R;
 import com.hasryApp.activities_fragments.client.activity_checkout.CheckoutActivity;
 import com.hasryApp.activities_fragments.client.activity_client_order_details.ClientOrderDetailsActivity;
+import com.hasryApp.activities_fragments.client.activity_edit_profile.Edit_Profile_Activity;
 import com.hasryApp.adapters.CartAdapter;
 import com.hasryApp.databinding.ActivityCartBinding;
 import com.hasryApp.interfaces.Listeners;
 import com.hasryApp.language.Language;
 import com.hasryApp.models.CreateOrderModel;
+import com.hasryApp.models.EditprofileModel;
 import com.hasryApp.models.ItemCartModel;
 import com.hasryApp.models.OrderModel;
 import com.hasryApp.models.UserModel;
 import com.hasryApp.preferences.Preferences;
+import com.hasryApp.remote.Api;
 import com.hasryApp.share.Common;
+import com.hasryApp.tags.Tags;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 import io.paperdb.Paper;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CartActivity extends AppCompatActivity implements Listeners.BackListener{
     private ActivityCartBinding binding;
@@ -77,8 +87,8 @@ public class CartActivity extends AppCompatActivity implements Listeners.BackLis
 
         binding.btnCheckout.setOnClickListener(v -> {
             if (userModel!=null){
-                Intent intent = new Intent(this, CheckoutActivity.class);
-                startActivityForResult(intent,100);
+                getprofile();
+
             }else {
                 Common.CreateDialogAlert(this,getString(R.string.please_sign_in_or_sign_up));
             }
@@ -162,7 +172,63 @@ public class CartActivity extends AppCompatActivity implements Listeners.BackLis
         intent.putExtra("data",orderModel);
         startActivity(intent);
     }
+    private void getprofile() {
+        try {
+            ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
+            dialog.setCancelable(false);
+            dialog.show();
+            Api.getService(Tags.base_url)
+                    .getprofile("Bearer " + userModel.getData().getToken())
+                    .enqueue(new Callback<UserModel>() {
+                        @Override
+                        public void onResponse(Call<UserModel> call, Response<UserModel> response) {
+                            dialog.dismiss();
+                            Log.e("555555",response.body().getData().getBlock());
+                            if (response.isSuccessful() && response.body() != null) {
+                                Log.e("mmmmm",response.body().getData().getBlock());
+                                if (response.body().getData().getBlock().equals("unblock")){
+                                    Intent intent = new Intent(CartActivity.this, CheckoutActivity.class);
+                                    startActivity(intent);
+                                }else {
+                                    Common.CreateDialogAlert(CartActivity.this,getString(R.string.you_are_blocked));
 
+                                }
+
+                            } else {
+                                try {
+
+                                    Log.e("errorssss", response.code() + "_" + response.errorBody().string());
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+
+                                Toast.makeText(CartActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
+
+
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<UserModel> call, Throwable t) {
+                            try {
+                                dialog.dismiss();
+                                if (t.getMessage() != null) {
+                                    Log.e("error", t.getMessage());
+                                    if (t.getMessage().toLowerCase().contains("failed to connect") || t.getMessage().toLowerCase().contains("unable to resolve host")) {
+                                        Toast.makeText(CartActivity.this, R.string.something, Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(CartActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+
+                            } catch (Exception e) {
+                            }
+                        }
+                    });
+        } catch (Exception e) {
+
+        }
+    }
     @Override
     public void onBackPressed() {
         back();

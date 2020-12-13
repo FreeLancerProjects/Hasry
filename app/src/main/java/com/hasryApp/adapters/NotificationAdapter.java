@@ -1,7 +1,10 @@
 package com.hasryApp.adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -16,7 +19,12 @@ import com.hasryApp.databinding.ClientNotificationRowBinding;
 import com.hasryApp.databinding.LoadmoreRow1Binding;
 import com.hasryApp.databinding.SearchRowBinding;
 import com.hasryApp.models.NotificationDataModel;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.util.Date;
 import java.util.List;
 
 public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {

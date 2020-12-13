@@ -1,16 +1,26 @@
 package com.hasryApp.activities_fragments.client.activity_notification;
 
 import android.app.AlertDialog;
+import android.app.DownloadManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.PorterDuff;
+import android.app.ProgressDialog;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,11 +44,16 @@ import com.hasryApp.preferences.Preferences;
 import com.hasryApp.remote.Api;
 import com.hasryApp.share.Common;
 import com.hasryApp.tags.Tags;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -58,7 +73,8 @@ public class NotificationActivity extends AppCompatActivity implements Listeners
     private int current_page=1;
     private boolean isLoading=false;
     private boolean isFromFirebase = false;
-
+    ImageView image;
+    ProgressDialog mProgressDialog;
     @Override
     protected void attachBaseContext(Context newBase) {
         Paper.init(newBase);
@@ -345,7 +361,9 @@ public class NotificationActivity extends AppCompatActivity implements Listeners
         binding.imdownload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DownloadFile().execute(Tags.base_url+notificationModelList.get(pos).getImage());
+                Log.e("mmmmm",Tags.IMAGE_URL+notificationModelList.get(pos).getImage());
+
+                downloadImageNew(notificationModelList.get(pos).getTitle(),Tags.IMAGE_URL+notificationModelList.get(pos).getImage());
 
             }
         });
@@ -355,36 +373,24 @@ public class NotificationActivity extends AppCompatActivity implements Listeners
         dialog.setView(binding.getRoot());
         dialog.show();
     }
-    private class DownloadFile extends AsyncTask<String, Void, Void> {
 
-        @Override
-        protected Void doInBackground(String... strings) {
+    private void downloadImageNew(String filename, String downloadUrlOfImage){
+        try{
+            DownloadManager dm = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+            Uri downloadUri = Uri.parse(downloadUrlOfImage);
+            Log.e("mmmmm",downloadUri+"");
 
-            String fileUrl = strings[0];   // -> http://maven.apache.org/maven-1.x/maven.pdf
-            String fileName = strings[0];  // -> maven.pdf
-            String extStorageDirectory = Environment.getExternalStorageDirectory().toString()+"/foldr";
-            File folder = new File(extStorageDirectory);
-            folder.mkdirs();
-
-            File pdfFile = new File(folder, fileName);
-
-            try{
-                pdfFile.createNewFile();
-            }catch (IOException e){
-                Log.e("lll",e.toString());
-            }
-            FileDownloader.downloadFile(fileUrl, pdfFile);
-
-            return null;
-        }
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            Toast.makeText(NotificationActivity.this, "Download PDf successfully", Toast.LENGTH_SHORT).show();
-
-            Log.e("Download complete", "----------");
+            DownloadManager.Request request = new DownloadManager.Request(downloadUri);
+            request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE)
+                    .setAllowedOverRoaming(false)
+                    .setTitle(filename)
+                    .setMimeType("image/jpeg") // Your file type. You can use this code to download other file types also.
+                    .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+                    .setDestinationInExternalPublicDir(Environment.DIRECTORY_PICTURES,File.separator + filename + ".jpg");
+            dm.enqueue(request);
+            Toast.makeText(this, "Image download started.", Toast.LENGTH_SHORT).show();
+        }catch (Exception e){
+            Toast.makeText(this, "Image download failed.", Toast.LENGTH_SHORT).show();
         }
     }
-
-
 }
